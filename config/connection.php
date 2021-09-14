@@ -9,4 +9,3 @@ function connect($config){
 
 return $db;
 }
-?>

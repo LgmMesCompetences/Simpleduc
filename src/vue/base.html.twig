@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SimplEduc{% endblock %}</title>
+
+    <link rel="stylesheet" href="css/materialize.min.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <header></header>
+    <main>
+    {% block contenu %}{% endblock %}
+    </main>
+    <footer></footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/materialize.min.js"></script>
+    {% block javascript %}{% endblock %}
+</body>
+</html>
