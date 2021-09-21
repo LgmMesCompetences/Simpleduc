@@ -45,3 +45,7 @@ a.boutonConnexion{
   align-items: center;
   justify-content: center;
 }
+
+.mt-5 {
+    margin-top: 5rem;
+}

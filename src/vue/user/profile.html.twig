@@ -1,0 +1,108 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} - Mon Profile{% endblock %}
+
+{% block contenu %}
+<div class="container z-depth-3 white">
+<div class="row mt-5">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#mySpace">Mon Espace</a></li>
+            <li class="tab col s3"><a href="#fichePaie">Mes fiches de paies</a></li>
+        </ul>
+    </div>
+    <div id="mySpace" class="col s12 mt-5">
+        <form action="" method="post">
+            Nom:
+            <div class="input-field inline">
+                <input id="nom" type="text" class="modifiable" disabled value="Nom">
+            </div>
+            Prenom:
+            <div class="input-field inline">
+                <input id="prenom" type="text" class="modifiable" disabled value="Prenom">
+            </div>
+            Email:
+            <div class="input-field inline">
+                <input id="email" type="email" class="modifiable" disabled value="test@mail.com">
+            </div>
+            <br>
+            Fonction:
+            <div class="input-field inline">
+                <input id="fonction" type="text" disabled value="Directeur">
+            </div>
+            Date d'embauche:
+            <div class="input-field inline">
+                <input id="dateEmbauche" type="text" disabled value="01/01/2019">
+            </div>
+
+            <button id="modif" class="waves-effect waves-light btn" type="button">modifier</button>
+            <button id="save" class="waves-effect waves-light btn hide" type="submit">sauvegarder</button>
+        </form>
+    </div>
+    <div id="fichePaie" class="col s12 mt-5">
+        Mes Fiches
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header">2021</div>
+                <div class="collapsible-body">
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">janvier</div>
+                            <div class="collapsible-body">
+                                <span>yes</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">2020</div>
+                <div class="collapsible-body">
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">janvier</div>
+                            <div class="collapsible-body">
+                                <a href="fiche?id=">yes</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">2019</div>
+                <div class="collapsible-body">
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">janvier</div>
+                            <div class="collapsible-body">
+                                <span>yes</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+$(document).ready(function() {
+   var instance = M.Tabs.init($('.tabs'), {'swipeable': false});
+
+    var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems);
+    var yes = true;
+
+    $('#modif').click(() => {
+        $(".modifiable").each(function( index ) {
+            $( this ).prop("disabled",  !$( this ).prop("disabled"));
+            $('#modif').text(yes ? "annuler" : "modifier");
+            $('#save').toggleClass("hide");
+            yes = !yes;
+        });
+    });
+});
+</script>
+{% endblock %}

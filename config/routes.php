@@ -4,6 +4,7 @@ function getPage($db){
     $lesPages['404'] = "notfoundControleur";
     $lesPages['maintenance'] = "maintenanceControleur";
     $lesPages['connexion'] = "securityControleur;0";
+    $lesPages['profile'] = "profileControleur;0";
 
 if($db!=null) {
     if(isset($_GET['page'])) {
@@ -14,7 +15,22 @@ if($db!=null) {
     if(!isset($lesPages[$page])){
         $contenu = 'notfoundControleur';
     }else {
-        $contenu = $lesPages[$page];
+        $explose = explode(";", $lesPages[$page]);
+		$role = $explose[1];
+
+		if($role!=0) {
+			if(isset($_SESSION['login'])){
+				if($_SESSION['role']<$role){
+					$contenu = 'accueil';
+				}else {
+					$contenu = $explose[0];
+				}
+			}else {
+				$contenu = 'accueil';
+			}
+		}else {
+			$contenu = $explose[0];
+		}
     }
 }else {
     $contenu = 'maintenanceControleur';
