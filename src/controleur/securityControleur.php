@@ -30,7 +30,6 @@ function inscrireControleur($twig, $db){
 	}
 }
 
-//TODO AVANT faire la requête d'inscription dans le modele !!!!!!
 //TODO faire la vue d'inscription !!!!!
 //TODO créer la fonction updateMDP !!!!!!!!!!!
 
