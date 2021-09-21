@@ -3,6 +3,7 @@ function getPage($db){
     $lesPages['accueil'] = "accueilControleur";
     $lesPages['404'] = "notfoundControleur";
     $lesPages['maintenance'] = "maintenanceControleur";
+    $lesPages['connexion'] = "securityControleur;0";
 
 if($db!=null) {
     if(isset($_GET['page'])) {
