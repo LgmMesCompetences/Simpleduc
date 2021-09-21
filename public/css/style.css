@@ -17,3 +17,31 @@ nav .brand-logo {
 .page-footer .container {
     padding-bottom: 0.75rem;
 }
+
+/*------------------------------------------*/
+/*            Page de connexion             */
+/*------------------------------------------*/
+
+
+div.boiteConnexion{
+	position:absolute;
+	padding: 50px;
+	left:50%;
+	top: 50%;
+	width: 500px;
+	height:500px;
+	margin-left: -250px; /* Cette valeur doit être la moitié négative de la valeur du width */
+	margin-top: -250px;  /* Cette valeur doit être la moitié négative de la valeur du height */
+}
+
+a.boutonConnexion{
+	margin-top:10px;
+	
+	
+}
+
+#wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
