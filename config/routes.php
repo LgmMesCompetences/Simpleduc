@@ -1,9 +1,9 @@
 <?php
 function getPage($db){
-    $lesPages['accueil'] = "accueilControleur";
-    $lesPages['404'] = "notfoundControleur";
+    $lesPages['accueil'] = "accueilControleur;0";
+    $lesPages['404'] = "notfoundControleur;0";
     $lesPages['mentions'] = "mentionsControleur;0";
-    $lesPages['maintenance'] = "maintenanceControleur";
+    $lesPages['maintenance'] = "maintenanceControleur;0";
     $lesPages['connexion'] = "securityControleur;0";
     $lesPages['profile'] = "profileControleur;0";
 
