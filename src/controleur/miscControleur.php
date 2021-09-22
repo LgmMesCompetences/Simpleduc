@@ -11,3 +11,12 @@ function notfoundControleur($twig) {
 function maintenanceControleur($twig) {
 	echo $twig->render('misc/maintenance.html.twig', array());
 }
+
+function mentionsControleur($twig) {
+	echo $twig->render('misc/mentions.html.twig', array());
+}
+
+
+
+
+?>
