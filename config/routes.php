@@ -6,6 +6,7 @@ function getPage($db){
     $lesPages['maintenance'] = "maintenanceControleur;0";
     $lesPages['connexion'] = "securityControleur;0";
     $lesPages['profile'] = "profileControleur;0";
+    $lesPages['ajout'] = "inscrireControleur;0";
 
 if($db!=null) {
     if(isset($_GET['page'])) {

@@ -3,6 +3,7 @@
 function inscrireControleur($twig, $db){
 
 	$form = array();
+	var_dump($_POST);
 	if (isset($_POST['btInscrire'])){
 		$email = $_POST['email'];
 		$password = $_POST['password'];
@@ -12,25 +13,28 @@ function inscrireControleur($twig, $db){
 		$dateEmbauche = $_POST['dateEmbauche'];
 		$fonction = $_POST['fonction'];
 		$form['valide'] = true;
+
+		
+
 		if ($password!=$password2){
 			$form['valide'] = false;
 			$form['message'] = 'Les mots de passe sont différents !';
 		}
 		else{
 			$utilisateur = new User($db);
-			$exec = $utilisateur->insert($email, password_hash($password, PASSWORD_DEFAULT), $nom, $prenom, $dateEmbauche, $fonction);
+			$exec = $utilisateur->insert($nom, $prenom, $email, password_hash($password, PASSWORD_DEFAULT), $dateEmbauche, $fonction);
 			if (!$exec){
 				$form['valide'] = false;
-				$form['message'] = 'Problème de création de compte !';
+				$form['message'] = 'Problème d\'ajout de compte !';
 			}
 		$form['email'] = $email;
 		$form['fonction'] = $fonction;		
 		}
-		echo $twig->render('security3/ajoutCompte.html.twig');
 	}
+	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
 
-//TODO faire la vue d'inscription !!!!!
+
 //TODO créer la fonction updateMDP !!!!!!!!!!!
 
 function securityControleur($twig, $db) {

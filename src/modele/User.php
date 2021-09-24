@@ -22,7 +22,7 @@ class User{
 
     public function insert($nom, $prenom, $email, $password, $dateEmbauche, $fonction){
         $r = true;
-        $this->insert->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':password'=>$password, ':dateEmbauche'=>$dateEmbauche, ':fonction'=>$fonction));
+        $this->insert->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':password'=>$password, ':dateEmbauche'=>$dateEmbauche, ':fonction'=>$fonction));
         if ($this->insert->errorCode()!=0){
             print_r($this->insert->errorInfo());
             $r=false;

@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }}
+	- Ajout de compte
+{% endblock %}
+
+{% block navbar %} {{ parent() }}
+{% endblock %}
+
+{% block contenu %}
+
+	{% if form.valide is defined %}
+		{% if form.valide == true %}
+			<h1>Inscription réussie</h1>
+			<h1>Voici l'email : {{form.email}}</h1>
+		{% endif %}
+	{% endif %}
+
+	<div class="container">
+		<div class="row">
+        <form action="index.php?page=ajout" method="post">
+            <div class="input-field col s6">
+                <input id="prenom" type="text" name="prenom">
+                <label for="prenom">Prenom</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="nom" type="text" name="nom">
+                <label for="Nom">Nom</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="email" type="email" name="email">
+                <label for="email">Email</label>
+            </div>
+            <input type="text" class="datepicker" name="dateEmbauche">
+            <div class="input-field col s6">
+                <input id="password" type="password" name="password">
+                <label for="password">password</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="password" type="password" name="password2">
+                <label for="password">password2</label>
+            </div>
+            <div class="input-field col s12">
+                <select name="fonction">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                </select>
+                <label>Materialize Select</label>
+            </div>
+            <button type="submit" name="btInscrire">Submit</button>    
+        </form>
+	</div>
+
+
+{% endblock %}
+{% block javascript %}
+<script>
+	$(document).ready(function () {
+        $('select').formSelect();
+        //$('.datepicker').datepicker();
+    });
+</script>
+
+{% endblock %}
