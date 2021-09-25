@@ -3,7 +3,6 @@
 function inscrireControleur($twig, $db){
 
 	$form = array();
-	var_dump($_POST);
 	if (isset($_POST['btInscrire'])){
 		$email = $_POST['email'];
 		$password = $_POST['password'];

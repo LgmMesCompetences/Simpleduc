@@ -10,8 +10,16 @@
 
 	{% if form.valide is defined %}
 		{% if form.valide == true %}
-			<h1>Inscription réussie</h1>
-			<h1>Voici l'email : {{form.email}}</h1>
+        <div class="container">
+			<h3>Inscription réussie !</h3>
+			<h3>L'e-mail du compte est <u>{{form.email}}</u>, communiquez ces identifiants au nouvel utilisateur !</h3>
+        </div>
+        {% else %}
+        <div class="container">
+			<h3>Échec de l'inscription !</h3>
+			<h3>{{form.message}}</u></h3>
+            <h3><a href="index.php?page=ajout">Retourner sur la page d'ajout</a></h3>            
+        </div>            
 		{% endif %}
 	{% endif %}
 
@@ -19,36 +27,47 @@
 		<div class="row">
         <form action="index.php?page=ajout" method="post">
             <div class="input-field col s6">
-                <input id="prenom" type="text" name="prenom">
-                <label for="prenom">Prenom</label>
+                <i class="material-icons prefix">person</i>   
+                <input id="prenom" type="text" name="prenom">              
+                <label for="prenom">Prénom</label>               
             </div>
             <div class="input-field col s6">
                 <input id="nom" type="text" name="nom">
                 <label for="Nom">Nom</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">alternate_email</i>               
                 <input id="email" type="email" name="email">
                 <label for="email">Email</label>
             </div>
-            <input type="text" class="datepicker" name="dateEmbauche">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">today</i>    
+                <input id="dateEmbauche" type="date" name="dateEmbauche">
+                <label for="dateEmbauche">Date d'embauche</label>
+            </div>
             <div class="input-field col s6">
+                <i class="material-icons prefix">lock</i>               
                 <input id="password" type="password" name="password">
-                <label for="password">password</label>
+                <label for="password">Mot de passe</label>
             </div>
             <div class="input-field col s6">
                 <input id="password" type="password" name="password2">
-                <label for="password">password2</label>
+                <label for="password">Confirmation du mot de passe</label>
             </div>
             <div class="input-field col s12">
+                <i class="material-icons prefix">work</i>     
                 <select name="fonction">
-                <option value="" disabled selected>Choose your option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option value="1">Développeur</option>
+                <option value="2">Responsable technique</option>
+                <option value="3">Comptable</option>
+                <option value="4">Resssources humaines</option>
+                <option value="5">Direction</option>
                 </select>
-                <label>Materialize Select</label>
+                <label>Fonction dans l'entreprise</label>
             </div>
-            <button type="submit" name="btInscrire">Submit</button>    
+            <button class="btn waves-effect waves-light" type="submit" name="btInscrire">Ajouter
+                <i class="material-icons right">send</i>
+            </button>    
         </form>
 	</div>
 
@@ -58,7 +77,6 @@
 <script>
 	$(document).ready(function () {
         $('select').formSelect();
-        //$('.datepicker').datepicker();
     });
 </script>
 
