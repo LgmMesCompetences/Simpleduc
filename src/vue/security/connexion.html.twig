@@ -10,9 +10,9 @@
     {% if form.valide == true %}
         <h1>Connexion réussie</h1>
     {% else %}
-    <h1>Echec de la connexion</h1>
-    <h1>Erreur : {{form.message}}</h1>
-    <h1><a href="index.php?page=connexion">Retourner sur la page de connexion</a></h1>
+        <h1>Echec de la connexion</h1>
+        <h1>Erreur : {{form.message}}</h1>
+        <h1><a href="index.php?page=connexion">Retourner sur la page de connexion</a></h1>
     {% endif %} 
 {% else %} 
 
@@ -25,7 +25,7 @@
 	    			<label for="password">Mot de passe:</label>
 	    			<input type="password" id="password" name="password" class="form-control"placeholder="Mot de passe"  required>      
 	
-	    			<a class="boutonConnexion waves-effect waves-light btn" id="wrapper" type="submit" name="btConnecter">Se connecter</a> 
+	    			<button class="boutonConnexion waves-effect waves-light btn" id="wrapper" type="submit" name="btConnecter">Se connecter</button> 
 	    			<a href="#">Mot de passe oublié ?</a>
 	    
 			</form>

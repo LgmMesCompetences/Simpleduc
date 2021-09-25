@@ -13,8 +13,6 @@ function inscrireControleur($twig, $db){
 		$fonction = $_POST['fonction'];
 		$form['valide'] = true;
 
-		
-
 		if ($password!=$password2){
 			$form['valide'] = false;
 			$form['message'] = 'Les mots de passe sont différents !';
@@ -43,17 +41,18 @@ function securityControleur($twig, $db) {
 		$form['valide'] = true;
 		$email = $_POST['email'];
 		$password = $_POST['password'];
+
 		$utilisateur = new User($db);
 		$unUtilisateur = $utilisateur->connect($email);
 		if ($unUtilisateur!=null){
-			if(!password_verifiy($password, $unUtilisateur['password'])){
+			if(!password_verify($password, $unUtilisateur['password'])){
 				$form['valide'] = false;
 				$form['message'] = 'Login ou mot de passe incorrect !';
 			}
 			else{
 				$_SESSION['login'] = $email;
-				$_SESSION['role'] = $fonction;
-				header("Location:index.php");
+				$_SESSION['role'] = $unUtilisateur['fonction'];
+				header("Location:index.php?page=profile");
 			}
 		}
 		else{
@@ -67,7 +66,7 @@ function securityControleur($twig, $db) {
 function deconnexionControleur($twig, $db){
 	session_unset();
 	session_destroy();
-	header("Location:index.php");
+	header("Location:index.php?page=connexion");
 }
 
 

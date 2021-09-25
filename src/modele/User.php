@@ -8,12 +8,12 @@ class User{
 
     public function __construct($db) {
         $this->db = $db;
-        $this->connect = $this->db->prepare("select id, email, nom, prenom, fonction, password from User where email:=email");
+        $this->connect = $this->db->prepare("select email, fonction, password from User where email=:email");
         $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
     }
 
     public function connect($email){
-        $this->connect->execute(array(':email'=>$email));
+        $unUtilisateur = $this->connect->execute(array(':email'=>$email));
         if ($this->connect->errorCode()!=0){
             print_r($this->connect->errorInfo());
         }
