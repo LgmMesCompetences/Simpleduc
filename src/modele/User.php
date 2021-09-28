@@ -4,12 +4,16 @@ class User{
     private $db;
     private $connect;
     private $insert;
+    private $select;
+    private $delete;
 
 
     public function __construct($db) {
         $this->db = $db;
         $this->connect = $this->db->prepare("select email, fonction, password from User where email=:email");
         $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
+        $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
+        $this->delete = $db->prepare("delete from User where id=:id");
     }
 
     public function connect($email){
@@ -30,4 +34,21 @@ class User{
         return $r;
     }
 
+    public function select(){
+        $this->select->execute();
+        if ($this->select->errorCode()!=0){
+            print_r($this->select->errocInfo());
+        }
+        return $this->select->fetchAll();
+    }
+
+    public function delete($id){
+        $r = true;
+        $this->delete->execute(array(':id'=>$id));
+        if ($this->delete->errorCode()!=0){
+            print_r($this->delete->errorInfo());
+            $r = false;
+        }
+        return $r;
+    }
 }

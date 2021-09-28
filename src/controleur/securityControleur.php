@@ -52,7 +52,7 @@ function securityControleur($twig, $db) {
 			else{
 				$_SESSION['login'] = $email;
 				$_SESSION['role'] = $unUtilisateur['fonction'];
-				header("Location:index.php?page=profile");
+				header("Location:profile");
 			}
 		}
 		else{
@@ -66,5 +66,5 @@ function securityControleur($twig, $db) {
 function deconnexionControleur($twig, $db){
 	session_unset();
 	session_destroy();
-	header("Location:index.php?page=connexion");
+	header("Location:connexion");
 }
