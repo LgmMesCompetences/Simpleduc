@@ -2,4 +2,4 @@ RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([a-zA-z]+)\/*$ /simpleduc/public/index.php?page=$1 [L,QSA]
+RewriteRule ^([a-zA-z]+)\/*$ /simpleduc/index.php?page=$1 [L,QSA]
