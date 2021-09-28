@@ -4,7 +4,7 @@ function getPage($db){
     $lesPages['404'] = "notfoundControleur;0";
     $lesPages['mentions'] = "mentionsControleur;0";
     $lesPages['maintenance'] = "maintenanceControleur;0";
-    $lesPages['connexion'] = "securityControleur;0";
+    $lesPages['connexion'] = "connexionControleur;0";
     $lesPages['deconnexion'] = "deconnexionControleur;0";
     $lesPages['profile'] = "profileControleur;0";
     $lesPages['ajout'] = "inscrireControleur;0";

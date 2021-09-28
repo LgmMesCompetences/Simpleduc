@@ -11,35 +11,35 @@
         </ul>
     </div>
     <div id="mySpace" class="col s12 mt-5">
+        {% if error != null %}<h4 class="red-text center-align">{{ error }}</h4>{% endif %}
         <form action="" method="post">
             Nom:
             <div class="input-field inline">
-                <input id="nom" type="text" class="modifiable" disabled value="Nom">
+                <input id="nom" name="nom" type="text" class="modifiable" disabled value="{{ user.nom }}">
             </div>
             Prenom:
             <div class="input-field inline">
-                <input id="prenom" type="text" class="modifiable" disabled value="Prenom">
+                <input id="prenom" name="prenom" type="text" class="modifiable" disabled value="{{ user.prenom }}">
             </div>
             Email:
             <div class="input-field inline">
-                <input id="email" type="email" class="modifiable" disabled value="test@mail.com">
+                <input id="email" name="email" type="email" class="modifiable" disabled value="{{ user.email }}">
             </div>
             <br>
             Fonction:
             <div class="input-field inline">
-                <input id="fonction" type="text" disabled value="Directeur">
+                <input id="fonction" type="text" disabled value="{{ user.libelle | capitalize }}">
             </div>
             Date d'embauche:
             <div class="input-field inline">
-                <input id="dateEmbauche" type="text" disabled value="01/01/2019">
+                <input id="dateEmbauche" type="text" disabled value="{{ user.dateEmbauche | date('d/m/Y') }}">
             </div>
 
             <button id="modif" class="waves-effect waves-light btn" type="button">modifier</button>
-            <button id="save" class="waves-effect waves-light btn hide" type="submit">sauvegarder</button>
+            <button id="save" class="waves-effect waves-light btn hide" type="submit" name="btnUpdate">sauvegarder</button>
         </form>
     </div>
     <div id="fichePaie" class="col s12 mt-5">
-        Mes Fiches
         <ul class="collapsible">
             <li>
                 <div class="collapsible-header">2021</div>

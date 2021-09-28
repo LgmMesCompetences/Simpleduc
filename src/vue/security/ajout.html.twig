@@ -3,9 +3,6 @@
 	- Ajout de compte
 {% endblock %}
 
-{% block navbar %} {{ parent() }}
-{% endblock %}
-
 {% block contenu %}
 
 	{% if form.valide is defined %}
@@ -18,14 +15,14 @@
         <div class="container">
 			<h3>Échec de l'inscription !</h3>
 			<h3>{{form.message}}</u></h3>
-            <h3><a href="index.php?page=ajout">Retourner sur la page d'ajout</a></h3>            
+            <h3><a href="ajout">Retourner sur la page d'ajout</a></h3>            
         </div>            
 		{% endif %}
 	{% endif %}
 
 	<div class="container">
 		<div class="row">
-        <form action="index.php?page=ajout" method="post">
+        <form action="ajout" method="post">
             <div class="input-field col s6">
                 <i class="material-icons prefix">person</i>   
                 <input id="prenom" type="text" name="prenom">              

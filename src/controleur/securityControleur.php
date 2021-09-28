@@ -13,9 +13,24 @@ function inscrireControleur($twig, $db){
 		$fonction = $_POST['fonction'];
 		$form['valide'] = true;
 
-		if ($password!=$password2){
+		if(strlen($nom) == 0) {
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un nom !';
+		}
+		elseif (strlen($prenom) == 0){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un prenom !';
+		}elseif (strlen($password) == 0){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un mot de passe !';
+		}
+		elseif ($password!=$password2){
 			$form['valide'] = false;
 			$form['message'] = 'Les mots de passe sont différents !';
+		}
+		elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$form['valide'] = false;
+			$form['message'] = 'L\'email est invalide !';
 		}
 		else{
 			$utilisateur = new User($db);
@@ -24,17 +39,16 @@ function inscrireControleur($twig, $db){
 				$form['valide'] = false;
 				$form['message'] = 'Problème d\'ajout de compte !';
 			}
-		$form['email'] = $email;
-		$form['fonction'] = $fonction;		
+			$form['email'] = $email;
+			$form['fonction'] = $fonction;
 		}
 	}
 	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
 
-
 //TODO créer la fonction updateMDP !!!!!!!!!!!
 
-function securityControleur($twig, $db) {
+function connexionControleur($twig, $db) {
 	$form = array();
 
 	if (isset($_POST['btConnecter'])){
@@ -50,9 +64,10 @@ function securityControleur($twig, $db) {
 				$form['message'] = 'Login ou mot de passe incorrect !';
 			}
 			else{
-				$_SESSION['login'] = $email;
+				$_SESSION['id'] = $unUtilisateur['id'];
+				$_SESSION['login'] = $unUtilisateur['email'];
 				$_SESSION['role'] = $unUtilisateur['fonction'];
-				header("Location:index.php?page=profile");
+				header("Location:profile");
 			}
 		}
 		else{
@@ -66,5 +81,5 @@ function securityControleur($twig, $db) {
 function deconnexionControleur($twig, $db){
 	session_unset();
 	session_destroy();
-	header("Location:index.php?page=connexion");
+	header("Location:connexion");
 }
