@@ -6,6 +6,9 @@ class User{
     private $insert;
     private $get;
     private $updateByUser;
+    private $select;
+    private $delete;
+
 
     public function __construct($db) {
         $this->db = $db;
@@ -13,10 +16,13 @@ class User{
         $this->get = $this->db->prepare("select U.*, F.libelle from User U join Fonction F on U.fonction = F.id where U.id=:id");
         $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
         $this->updateByUser = $this->db->prepare("UPDATE User set nom=:nom, prenom=:prenom, email=:email where id=:id;");
+        $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
+        $this->delete = $db->prepare("delete from User where id=:id");
+        $this->updateMdp = $this->db->prepare("update User set password=:password where id=:id");
     }
 
     public function connect($email){
-        $unUtilisateur = $this->connect->execute(array(':email'=>$email));
+        $this->connect->execute(array(':email'=>$email));
         if ($this->connect->errorCode()!=0){
             print_r($this->connect->errorInfo());
         }
@@ -28,7 +34,17 @@ class User{
         if ($this->get->errorCode()!=0){
             print_r($this->get->errorInfo());
         }
-        return $this->get->fetch(); 
+        return $this->get->fetch();
+    }
+
+    public function updateMdp($id, $password){
+        $r = true;
+        $this->updateMdp->execute(array(':id'=>$id, ':password'=>$password));
+        if ($this->insert->errorCode()!=0){
+            print_r($this->insert->errorInfo());
+            $r=false;
+        }
+        return $r;
     }
 
     public function insert($nom, $prenom, $email, $password, $dateEmbauche, $fonction){
@@ -47,6 +63,23 @@ class User{
         if ($this->updateByUser->errorCode()!=0){
             print_r($this->updateByUser->errorInfo());
             $r=false;
+        }
+    }
+
+    public function select(){
+        $this->select->execute();
+        if ($this->select->errorCode()!=0){
+            print_r($this->select->errocInfo());
+        }
+        return $this->select->fetchAll();
+    }
+
+    public function delete($id){
+        $r = true;
+        $this->delete->execute(array(':id'=>$id));
+        if ($this->delete->errorCode()!=0){
+            print_r($this->delete->errorInfo());
+            $r = false;
         }
         return $r;
     }

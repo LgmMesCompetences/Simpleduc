@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} - Liste des utilisateurs{% endblock %}
+
+{% block navbar %} {{ parent() }}{% endblock %}
+
+{% block contenu %}
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4><b>Suppression de compte</b></h4>
+      <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Annuler</a>
+      <a id="btndel" href="" class="waves-effect red btn">Supprimer</a>
+    </div>
+  </div>
+
+<div class="container">
+
+      <table class="responsive-table">
+        <thead>
+          <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>E-mail</th>
+              <th>Date d'embauche</th>
+              <th>Fonction</th>
+              <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for u in liste %}
+          <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
+            <td>{{ u.nom | capitalize }}</td>
+            <td>{{ u.prenom }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
+            <td>{{ u.libellefonction }}</td>
+            <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+            <!-- -->
+          </tr>
+        {% endfor %}  
+        </tbody>
+      </table>
+
+</div>
+
+{% endblock %}
+{% block javascript %}
+<script>
+var instance;
+  $(document).ready(function(){
+    instance = M.Modal.init($('#modal1'));
+  });
+
+  function del(id) {
+    $('#btndel').attr("href","listeUser?id="+id);
+    instance[0].open();
+  }
+</script>
+
+{% endblock %}

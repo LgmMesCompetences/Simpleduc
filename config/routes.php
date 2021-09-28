@@ -5,9 +5,12 @@ function getPage($db){
     $lesPages['mentions'] = "mentionsControleur;0";
     $lesPages['maintenance'] = "maintenanceControleur;0";
     $lesPages['connexion'] = "connexionControleur;0";
+    $lesPages['firstLogin'] = "firstLoginControleur;0";
+    $lesPages['mdpoublie'] = "updatemdpControleur;0";
     $lesPages['deconnexion'] = "deconnexionControleur;0";
     $lesPages['profile'] = "profileControleur;0";
     $lesPages['ajout'] = "inscrireControleur;0";
+    $lesPages['listeUser'] = "userControleur;0";
 
 if($db!=null) {
     if(isset($_GET['page'])) {

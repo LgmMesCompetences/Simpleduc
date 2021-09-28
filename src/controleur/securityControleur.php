@@ -48,6 +48,18 @@ function inscrireControleur($twig, $db){
 
 //TODO créer la fonction updateMDP !!!!!!!!!!!
 
+
+function firstLoginControleur($twig, $db){
+	echo $twig->render('security/firstLogin.html.twig', array());
+
+}
+
+function updatemdpControleur($twig, $db) {
+
+	
+	echo $twig->render('security/mdpoublie.html.twig', array());
+}
+
 function connexionControleur($twig, $db) {
 	$form = array();
 

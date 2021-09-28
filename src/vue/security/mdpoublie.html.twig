@@ -8,29 +8,27 @@
 
     {% if form.valide is defined %}
     {% if form.valide == true %}
-        <h1>Connexion réussie</h1>
+        <h1>Mot de passe</h1>
     {% else %}
-        <h1>Echec de la connexion</h1>
+        <h1>Echec de la modification</h1>
         <h1>Erreur : {{form.message}}</h1>
-        <h1><a href="connexion">Retourner sur la page de connexion</a></h1>
+        <h1><a href="index.php?page=mdpoublie">Retourner sur la page de connexion</a></h1>
     {% endif %} 
 {% else %} 
 
         <div class="boiteConnexion z-depth-3 white">
-			<form action="connexion"method="post"enctype="application/x-www-form-urlencoded">
-	    		<div class="input-field col s6">
+			<form action="index.php?page=mdpoublie"method="post"enctype="application/x-www-form-urlencoded">
+            <div class="input-field col s6">
 				    <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="validate" required autofocus>
                     <span class="helper-text" data-error="Email non valide" data-success=""></span>
                 </div>
-	    		<div class="input-field col s6">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+	    		
                 <div class="center-align col s6">
-                    <button class="waves-effect waves-light btn" type="submit" name="btConnecter">Se connecter</button>
+                    <button class="waves-effect waves-light btn" type="submit" name="btConnecter">A faire</button>
                     <br>
-                    <a href="index.php?page=mdpoublie"><small>Mot de passe oublié ?</small></a>
+                    <a href="index.php?page=connexion"><small>Retour</small></a>
+
                 </div>	    
 			</form>
 		</div>
