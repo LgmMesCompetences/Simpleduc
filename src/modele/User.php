@@ -64,6 +64,7 @@ class User{
             print_r($this->updateByUser->errorInfo());
             $r=false;
         }
+        return $r;
     }
 
     public function select(){
