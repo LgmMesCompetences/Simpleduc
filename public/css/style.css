@@ -34,18 +34,6 @@ div.boiteConnexion{
 	margin-top: -250px;  /* Cette valeur doit être la moitié négative de la valeur du height */
 }
 
-a.boutonConnexion{
-	margin-top:10px;
-	
-	
-}
-
-#wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .mt-5 {
     margin-top: 5rem;
 }

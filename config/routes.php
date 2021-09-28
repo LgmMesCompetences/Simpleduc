@@ -19,11 +19,11 @@ if($db!=null) {
         $contenu = 'notfoundControleur';
     }else {
         $explose = explode(";", $lesPages[$page]);
-		$role = $explose[1];
+		$roles = explode(',',$explose[1]);
 
-		if($role!=0) {
+		if(!in_array(0, $roles)) {
 			if(isset($_SESSION['login'])){
-				if($_SESSION['role']<$role){
+				if(!in_array($role, $_SESSION['role'])){
 					$contenu = 'accueil';
 				}else {
 					$contenu = $explose[0];

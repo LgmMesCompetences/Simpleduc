@@ -15,8 +15,3 @@ function maintenanceControleur($twig) {
 function mentionsControleur($twig) {
 	echo $twig->render('misc/mentions.html.twig', array());
 }
-
-
-
-
-?>

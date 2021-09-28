@@ -68,6 +68,3 @@ function deconnexionControleur($twig, $db){
 	session_destroy();
 	header("Location:index.php?page=connexion");
 }
-
-
-?>
