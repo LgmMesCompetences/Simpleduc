@@ -14,14 +14,25 @@ class User{
         $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
         $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
         $this->delete = $db->prepare("delete from User where id=:id");
+        $this->updateMdp = $this->db->prepare("update User set password=:password where id=:id");
     }
 
     public function connect($email){
-        $unUtilisateur = $this->connect->execute(array(':email'=>$email));
+        $this->connect->execute(array(':email'=>$email));
         if ($this->connect->errorCode()!=0){
             print_r($this->connect->errorInfo());
         }
         return $this->connect->fetch(); 
+    }
+
+    public function updateMdp($id, $password){
+        $r = true;
+        $this->updateMdp->execute(array(':id'=>$id, ':password'=>$password));
+        if ($this->insert->errorCode()!=0){
+            print_r($this->insert->errorInfo());
+            $r=false;
+        }
+        return $r;
     }
 
     public function insert($nom, $prenom, $email, $password, $dateEmbauche, $fonction){
