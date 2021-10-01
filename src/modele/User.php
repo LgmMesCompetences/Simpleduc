@@ -6,6 +6,8 @@ class User{
     private $insert;
     private $get;
     private $updateByUser;
+    private $updateMdp;
+    private $updateLastLogin;
     private $select;
     private $delete;
 
@@ -19,6 +21,8 @@ class User{
         $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
         $this->delete = $db->prepare("delete from User where id=:id");
         $this->updateMdp = $this->db->prepare("update User set password=:password where id=:id");
+        $this->updateLastLogin = $this->db->prepare("update User set lastLogin=:lastLogin where id=:id");
+
     }
 
     public function connect($email){
@@ -40,8 +44,18 @@ class User{
     public function updateMdp($id, $password){
         $r = true;
         $this->updateMdp->execute(array(':id'=>$id, ':password'=>$password));
-        if ($this->insert->errorCode()!=0){
-            print_r($this->insert->errorInfo());
+        if ($this->updateMdp->errorCode()!=0){
+            print_r($this->updateMdp->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
+
+    public function updateLastLogin($id, $lastLogin){
+        $r = true;
+        $this->updateLastLogin->execute(array(':id'=>$id, ':lastLogin'=>$lastLogin));
+        if ($this->updateLastLogin->errorCode()!=0){
+            print_r($this->updateLastLogin->errorInfo());
             $r=false;
         }
         return $r;

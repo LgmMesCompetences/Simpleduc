@@ -79,7 +79,8 @@ function connexionControleur($twig, $db) {
 				$_SESSION['id'] = $unUtilisateur['id'];
 				$_SESSION['login'] = $unUtilisateur['email'];
 				$_SESSION['role'] = $unUtilisateur['fonction'];
-				header("Location:profile");
+				$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
+				//header("Location:");
 			}
 		}
 		else{
