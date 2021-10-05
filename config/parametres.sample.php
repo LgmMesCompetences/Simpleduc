@@ -4,4 +4,6 @@
   $config['login'] = 'login';
   $config['mdp'] ='mdp';
   $config['db'] = 'db';
+  $config['mailUsr'] = '';
+  $config['mailPswd'] = '';
   ?>

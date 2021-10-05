@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "3.*",
-        "swiftmailer/swiftmailer": "^6.2"
+        "swiftmailer/swiftmailer": "^6.2",
+        "mpdf/mpdf": "^8.0.13"
     }
 }

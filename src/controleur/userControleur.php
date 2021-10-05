@@ -50,7 +50,11 @@ function profileControleur($twig, $db) {
 			$good = true;
 		}
 	}
-
+/*
+	$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
+	$mpdf->WriteHTML($twig->render('emails/email2FA.html.twig'));
+	$mpdf->Output('../storage/'.md5(uniqid()).'.pdf', 'F');
+*/
 	echo $twig->render('user/profile.html.twig', [
 		'user' => $user,
 		'error' => $error,

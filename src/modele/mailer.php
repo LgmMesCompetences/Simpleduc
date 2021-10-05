@@ -6,12 +6,13 @@ class Mailer{
     private $twig;
 
     public function __construct($twig) {
+      include '../config/parametres.php';
       $this->twig = $twig;
         // Create the Transport
         $transport = (new Swift_SmtpTransport('smtp.googlemail.com', 465, 'ssl'))
-        ->setUsername('testa.charly')
-        ->setPassword('anxiggbwrmobmero')
-      ;
+          ->setUsername($config['mailUsr'])
+          ->setPassword($config['mailPswd'])
+        ;
    
       // Create the Mailer using your created Transport
       $this->mailer = new Swift_Mailer($transport);
