@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block title %} {{ parent() }} - Accueil{% endblock %}
+
+
+{% block navbar %}{% endblock %}
+
+{% block contenu %}
+<h6>{{ code }}</h6>
+<div class="boiteConnexion z-depth-3 white">
+    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="input-field">
+            <label for="code">Code A2F</label>
+            <input type="text" id="code" name="code"required autofocus>
+        </div>
+        <div class="center-align">
+            <button class="waves-effect waves-light btn" type="submit" name="btConnecter">Se connecter</button>
+        </div>
+        <br>	 
+    </form>
+    <form method="post">
+        <div class="center-align">
+            <button class="waves-effect waves-light btn" type="submit" name="btResend">Renvoyer l'email</button>
+        </div>
+    </form>
+
+    {% if form.valide == false %}
+    <br>
+    <br>
+    <div class="center-align">
+        <span>{{ form.message }}</span>
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock %}

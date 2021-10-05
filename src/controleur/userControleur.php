@@ -25,6 +25,7 @@ function profileControleur($twig, $db) {
 				$error = 'erreur';
 			}else {
 				header('Location:profile');
+				$_SESSION['login'] = $email;
 			}
 		}
 	}

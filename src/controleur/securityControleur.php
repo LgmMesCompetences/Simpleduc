@@ -47,7 +47,7 @@ function inscrireControleur($twig, $db){
 }
 
 function firstLoginControleur($twig, $db){
-	if(!isset($_SESSION['lock'])) header('Location:profile');
+	if(!isset($_SESSION['lockFirst'])) header('Location:profile');
 
 	$form = array();
 	if (isset($_POST['btConnecter'])){
@@ -77,6 +77,37 @@ function firstLoginControleur($twig, $db){
 	echo $twig->render('security/firstLogin.html.twig', array('form'=>$form));
 }
 
+function dFAControleur($twig, $db) {
+	if(!isset($_SESSION['lock2FA'])) header('Location:profile');
+	if(!isset($_SESSION['tempID'])) $_SESSION['tempID'] = strtoupper(substr(uniqid(), 7));
+
+	$form = array();
+	if (isset($_POST['btConnecter'])){
+		$code = $_POST['code'];
+
+		if (strlen($code) == 0){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier le code reçu par email';
+		}
+		elseif (strtoupper($code)!=$_SESSION['tempID']){
+			$form['valide'] = false;
+			$form['message'] = 'Code incorrect';
+		}
+		else{
+			unset($_SESSION['lock2FA']);
+			unset($_SESSION['tempID']);
+
+			header('Location:profile');
+		}
+	}
+
+	if (isset($_POST['btResend'])){
+		
+	}
+
+	echo $twig->render('security/2FA.html.twig', array('form'=>$form, 'code'=>$_SESSION['tempID']));
+}
+
 function updatemdpControleur($twig, $db) {
 
 	
@@ -104,11 +135,13 @@ function connexionControleur($twig, $db) {
 				$_SESSION['role'] = $unUtilisateur['fonction'];
 
 				if($unUtilisateur['lastLogin'] == null) {
-					header("Location:firstLogin");
 					$_SESSION['lockFirst'] = true;
+					header("Location:firstLogin");
+					
 				}else {
 					$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
-					header("Location:profile");
+					$_SESSION['lock2FA'] = true;
+					header("Location:2FA");
 				}
 			}
 		}

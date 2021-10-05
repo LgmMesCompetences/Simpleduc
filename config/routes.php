@@ -11,6 +11,7 @@ function getPage($db){
     $lesPages['profile'] = "profileControleur;1,2,3,4,5";
     $lesPages['ajout'] = "inscrireControleur;4,5";
     $lesPages['listeUser'] = "listeControleur;4,5";
+    $lesPages['2FA'] = "dFAControleur;1,2,3,4,5";
 
 if($db!=null) {
     if(isset($_GET['page'])) {
@@ -26,6 +27,10 @@ if($db!=null) {
 
         if(isset($_SESSION['lockFirst']) && $page != 'firstLogin') {
             header('Location:firstLogin');
+        }
+
+        if(isset($_SESSION['lock2FA']) && $page != '2FA') {
+            header('Location:2FA');
         }
 
 		if(!in_array(0, $roles)) {
