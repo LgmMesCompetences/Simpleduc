@@ -25,8 +25,8 @@
             {% if session.login is defined %}
                 {% if session.role == 3 %} {# Comptable #}
                     <li><div class="divider"></div></li>
-                    <li><a href="#"><i class="material-icons">euro</i>Créer une fiche de paie</a></li>
-                    <li><a href="#"><i class="material-icons">receipt</i>Liste des fiches de paie</a></li>
+                    <li><a href="newPayCheck"><i class="material-icons">euro</i>Créer une fiche de paie</a></li>
+                    <li><a href="listePayCheck"><i class="material-icons">receipt</i>Liste des fiches de paie</a></li>
 
                 {% elseif session.role == 4 or session.role == 5 %} {# RH, Directeur #}
                     <li><div class="divider"></div></li>
