@@ -42,6 +42,15 @@ function inscrireControleur($twig, $db){
 			$form['email'] = $email;
 			$form['fonction'] = $fonction;
 		}
+
+	/*	if($form->isSubmitted()&&$form->isValid()){
+			$nom = $form->get('nom')->getData();
+			$prenom = $form->get('prenom')->getData();
+			$message =(new \Swift_Message($form->get('')));
+			->setFrom($form->get(''))
+			->setTo('email')->getData()
+			->setBody($form)
+		}*/
 	}
 	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
@@ -133,6 +142,7 @@ function connexionControleur($twig, $db) {
 				$_SESSION['id'] = $unUtilisateur['id'];
 				$_SESSION['login'] = $unUtilisateur['email'];
 				$_SESSION['role'] = $unUtilisateur['fonction'];
+<<<<<<< Updated upstream
 
 				if($unUtilisateur['lastLogin'] == null) {
 					$_SESSION['lockFirst'] = true;
@@ -143,6 +153,10 @@ function connexionControleur($twig, $db) {
 					$_SESSION['lock2FA'] = true;
 					header("Location:2FA");
 				}
+=======
+				$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
+				//header("firstLogin:");
+>>>>>>> Stashed changes
 			}
 		}
 		else{
