@@ -23,9 +23,7 @@ function profileControleur($twig, $db) {
 			if (!$exec) {
 				$error = 'erreur';
 			}else {
-				$user['nom'] = $nom;
-				$user['prenom'] = $prenom;
-				$user['email'] = $email;
+				header('Location:profile');
 			}
 		}
 	}

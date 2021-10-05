@@ -5,12 +5,12 @@ function getPage($db){
     $lesPages['mentions'] = "mentionsControleur;0";
     $lesPages['maintenance'] = "maintenanceControleur;0";
     $lesPages['connexion'] = "connexionControleur;0";
-    $lesPages['firstLogin'] = "firstLoginControleur;0";
+    $lesPages['firstLogin'] = "firstLoginControleur;1,2,3,4,5";
     $lesPages['mdpoublie'] = "updatemdpControleur;0";
     $lesPages['deconnexion'] = "deconnexionControleur;0";
-    $lesPages['profile'] = "profileControleur;0";
-    $lesPages['ajout'] = "inscrireControleur;0";
-    $lesPages['listeUser'] = "listeControleur;0";
+    $lesPages['profile'] = "profileControleur;1,2,3,4,5";
+    $lesPages['ajout'] = "inscrireControleur;4,5";
+    $lesPages['listeUser'] = "listeControleur;4,5";
 
 if($db!=null) {
     if(isset($_GET['page'])) {
@@ -24,15 +24,19 @@ if($db!=null) {
         $explose = explode(";", $lesPages[$page]);
 		$roles = explode(',',$explose[1]);
 
+        if(isset($_SESSION['lock']) && $page != 'firstLogin') {
+            header('Location:firstLogin');
+        }
+
 		if(!in_array(0, $roles)) {
 			if(isset($_SESSION['login'])){
-				if(!in_array($role, $_SESSION['role'])){
-					$contenu = 'accueil';
+				if(!in_array($_SESSION['role'], $roles)){
+					$contenu = 'accueilControleur';
 				}else {
-					$contenu = $explose[0];
+                    $contenu = $explose[0];
 				}
 			}else {
-				$contenu = 'accueil';
+				$contenu = 'accueilControleur';
 			}
 		}else {
 			$contenu = $explose[0];

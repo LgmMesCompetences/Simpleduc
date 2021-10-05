@@ -46,12 +46,35 @@ function inscrireControleur($twig, $db){
 	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
 
-//TODO créer la fonction updateMDP !!!!!!!!!!!
-
-
 function firstLoginControleur($twig, $db){
-	echo $twig->render('security/firstLogin.html.twig', array());
+	if(!isset($_SESSION['lock'])) header('Location:profile');
 
+	$form = array();
+	if (isset($_POST['btConnecter'])){
+		$password = $_POST['password'];
+		$password2 = $_POST['passwordR'];
+		$form['valide'] = true;
+
+		if (strlen($password) == 0){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un mot de passe !';
+		}
+		elseif ($password!=$password2){
+			$form['valide'] = false;
+			$form['message'] = 'Les mots de passe sont différents !';
+		}
+		else{
+			$utilisateur = new User($db);
+			$utilisateur->updateMdp($_SESSION['id'], password_hash($password, PASSWORD_DEFAULT));
+			$utilisateur->updateLastLogin($_SESSION['id'], date('Y-m-d H:i:s'));
+
+			unset($_SESSION['lock']);
+
+			header('Location:profile');
+		}
+	}
+
+	echo $twig->render('security/firstLogin.html.twig', array('form'=>$form));
 }
 
 function updatemdpControleur($twig, $db) {
@@ -79,8 +102,14 @@ function connexionControleur($twig, $db) {
 				$_SESSION['id'] = $unUtilisateur['id'];
 				$_SESSION['login'] = $unUtilisateur['email'];
 				$_SESSION['role'] = $unUtilisateur['fonction'];
-				$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
-				//header("Location:");
+
+				if($unUtilisateur['lastLogin'] == null) {
+					header("Location:firstLogin");
+					$_SESSION['lock'] = true;
+				}else {
+					$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
+					header("Location:profile");
+				}
 			}
 		}
 		else{
