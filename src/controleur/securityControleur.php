@@ -90,6 +90,9 @@ function dFAControleur($twig, $db) {
 	if(!isset($_SESSION['lock2FA'])) header('Location:profile');
 	if(!isset($_SESSION['tempID'])) $_SESSION['tempID'] = strtoupper(substr(uniqid(), 7));
 
+	$mailer = new Mailer($twig);
+	$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
+
 	$form = array();
 	if (isset($_POST['btConnecter'])){
 		$code = $_POST['code'];
@@ -110,11 +113,7 @@ function dFAControleur($twig, $db) {
 		}
 	}
 
-	if (isset($_POST['btResend'])){
-		
-	}
-
-	echo $twig->render('security/2FA.html.twig', array('form'=>$form, 'code'=>$_SESSION['tempID']));
+	echo $twig->render('security/2FA.html.twig', array('form'=>$form));
 }
 
 function updatemdpControleur($twig, $db) {
@@ -142,7 +141,6 @@ function connexionControleur($twig, $db) {
 				$_SESSION['id'] = $unUtilisateur['id'];
 				$_SESSION['login'] = $unUtilisateur['email'];
 				$_SESSION['role'] = $unUtilisateur['fonction'];
-<<<<<<< Updated upstream
 
 				if($unUtilisateur['lastLogin'] == null) {
 					$_SESSION['lockFirst'] = true;
@@ -153,10 +151,6 @@ function connexionControleur($twig, $db) {
 					$_SESSION['lock2FA'] = true;
 					header("Location:2FA");
 				}
-=======
-				$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
-				//header("firstLogin:");
->>>>>>> Stashed changes
 			}
 		}
 		else{
