@@ -23,15 +23,17 @@ nav .brand-logo {
 /*------------------------------------------*/
 
 
-div.boiteConnexion{
-	position:absolute;
-	padding: 50px;
-	left:50%;
-	top: 50%;
-	width: 500px;
-	height:500px;
-	margin-left: -250px; /* Cette valeur doit être la moitié négative de la valeur du width */
-	margin-top: -250px;  /* Cette valeur doit être la moitié négative de la valeur du height */
+div.boiteConnexion {
+    position: absolute;
+    padding: 50px;
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    height: 500px;
+    margin-left: -250px;
+    /* Cette valeur doit être la moitié négative de la valeur du width */
+    margin-top: -250px;
+    /* Cette valeur doit être la moitié négative de la valeur du height */
 }
 
 .mt-5 {
@@ -40,4 +42,8 @@ div.boiteConnexion{
 
 .cursorPointer {
     cursor: pointer;
+}
+
+.title {
+    display: block;
 }
