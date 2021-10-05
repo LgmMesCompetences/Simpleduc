@@ -24,7 +24,7 @@ if($db!=null) {
         $explose = explode(";", $lesPages[$page]);
 		$roles = explode(',',$explose[1]);
 
-        if(isset($_SESSION['lock']) && $page != 'firstLogin') {
+        if(isset($_SESSION['lockFirst']) && $page != 'firstLogin') {
             header('Location:firstLogin');
         }
 

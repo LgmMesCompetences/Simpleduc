@@ -68,7 +68,7 @@ function firstLoginControleur($twig, $db){
 			$utilisateur->updateMdp($_SESSION['id'], password_hash($password, PASSWORD_DEFAULT));
 			$utilisateur->updateLastLogin($_SESSION['id'], date('Y-m-d H:i:s'));
 
-			unset($_SESSION['lock']);
+			unset($_SESSION['lockFirst']);
 
 			header('Location:profile');
 		}
@@ -105,7 +105,7 @@ function connexionControleur($twig, $db) {
 
 				if($unUtilisateur['lastLogin'] == null) {
 					header("Location:firstLogin");
-					$_SESSION['lock'] = true;
+					$_SESSION['lockFirst'] = true;
 				}else {
 					$utilisateur->updateLastLogin($unUtilisateur['id'], date('Y-m-d H:i:s'));
 					header("Location:profile");

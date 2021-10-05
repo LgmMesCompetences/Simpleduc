@@ -6,6 +6,7 @@ function profileControleur($twig, $db) {
 	$user = $utilisateur->get($id);
 
 	$error = null;
+	$good = null;
 	if (isset($_POST['btnUpdate'])){
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
@@ -28,8 +29,30 @@ function profileControleur($twig, $db) {
 		}
 	}
 
+	if (isset($_POST['btnUpdatePswd'])){
+		$pswdOld = $_POST['passwordO'];
+		$pswdNew = $_POST['passwordN'];
+		$pswdRep = $_POST['passwordR'];
+
+		$user = $utilisateur->get($_SESSION['id']);
+
+		if(strlen($pswdOld) == 0 || strlen($pswdNew) == 0 || strlen($pswdRep) == 0) {
+			$error = 'Tous les champs doivent être renseignés';
+		}elseif(!password_verify($pswdOld, $user['password'])) {
+			$error = 'L\'ancien mot de passe ne correspond pas';
+		}elseif($pswdNew != $pswdRep){
+			$error = 'Les mots de passe ne correspondent pas';
+		}
+
+		if ($error == null) {
+			$utilisateur->updateMdp($_SESSION['id'], password_hash($pswdNew, PASSWORD_DEFAULT));
+			$good = true;
+		}
+	}
+
 	echo $twig->render('user/profile.html.twig', [
 		'user' => $user,
-		'error' => $error
+		'error' => $error,
+		'good' => $good
 	]);
 }

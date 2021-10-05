@@ -2,97 +2,126 @@
 {% block title %} {{ parent() }} - Mon Profile{% endblock %}
 
 {% block contenu %}
-<div class="container z-depth-3 white">
-<div class="row mt-5">
-    <div class="col s12">
-        <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#mySpace">Mon Espace</a></li>
-            <li class="tab col s3"><a href="#fichePaie">Mes fiches de paies</a></li>
-        </ul>
+<div id="modal1" class="modal">
+    <form action="" method="post">
+    <div class="modal-content">
+        <h4>Modification de mot de passe</h4>
+            <div class="input-field col s12">
+                <input id="passwordO" type="password" name="passwordO">
+                <label for="passwordO">Ancient mot de passe</label>
+            </div>
+            <div class="input-field">
+                <input id="passwordN" type="password" name="passwordN">
+                <label for="passwordN">Nouveau mot de passe</label>
+            </div>
+            <div class="input-field">
+                <input id="passwordR" type="password" name="passwordR">
+                <label for="passwordR">Repeter nouveau mot de passe</label>
+            </div>
     </div>
-    <div id="mySpace" class="col s12 mt-5">
-        {% if error != null %}<h4 class="red-text center-align">{{ error }}</h4>{% endif %}
-        <form action="" method="post">
-            Nom:
-            <div class="input-field inline">
-                <input id="nom" name="nom" type="text" class="modifiable" disabled value="{{ user.nom }}">
-            </div>
-            Prenom:
-            <div class="input-field inline">
-                <input id="prenom" name="prenom" type="text" class="modifiable" disabled value="{{ user.prenom }}">
-            </div>
-            Email:
-            <div class="input-field inline">
-                <input id="email" name="email" type="email" class="modifiable" disabled value="{{ user.email }}">
-            </div>
-            <br>
-            Fonction:
-            <div class="input-field inline">
-                <input id="fonction" type="text" disabled value="{{ user.libelle | capitalize }}">
-            </div>
-            Date d'embauche:
-            <div class="input-field inline">
-                <input id="dateEmbauche" type="text" disabled value="{{ user.dateEmbauche | date('d/m/Y') }}">
-            </div>
-
-            <button id="modif" class="waves-effect waves-light btn" type="button">modifier</button>
-            <button id="save" class="waves-effect waves-light btn hide" type="submit" name="btnUpdate">sauvegarder</button>
-        </form>
+    <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Annuler</a>
+        <button type="submit" class="waves-effect btn" name="btnUpdatePswd">Appliquer</button>
     </div>
-    <div id="fichePaie" class="col s12 mt-5">
-        <ul class="collapsible">
-            <li>
-                <div class="collapsible-header">2021</div>
-                <div class="collapsible-body">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">janvier</div>
-                            <div class="collapsible-body">
-                                <span>yes</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">2020</div>
-                <div class="collapsible-body">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">janvier</div>
-                            <div class="collapsible-body">
-                                <a href="fiche?id=">yes</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header">2019</div>
-                <div class="collapsible-body">
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">janvier</div>
-                            <div class="collapsible-body">
-                                <span>yes</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
+    </form>
 </div>
+<div class="container z-depth-3 white">
+    <div class="row mt-5">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#mySpace">Mon Espace</a></li>
+                <li class="tab col s3"><a href="#fichePaie">Mes fiches de paies</a></li>
+            </ul>
+        </div>
+        <div id="mySpace" class="col s12 mt-5">
+            {% if error != null %}<h4 class="red-text center-align">{{ error }}</h4>{% endif %}
+            <form action="" method="post">
+                Nom:
+                <div class="input-field inline">
+                    <input id="nom" name="nom" type="text" class="modifiable" disabled value="{{ user.nom }}">
+                </div>
+                Prenom:
+                <div class="input-field inline">
+                    <input id="prenom" name="prenom" type="text" class="modifiable" disabled value="{{ user.prenom }}">
+                </div>
+                Email:
+                <div class="input-field inline">
+                    <input id="email" name="email" type="email" class="modifiable" disabled value="{{ user.email }}">
+                </div>
+                <br>
+                Fonction:
+                <div class="input-field inline">
+                    <input id="fonction" type="text" disabled value="{{ user.libelle | capitalize }}">
+                </div>
+                Date d'embauche:
+                <div class="input-field inline">
+                    <input id="dateEmbauche" type="text" disabled value="{{ user.dateEmbauche | date('d/m/Y') }}">
+                </div>
+
+                <button id="modif" class="waves-effect waves-light btn" type="button">modifier</button>
+                <button id="save" class="waves-effect waves-light btn hide" type="submit" name="btnUpdate">sauvegarder</button>
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Changer de mot de passe</a>
+            </form>
+        </div>
+        <div id="fichePaie" class="col s12 mt-5">
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">2021</div>
+                    <div class="collapsible-body">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header">janvier</div>
+                                <div class="collapsible-body">
+                                    <span>yes</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">2020</div>
+                    <div class="collapsible-body">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header">janvier</div>
+                                <div class="collapsible-body">
+                                    <a href="fiche?id=">yes</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">2019</div>
+                    <div class="collapsible-body">
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header">janvier</div>
+                                <div class="collapsible-body">
+                                    <span>yes</span>
+                                </div>instance
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block javascript %}
 <script>
 $(document).ready(function() {
-   var instance = M.Tabs.init($('.tabs'), {'swipeable': false});
+    {% if good != null %}
+        M.toast({text: 'Mot de passe mis a jour.'})
+    {% endif %}
+
+   var tabs = M.Tabs.init($('.tabs'), {'swipeable': false});
 
     var elems = document.querySelectorAll('.collapsible');
-    var instances = M.Collapsible.init(elems);
+    var colapsibles = M.Collapsible.init(elems);
+    var modal = M.Modal.init($('#modal1'));
     var yes = true;
 
     $('#modif').click(() => {
