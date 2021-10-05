@@ -21,8 +21,8 @@
             </div>
         </nav>
         <ul id="slide-out" class="sidenav">
-            <li><a href="profile"><i class="material-icons">person</i>Mon profil</a></li>
             {% if session.login is defined %}
+            <li><a href="profile"><i class="material-icons">person</i>Mon profil</a></li>
                 {% if session.role == 3 %} {# Comptable #}
                     <li><div class="divider"></div></li>
                     <li><a href="newPayCheck"><i class="material-icons">euro</i>Créer une fiche de paie</a></li>
@@ -35,6 +35,8 @@
                 {% endif %}
                  <li><div class="divider"></div></li>
                 <li><a class="waves-effect waves-light btn" id="wrapper" type="submit" href="deconnexion"><i class="material-icons">logout</i>Se déconnecter</a></li>
+            {% else %}
+                <li><a href="connexion"><i class="material-icons">login</i>Connexion</a></li>
             {% endif %}
         </ul>
         {% endblock %}
