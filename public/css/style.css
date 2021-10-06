@@ -46,4 +46,12 @@ div.boiteConnexion {
 
 .title {
     display: block;
+    background-color: grey;
+    border-style:groove;
+    border-radius: 15px;
+}
+
+.info-salarie, .info-entreprise{
+    border-style:groove;
+    border-radius: 15px;
 }

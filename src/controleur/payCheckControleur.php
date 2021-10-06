@@ -7,7 +7,7 @@ function newPayCheckControleur($twig) {
 
 
 	//proposition d'ajout pour l'entité fiche de paie
-	//tauxHoraire, tauxSecuPatronale tauxCompIncap, tauxCompSante, tauxAccidentW
+	//heuresPayess, debutPaieMoinsUn, finPaieMoinsUn, tauxHoraire, tauxSecuPatronale tauxCompIncap, tauxCompSante, tauxAccidentW
 	//tauxSecuPla, tauxSecuDepla, tauxCompTrancheFirst, tauxFamille, tauxChom
 	//tauxAutreContrib, tauxForfaitSoc, tauxCotisConv, tauxCSGDeducIR, tauxExoEmp
 	//tauxExoEmpRegul, tauxCSGnonDeducIR, tauxIRperso
