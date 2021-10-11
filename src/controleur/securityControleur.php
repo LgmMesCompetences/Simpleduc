@@ -90,8 +90,14 @@ function dFAControleur($twig, $db) {
 	if(!isset($_SESSION['lock2FA'])) header('Location:profile');
 	if(!isset($_SESSION['tempID'])) $_SESSION['tempID'] = strtoupper(substr(uniqid(), 7));
 
+	include '../config/parametres.php';
+
+	if($config['debug']) {
+		echo $_SESSION['tempID'];
+	}
+
 	$mailer = new Mailer($twig);
-	//$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
+	$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
 
 	$form = array();
 	if (isset($_POST['btConnecter'])){
@@ -113,7 +119,7 @@ function dFAControleur($twig, $db) {
 		}
 	}
 
-	echo $twig->render('security/2FA.html.twig', array('form'=>$form, 'code'=>$_SESSION['tempID']));
+	echo $twig->render('security/2FA.html.twig', array('form'=>$form));
 }
 
 function updatemdpControleur($twig, $db) {

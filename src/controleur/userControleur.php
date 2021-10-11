@@ -1,9 +1,28 @@
 <?php
 
 function profileControleur($twig, $db) {
+	include '../config/parametres.php';
 	$utilisateur = new User($db);
+	$fiche = new Fiche($db);
 	$id = $_SESSION['id'];
 	$user = $utilisateur->get($id);
+
+	$fiches = $fiche->get($id);
+	if($config['debug']) dump($fiches);
+
+	$english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+    $french_months = array('Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre');
+
+	$years;
+	foreach ($fiches as $fiche) {
+		$date = new DateTime($fiche['dateEmission']);
+		$date->setTimezone(new DateTimeZone('Europe/Paris'));
+		$year = $date->format('Y');
+		$month = str_replace($english_months, $french_months, $date->format('F'));
+
+		$years[$year][$month] = $fiche;
+	}
+	if($config['debug']) dump($years);
 
 	$error = null;
 	$good = null;
@@ -58,6 +77,7 @@ function profileControleur($twig, $db) {
 	echo $twig->render('user/profile.html.twig', [
 		'user' => $user,
 		'error' => $error,
-		'good' => $good
+		'good' => $good,
+		'years' => $years
 	]);
 }

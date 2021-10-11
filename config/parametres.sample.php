@@ -6,4 +6,5 @@
   $config['db'] = 'db';
   $config['mailUsr'] = '';
   $config['mailPswd'] = '';
+  $config['debug'] = true;
   ?>

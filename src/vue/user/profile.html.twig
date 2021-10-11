@@ -65,45 +65,23 @@
         </div>
         <div id="fichePaie" class="col s12 mt-5">
             <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header">2021</div>
-                    <div class="collapsible-body">
-                        <ul class="collapsible">
-                            <li>
-                                <div class="collapsible-header">janvier</div>
-                                <div class="collapsible-body">
-                                    <span>yes</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header">2020</div>
-                    <div class="collapsible-body">
-                        <ul class="collapsible">
-                            <li>
-                                <div class="collapsible-header">janvier</div>
-                                <div class="collapsible-body">
-                                    <a href="fiche?id=">yes</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <div class="collapsible-header">2019</div>
-                    <div class="collapsible-body">
-                        <ul class="collapsible">
-                            <li>
-                                <div class="collapsible-header">janvier</div>
-                                <div class="collapsible-body">
-                                    <span>yes</span>
-                                </div>instance
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+            {% for year, months in years|reverse(true) %}
+                    <li>
+                        <div class="collapsible-header">{{ year }}</div>
+                        <div class="collapsible-body">
+                            <ul class="collapsible">
+                            {% for month, fiche in months %}
+                                    <li>
+                                        <div class="collapsible-header">{{ month | capitalize }}</div>
+                                        <div class="collapsible-body">
+                                            {{ fiche.dateEmission }}
+                                        </div>
+                                    </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+            {% endfor %}
             </ul>
         </div>
     </div>
