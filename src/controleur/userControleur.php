@@ -9,11 +9,15 @@ function profileControleur($twig, $db) {
 
 	$fiches = $fiche->get($id);
 	if($config['debug']) dump($fiches);
+	$years=null;
+
+	if(count($fiches)!=0){
+
+	
 
 	$english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
     $french_months = array('Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre');
 
-	$years;
 	foreach ($fiches as $fiche) {
 		$date = new DateTime($fiche['dateEmission']);
 		$date->setTimezone(new DateTimeZone('Europe/Paris'));
@@ -23,7 +27,7 @@ function profileControleur($twig, $db) {
 		$years[$year][$month] = $fiche;
 	}
 	if($config['debug']) dump($years);
-
+	}
 	$error = null;
 	$good = null;
 	if (isset($_POST['btnUpdate'])){

@@ -156,7 +156,7 @@ function connexionControleur($twig, $db) {
 			$form['message'] = 'Login ou mot de passe incorrect !';
 		}
 	}
-	echo $twig->render('security/connexion.html.twig', array());
+	echo $twig->render('security/connexion.html.twig', array('form'=>$form));
 }
 
 function deconnexionControleur($twig, $db){
