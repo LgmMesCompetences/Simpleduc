@@ -34,6 +34,7 @@
 
         <div class="col s6">           
             <p class="info-entreprise">
+                <img class="responsive-img" src="images/logo.jpeg"><br>
             Nom de l'entreprise: <b>SIMPLEDUC SAS</b><br>
             SIRET: <br>
             URSAFF: <br>
@@ -41,34 +42,284 @@
             APE: <br>
             </p>
             <br>
-            <h5 class="center-align">Nom de l'employé: var.user.nom</h5>
-            <h6 class="center-align">Prénom de l'employé: var.user.prenom</h6><br>
+            <p class="center-align">Nom de l'employé: var.user.nom</p>
+            <p class="center-align">Prénom de l'employé: var.user.prenom</p><br>
         </div>
     </div>
 
     <!--corps de la FDP-->
-    <div class="divider"></div>
     <div class="row">
         <div class="col s12">
+            <table class="corpsFDP">
+                <thead>
+                    <tr>
+                        <th scope="col">Rubrique</th>
+                        <th class="right-align" scope="col">Quantité<br>Ou base</th>
+                        <th class="right-align" scope="col">Taux</th>
+                        <th class="right-align" scope="col">A déduire</th>
+                        <th class="right-align" scope="col">A payer</th>
+                        <th class="right-align" scope="col">Charges patronales<br>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="left-align">Salaire</td>
+                        <td class="right-align">var.Qtebase</td>
+                        <td class="right-align">var.tauxH</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">var.Qtebase + tauxH</td>
+                        <td class="right-align"></td>
+                    </tr>
+                    <tr>
+                        <td class="left-align"><b>TOTAL BRUT</b></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"><b>var.totalBrut</b></td>
+                        <td class="right-align"></td>
+                    </tr>
+                    <tr>
+                        <td class="left-align"><b><u>SANTE</u></b></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">Sécurité sociale - Maladie Maternité Invalidité Décès</td>
+                        <td class="right-align">var.totalBrut</td>
+                        <td class="right-align">var taux</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">var.</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>                                        
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                    <tr>
+                        <td class="left-align">The table body</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                        <td class="right-align">with two columns</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <!--ligne net à payer avant IS-->
-    <div class="divider"></div>
     <div class="row">
         <div class="col s12">
         </div>
     </div>
 
     <!--ligne IS-->
-    <div class="divider"></div>
     <div class="row">
         <div class="col s12">
         </div>
     </div>
 
     <!--ligne date paiement et net à payer-->
-    <div class="divider"></div>
     <div class="row">
         <div class="col s8">
         </div>
@@ -77,7 +328,6 @@
     </div>
 
     <!--ligne congés et cumul imposable-->
-    <div class="divider"></div>
     <div class="row">
         <div class="col s4">
         </div>
