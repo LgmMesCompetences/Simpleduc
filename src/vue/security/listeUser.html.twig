@@ -33,13 +33,12 @@
         <tbody>
         {% for u in liste %}
           <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
-            <td>{{ u.nom | capitalize }}</td>
-            <td>{{ u.prenom }}</td>
+            <td>{{ u.nom | upper }}</td>
+            <td>{{ u.prenom | capitalize }}</td>
             <td>{{ u.email }}</td>
             <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
             <td>{{ u.libellefonction }}</td>
             <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-            <!-- -->
           </tr>
         {% endfor %}  
         </tbody>
@@ -53,7 +52,6 @@
 var instance;
   $(document).ready(function(){
     instance = M.Modal.init($('#modal1'));
-      M.toast({html: 'I am a toast!'})
   });
 
   function del(id) {

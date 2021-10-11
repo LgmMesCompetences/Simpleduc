@@ -82,7 +82,7 @@ function dFAControleur($twig, $db) {
 	if(!isset($_SESSION['tempID'])) $_SESSION['tempID'] = strtoupper(substr(uniqid(), 7));
 
 	$mailer = new Mailer($twig);
-	$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
+	//$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
 
 	$form = array();
 	if (isset($_POST['btConnecter'])){
@@ -104,7 +104,7 @@ function dFAControleur($twig, $db) {
 		}
 	}
 
-	echo $twig->render('security/2FA.html.twig', array('form'=>$form));
+	echo $twig->render('security/2FA.html.twig', array('form'=>$form, 'code'=>$_SESSION['tempID']));
 }
 
 function updatemdpControleur($twig, $db) {

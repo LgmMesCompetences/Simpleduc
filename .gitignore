@@ -1,2 +1,4 @@
 /lib/vendor
+/mpdf
+/storage
 config/parametres.php

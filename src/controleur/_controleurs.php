@@ -3,4 +3,5 @@
     require_once 'securityControleur.php';
     require_once 'userControleur.php';
     require_once 'listeControleur.php';
+    require_once 'payCheckControleur.php';
 ?>

@@ -9,7 +9,7 @@
     require_once '../src/modele/_classes.php';
 
     $loader = new \Twig\Loader\FilesystemLoader('../src/vue/'); 
-    $twig = $twig = new \Twig\Environment($loader, []);
+    $twig = new \Twig\Environment($loader, []);
     $twig->addGlobal('session', $_SESSION);
 
     $db = connect($config);
