@@ -35,7 +35,7 @@ class Mailer{
 
     public function sendNewAccount($target, $mdp){
         // Create a message
-        $body = $this->twig->render('emails/emailNewAccount.html.twig', ['code' => $mdp]);
+        $body = $this->twig->render('emails/emailNewAccount.html.twig', ['mdp' => $mdp]);
      
         $message = (new Swift_Message('Connexion a simpleduc'))
           ->setFrom(['no-reply@simpleduc.fr' => 'NO REPLY'])

@@ -5,8 +5,7 @@ function inscrireControleur($twig, $db){
 	$form = array();
 	if (isset($_POST['btInscrire'])){
 		$email = $_POST['email'];
-		$password = $_POST['password'];
-		$password2 = $_POST['password2'];
+		$password = md5(uniqid());
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
 		$dateEmbauche = $_POST['dateEmbauche'];
@@ -20,13 +19,6 @@ function inscrireControleur($twig, $db){
 		elseif (strlen($prenom) == 0){
 			$form['valide'] = false;
 			$form['message'] = 'Merci de spécifier un prenom !';
-		}elseif (strlen($password) == 0){
-			$form['valide'] = false;
-			$form['message'] = 'Merci de spécifier un mot de passe !';
-		}
-		elseif ($password!=$password2){
-			$form['valide'] = false;
-			$form['message'] = 'Les mots de passe sont différents !';
 		}
 		elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$form['valide'] = false;
@@ -35,14 +27,23 @@ function inscrireControleur($twig, $db){
 		else{
 			$utilisateur = new User($db);
 			$exec = $utilisateur->insert($nom, $prenom, $email, password_hash($password, PASSWORD_DEFAULT), $dateEmbauche, $fonction);
+			
 			if (!$exec){
 				$form['valide'] = false;
 				$form['message'] = 'Problème d\'ajout de compte !';
 			}
+			else{
+				$mailer = new Mailer($twig);
+				$mailer->sendNewAccount($email, $password);
+			}
 			$form['email'] = $email;
 			$form['fonction'] = $fonction;
 		}
+	
+
 	}
+
+
 	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
 
