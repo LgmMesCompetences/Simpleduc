@@ -42,15 +42,6 @@ function inscrireControleur($twig, $db){
 			$form['email'] = $email;
 			$form['fonction'] = $fonction;
 		}
-
-	/*	if($form->isSubmitted()&&$form->isValid()){
-			$nom = $form->get('nom')->getData();
-			$prenom = $form->get('prenom')->getData();
-			$message =(new \Swift_Message($form->get('')));
-			->setFrom($form->get(''))
-			->setTo('email')->getData()
-			->setBody($form)
-		}*/
 	}
 	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
