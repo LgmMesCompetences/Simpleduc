@@ -83,3 +83,7 @@ div.boiteConnexion {
 th, td{
     padding: 8px;
 }
+
+.sf-dump {
+    z-index: 998 !important;
+}

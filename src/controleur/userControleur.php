@@ -81,3 +81,23 @@ function profileControleur($twig, $db) {
 		'years' => $years
 	]);
 }
+
+function base32_encode($str) {
+    $BASE32_TABLE = '0123456789bcdfghjklmnpqrstuvwxyz';
+    $out = '';
+    $i = $v = $bits = 0;  
+    $str_len = strlen($str);
+    while ($i < $str_len) {
+        $v |= ord($str[$i++]) << $bits;
+        $bits += 8;
+        while ($bits >= 5) {
+            $out .= $BASE32_TABLE[$v & 31];
+            $bits -= 5;
+            $v >>= 5;
+        }
+    }
+    if ($bits > 0) {
+        $out .= $BASE32_TABLE[$v & 31];    
+    }
+    return $out;
+}
