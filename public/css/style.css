@@ -70,7 +70,7 @@ div.boiteConnexion {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    font-size: 13px;
+    font-size: 12px;
     border-collapse: collapse;
 }
 .responsive-img{
@@ -89,4 +89,8 @@ th, td{
 
 .sf-dump {
     z-index: 998 !important;
+}
+
+.sous-titre {
+    font-size: 13px ;
 }
