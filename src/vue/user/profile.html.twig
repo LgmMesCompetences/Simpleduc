@@ -8,7 +8,7 @@
         <h4>Modification de mot de passe</h4>
             <div class="input-field col s12">
                 <input id="passwordO" type="password" name="passwordO">
-                <label for="passwordO">Ancient mot de passe</label>
+                <label for="passwordO">Ancien mot de passe</label>
             </div>
             <div class="input-field">
                 <input id="passwordN" type="password" name="passwordN">
@@ -16,7 +16,7 @@
             </div>
             <div class="input-field">
                 <input id="passwordR" type="password" name="passwordR">
-                <label for="passwordR">Repeter nouveau mot de passe</label>
+                <label for="passwordR">Répéter le nouveau mot de passe</label>
             </div>
     </div>
     <div class="modal-footer">
@@ -30,7 +30,7 @@
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s3"><a class="active" href="#mySpace">Mon Espace</a></li>
-                <li class="tab col s3"><a href="#fichePaie">Mes fiches de paies</a></li>
+                <li class="tab col s3"><a href="#fichePaie">Mes fiches de paie</a></li>
             </ul>
         </div>
         <div id="mySpace" class="col s12 mt-5">
@@ -58,8 +58,8 @@
                     <input id="dateEmbauche" type="text" disabled value="{{ user.dateEmbauche | date('d/m/Y') }}">
                 </div>
 
-                <button id="modif" class="waves-effect waves-light btn" type="button">modifier</button>
-                <button id="save" class="waves-effect waves-light btn hide" type="submit" name="btnUpdate">sauvegarder</button>
+                <button id="modif" class="waves-effect waves-light btn" type="button">Modifier</button>
+                <button id="save" class="waves-effect waves-light btn hide" type="submit" name="btnUpdate">Sauvegarder</button>
                 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Changer de mot de passe</a>
             </form>
         </div>
