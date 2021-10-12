@@ -53,9 +53,33 @@ div.boiteConnexion {
     background-color: grey;
     border-style:groove;
     border-radius: 15px;
+    font-size: 13px;
 }
 
 .info-salarie, .info-entreprise{
     border-style:groove;
     border-radius: 15px;
+    font-size: 13px;
+}
+
+.info-entreprise{
+    font-size: 13px;
+}
+.corpsFDP {
+    border-style:groove;
+    border-radius: 15px;
+    font-size: 10px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.responsive-img{
+    border-radius: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td{
+    padding: 8px;
 }

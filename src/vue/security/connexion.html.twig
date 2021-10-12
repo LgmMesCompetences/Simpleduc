@@ -6,16 +6,6 @@
 
 {% block contenu %}
 
-    {% if form.valide is defined %}
-    {% if form.valide == true %}
-        <h1>Connexion réussie</h1>
-    {% else %}
-        <h1>Echec de la connexion</h1>
-        <h1>Erreur : {{form.message}}</h1>
-        <h1><a href="connexion">Retourner sur la page de connexion</a></h1>
-    {% endif %} 
-{% else %} 
-
         <div class="boiteConnexion z-depth-3 white">
 			<form action="connexion"method="post"enctype="application/x-www-form-urlencoded">
 	    		<div class="input-field col s6">
@@ -33,8 +23,15 @@
                     <a href="index.php?page=mdpoublie"><small>Mot de passe oublié ?</small></a>
                 </div>	    
 			</form>
+
+            {% if form.valide == false %}
+            <br>
+            <br>
+            <div class="center-align">
+                <span>{{ form.message }}</span>
+            </div>
+            {% endif %}
 		</div>
 
-{% endif %} 
 
 {% endblock %}

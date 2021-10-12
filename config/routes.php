@@ -1,6 +1,6 @@
 <?php
 function getPage($db){
-    $lesPages['accueil'] = "accueilControleur;0";
+    $lesPages['accueil'] = "connexionControleur;0";
     $lesPages['404'] = "notfoundControleur;0";
     $lesPages['mentions'] = "mentionsControleur;0";
     $lesPages['maintenance'] = "maintenanceControleur;0";
@@ -9,7 +9,7 @@ function getPage($db){
     $lesPages['mdpoublie'] = "updatemdpControleur;0";
     $lesPages['deconnexion'] = "deconnexionControleur;0";
     $lesPages['profile'] = "profileControleur;1,2,3,4,5";
-    $lesPages['ajout'] = "inscrireControleur;1";
+    $lesPages['ajout'] = "inscrireControleur;4,5";
     $lesPages['listeUser'] = "listeControleur;4,5";
     $lesPages['2FA'] = "dFAControleur;1,2,3,4,5";
     $lesPages['newPayCheck'] = "newPayCheckControleur;3";
