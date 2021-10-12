@@ -3,7 +3,11 @@ body {
     min-height: 100vh;
     flex-direction: column;
 
-    font-family: Gugi, 'Times New Roman', serif;
+    font-family: 'Russo One' !important;
+}
+
+.btn {
+    font-family: 'Russo One' !important;
 }
 
 main {

@@ -88,9 +88,11 @@ function dFAControleur($twig, $db) {
 		echo $_SESSION['tempID'];
 	}
 
-	$mailer = new Mailer($twig);
-	$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
-
+	if (!isset($_POST['btConnecter'])) {
+		$mailer = new Mailer($twig);
+		$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
+	}
+	
 	$form = array();
 	if (isset($_POST['btConnecter'])){
 		$code = $_POST['code'];

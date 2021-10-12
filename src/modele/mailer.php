@@ -4,10 +4,12 @@ class Mailer{
 
     private $mailer;
     private $twig;
+    private $send;
 
     public function __construct($twig) {
       include '../config/parametres.php';
       $this->twig = $twig;
+      $this->send = $config['sendEmails'];
         // Create the Transport
         $transport = (new Swift_SmtpTransport('smtp.googlemail.com', 465, 'ssl'))
           ->setUsername($config['mailUsr'])
@@ -30,7 +32,7 @@ class Mailer{
             ;
          
             // Send the message
-            $this->mailer->send($message);
+            if($this->send) $this->mailer->send($message);
     }
 
     public function sendNewAccount($target, $mdp){
@@ -45,6 +47,6 @@ class Mailer{
         ;
      
         // Send the message
-        $this->mailer->send($message);
-}
+        if($this->send) $this->mailer->send($message);
+    }
 }
