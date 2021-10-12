@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/materialize.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -52,7 +52,7 @@
         <div class="col s12">
             <table class="corpsFDP">
                 <thead>
-                    <tr>
+                    <tr class="headFDP">
                         <th scope="col">Rubrique</th>
                         <th class="right-align" scope="col">Quantité<br>Ou base</th>
                         <th class="right-align" scope="col">Taux</th>
@@ -64,7 +64,7 @@
                 <tbody>
                     <tr>
                         <td class="left-align">Salaire</td>
-                        <td class="right-align">var.Qtebase</td>
+                        <td class="right-align">base</td>
                         <td class="right-align">var.tauxH</td>
                         <td class="right-align"></td>
                         <td class="right-align">var.Qtebase + tauxH</td>
@@ -88,234 +88,259 @@
                     </tr>
                     <tr>
                         <td class="left-align">Sécurité sociale - Maladie Maternité Invalidité Décès</td>
-                        <td class="right-align">var.totalBrut</td>
-                        <td class="right-align">var taux</td>
+                        <td class="right-align">base</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">var.</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Complémentaire Incap. Inva. Décès</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxIncap</td>
+                        <td class="right-align">à deduire</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Complémentaire Santé</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxSante</td>
+                        <td class="right-align">a deduire</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>ACCIDENTS DU TRAVAIL - MALADIES PRO</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Accidents du Travail - Maladies Pro</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>RETRAITE</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>                                        
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Sécurité Sociale plafonnée</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxSecuPla</td>
+                        <td class="right-align">a déduire</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Sécurité Sociale déplafonnée</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxSecuDepla</td>
+                        <td class="right-align">a déduire</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Complémentaire Tranche 1</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxCompTrancheFirst</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>FAMILLE - SECURITE SOCIALE</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Famille</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">var.tauxFamille</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>ASSURANCE CHÔMAGE</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Chômage</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a déduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>AUTRES CONTRIBUTIONS DUES PAR L'EMPLOYEUR</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Autres contributions dues par l'employeur</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a déduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Forfait social prévoyance</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
+                    </tr>
+                   <tr>
+                        <td class="left-align"><u>COTISATIONS STATUTAIRES PREVUES PAR LA CONVENTION</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                    </tr>                    
+                    <tr>
+                        <td class="left-align">Cotisation statutaires prévues par la convention</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>CSG NON IMPOSABLE A L'IMPÔT SUR LE REVENU</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">CSG déductible de l'impôt sur le revenu</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxCSGDeducIR</td>
+                        <td class="right-align">a deduire</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>ALLEGEMENT DE COTISATIONS</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Exonérations de cotisations employeur</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">Exonérations de cotisations employeur - Régularisation</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">a deduire patronales</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><u>CSG/CRDS IMPOSABLES A L'IMPÔT SUR LE REVENU</u></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align">CSG/CRDS non déductible de l'impôt sur le revenu</td>
+                        <td class="right-align">base</td>
+                        <td class="right-align">var.tauxCSGnonDeduc</td>
+                        <td class="right-align">a deduire</td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><b>TOTAL DES COTISATIONS ET CONTRIBUTIONS</b></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">toutes cotis salarie</td>
+                        <td class="right-align"></td>
+                        <td class="right-align">toutes cotis emp</td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><b>NET IMPOSABLE<b/></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">total brut - cotis salarie</td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
+                        <td class="left-align"><b>NET IMPOSABLE AVANT IMPÔT SUR LE REVENU<b/></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align"></td>
+                        <td class="right-align">total brut - cotis salarie</td>
+                        <td class="right-align"></td>
                     </tr>
                     <tr>
-                        <td class="left-align">The table body</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                        <td class="right-align">with two columns</td>
-                    </tr>
+                        <td class="left-align">Dont évolution de la rémunération liée à la suppression des cotisations salariales chômage et maladie</td>
+                        <td class="right-align">base</td>
+                    </tr>                                          
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!--ligne net à payer avant IS-->
-    <div class="row">
-        <div class="col s12">
-        </div>
-    </div>
 
     <!--ligne IS-->
     <div class="row">
         <div class="col s12">
+            <table class="corpsFDP">
+                <thead>
+                    <tr class="headFDP">
+                        <th class="center-align" scope="col"><b>Impôt sur le revenu</b></th>
+                        <th class="center-align" scope="col"><b>Base</b></th>
+                        <th class="center-align" scope="col"><b>Taux personnalisé</b></th>
+                        <th class="center-align" scope="col"><b>Montant</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="center-align">Salaire</td>
+                        <td class="center-align">base</td>
+                        <td class="center-align">var.tauxH</td>
+                        <td class="center-align">montant</td>
+                    </tr>
+                </tbody>
+            <table>    
         </div>
     </div>
 
