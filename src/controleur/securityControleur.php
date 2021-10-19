@@ -5,13 +5,12 @@ function inscrireControleur($twig, $db){
 	$form = array();
 	if (isset($_POST['btInscrire'])){
 		$email = $_POST['email'];
-		$password = md5(uniqid());
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
 		$dateEmbauche = $_POST['dateEmbauche'];
+		$password = substr(strtolower($prenom), 0, 1).'.'.strtolower($nom).''.substr($dateEmbauche, 0, 4);
 		$fonction = $_POST['fonction'];
 		$form['valide'] = true;
-
 		if(strlen($nom) == 0) {
 			$form['valide'] = false;
 			$form['message'] = 'Merci de spécifier un nom !';
@@ -47,6 +46,16 @@ function inscrireControleur($twig, $db){
 	echo $twig->render('security/ajout.html.twig', array('form'=>$form));
 }
 
+function testPswd(String $pswd): bool
+{
+	$part1 = preg_match('/[a-z]+/', $pswd);
+	$part2 = preg_match('/[A-Z]+/', $pswd);
+	$part3 = preg_match('/[0-9]+/', $pswd);
+	$part4 = preg_match('/[^a-zA-Z0-9]+/', $pswd);
+
+	return $part1 && $part2 && $part3 && $part4;
+}
+
 function firstLoginControleur($twig, $db){
 	if(!isset($_SESSION['lockFirst'])) header('Location:profile');
 
@@ -64,7 +73,7 @@ function firstLoginControleur($twig, $db){
 			$form['valide'] = false;
 			$form['message'] = 'Merci de spécifier un mot de passe d\'au moins 8 caractères !';
 		}
-		elseif (!preg_match('/[a-z]+[A-Z]+[0-9]+[\W]+/', $password)){
+		elseif (!testPswd($password)){
 			$form['valide'] = false;
 			$form['message'] = 'Le mot de passe doit comporter au moins: 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial !';
 		}
