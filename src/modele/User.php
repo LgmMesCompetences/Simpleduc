@@ -19,7 +19,7 @@ class User{
         $this->get = $this->db->prepare("select U.*, F.libelle from User U join Fonction F on U.fonction = F.id where U.id=:id");
         $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
         $this->updateByUser = $this->db->prepare("UPDATE User set nom=:nom, prenom=:prenom, email=:email where id=:id;");
-        $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
+        $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, numSecu, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
         $this->selectSpeFonction = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from  User u JOIN Fonction f ON  u.fonction = f.id where u.fonction=:foncId order by nom");
         $this->delete = $db->prepare("delete from User where id=:id");
         $this->updateMdp = $this->db->prepare("update User set password=:password where id=:id");
@@ -94,7 +94,7 @@ class User{
     public function selectSpeFonction($foncId){
         $this->selectSpeFonction->execute(array(':foncId'=>$foncId));
         if ($this->selectSpeFonction->errorCode()!=0){
-            print_r($this->selectSpeFonction->errocInfo());
+            print_r($this->selectSpeFonction->errorInfo());
         }
         return $this->selectSpeFonction->fetchAll();
     }

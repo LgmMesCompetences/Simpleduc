@@ -2,20 +2,19 @@
 	//lien de bareme IS en fonction des salaires
 	//https://www.service-public.fr/particuliers/vosdroits/F1419
 
-
-	//proposition d'ajout pour l'entité fiche de paie
-	//heuresPayees, debutPaieMoinsUn, finPaieMoinsUn, tauxHoraire, tauxSecuPatronale tauxCompIncap, tauxCompSante, tauxAccidentW
-	//tauxSecuPla, tauxSecuDepla, tauxCompTrancheFirst, tauxFamille, tauxChom
-	//tauxAutreContrib, tauxForfaitSoc, tauxCotisConv, tauxCSGDeducIR, tauxExoEmp
-	//tauxExoEmpRegul, tauxCSGnonDeducIR, tauxIRperso
-
 function newPayCheckControleur($twig, $db) {
 	$form = array();
 	$utilisateur = new User($db);
-	$user = $utilisateur->get($id);
+	$user = $utilisateur->select();
 
 	if (isset($_POST['btCreer'])){
-		
+		$email = $_POST['email'];
+		$email = $_POST['email'];
+		$email = $_POST['email'];
+		$email = $_POST['email'];
+		$email = $_POST['email'];
+		$email = $_POST['email'];
+		 
 
 
 	/*
