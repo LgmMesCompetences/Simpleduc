@@ -10,7 +10,7 @@ function getPage($db){
     $lesPages['deconnexion'] = "deconnexionControleur;0";
     $lesPages['profile'] = "profileControleur;1,2,3,4,5";
     $lesPages['ajout'] = "inscrireControleur;4,5";
-    $lesPages['listeUser'] = "listeControleur;4,5";
+    $lesPages['listeUser'] = "listeControleur;0,4,5";
     $lesPages['2FA'] = "dFAControleur;1,2,3,4,5";
     $lesPages['newPayCheck'] = "newPayCheckControleur;3";
     $lesPages['listePayCheck'] = "listePayCheckControleur;3";
