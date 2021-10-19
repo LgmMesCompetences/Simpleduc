@@ -5,26 +5,30 @@
 function newPayCheckControleur($twig, $db) {
 	$form = array();
 	$utilisateur = new User($db);
-	$user = $utilisateur->select();
+	$user = $utilisateur->get($_GET['id']);
+
+	$user['dateEmbauche'] = DateTimeImmutable::createFromFormat('Y-m-d', $user['dateEmbauche']);
+	//dd($user['dateEmbauche']);
+
+
+	$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
+	$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user]));
+	$mpdf->Output();
+	//$mpdf->Output('../storage/'.md5(uniqid()).'.pdf', 'F');
 
 	if (isset($_POST['btCreer'])){
 		$email = $_POST['email'];
-		$email = $_POST['email'];
-		$email = $_POST['email'];
-		$email = $_POST['email'];
-		$email = $_POST['email'];
-		$email = $_POST['email'];
+		$dateEmission = new \DateTime();
+
 		 
 
 
-	/*
-		$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
-		$mpdf->WriteHTML($twig->render('paycheck/.html.twig'));
-		$mpdf->Output('../storage/'.md5(uniqid()).'.pdf', 'F');
-	*/
+	
+
+
 	
 	}
-	echo $twig->render('paycheck/newPayCheck.html.twig', array('form'=>$form, 'user'=>$user));
+	echo $twig->render('paycheck/newPayCheck.html.twig', array('form'=>$form, 'u'=>$user));
 
 
 
