@@ -8,6 +8,7 @@ function inscrireControleur($twig, $db){
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
 		$dateEmbauche = $_POST['dateEmbauche'];
+		$numSecu = $_POST['numSecu'];
 		$password = substr(strtolower($prenom), 0, 1).'.'.strtolower($nom).''.substr($dateEmbauche, 0, 4);
 		$fonction = $_POST['fonction'];
 		$form['valide'] = true;
@@ -25,7 +26,7 @@ function inscrireControleur($twig, $db){
 		}
 		else{
 			$utilisateur = new User($db);
-			$exec = $utilisateur->insert($nom, $prenom, $email, password_hash($password, PASSWORD_DEFAULT), $dateEmbauche, $fonction);
+			$exec = $utilisateur->insert($nom, $prenom, $email, password_hash($password, PASSWORD_DEFAULT), $dateEmbauche, $fonction,$numSecu);
 			
 			if (!$exec){
 				$form['valide'] = false;

@@ -38,6 +38,8 @@
           <th>Date d'embauche</th>
           <th>Fonction</th>
           <th></th>
+          <th></th>
+
         </tr>
       </thead>
 
@@ -49,7 +51,11 @@
           <td>{{ u.email }}</td>
           <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
           <td>{{ u.libellefonction }}</td>
+          {% if session.role == 3 %}
+          <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
+          {% elseif session.role == 4 or session.role == 5 %}
           <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+          {% endif %}
         </tr>
       {% endfor %}  
       </tbody>
@@ -78,8 +84,11 @@
           <td>{{ u.email }}</td>
           <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
           <td>{{ u.libellefonction }}</td>
+          {% if session.role == 3 %}
+          <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
+          {% elseif session.role == 4 or session.role == 5 %}
           <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-        </tr>
+          {% endif %}        </tr>
       {% endfor %}  
       </tbody>
     </table>
@@ -107,8 +116,11 @@
           <td>{{ u.email }}</td>
           <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
           <td>{{ u.libellefonction }}</td>
+          {% if session.role == 3 %}
+          <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
+          {% elseif session.role == 4 or session.role == 5 %}
           <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-        </tr>
+          {% endif %}        </tr>
       {% endfor %}  
       </tbody>
     </table>
@@ -136,8 +148,11 @@
           <td>{{ u.email }}</td>
           <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
           <td>{{ u.libellefonction }}</td>
+          {% if session.role == 3 %}
+          <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
+          {% elseif session.role == 4 or session.role == 5 %}
           <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-        </tr>
+          {% endif %}        </tr>
         {% endfor %}  
       </tbody>
     </table>
@@ -165,8 +180,11 @@
             <td>{{ u.email }}</td>
             <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
             <td>{{ u.libellefonction }}</td>
-            <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-          </tr>
+          {% if session.role == 3 %}
+          <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
+          {% elseif session.role == 4 or session.role == 5 %}
+          <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+          {% endif %}          </tr>
           {% endfor %}  
         </tbody>
     </table>

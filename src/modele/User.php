@@ -17,7 +17,7 @@ class User{
         $this->db = $db;
         $this->connect = $this->db->prepare("select id, email, fonction, password, lastLogin from User where email=:email");
         $this->get = $this->db->prepare("select U.*, F.libelle from User U join Fonction F on U.fonction = F.id where U.id=:id");
-        $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
+        $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction, numSecu) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction, :numSecu)");
         $this->updateByUser = $this->db->prepare("UPDATE User set nom=:nom, prenom=:prenom, email=:email where id=:id;");
         $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, numSecu, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
         $this->selectSpeFonction = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from  User u JOIN Fonction f ON  u.fonction = f.id where u.fonction=:foncId order by nom");
@@ -63,9 +63,9 @@ class User{
         return $r;
     }
 
-    public function insert($nom, $prenom, $email, $password, $dateEmbauche, $fonction){
+    public function insert($nom, $prenom, $email, $password, $dateEmbauche, $fonction, $numSecu){
         $r = true;
-        $this->insert->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':password'=>$password, ':dateEmbauche'=>$dateEmbauche, ':fonction'=>$fonction));
+        $this->insert->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':password'=>$password, ':dateEmbauche'=>$dateEmbauche, ':fonction'=>$fonction, ':numSecu'=>$numSecu));
         if ($this->insert->errorCode()!=0){
             print_r($this->insert->errorInfo());
             $r=false;
