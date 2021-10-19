@@ -18,8 +18,8 @@
             <input type="password" id="passwordR" name="passwordR" required>
         </div>
         <div class="center-align col s6">
-            <button class="waves-effect waves-light btn" type="submit" name="btConnecter">Se connecter</button>
-        </div>	    
+            <button class="waves-effect waves-light btn" type="submit" name="btConnecter" disabled>Se connecter</button>
+        </div>
     </form>
 
     {% if form.valide == false %}
@@ -31,4 +31,46 @@
     {% endif %}
     
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+$(document).ready(function() {
+    $('#password').change(function() {
+        var valid = isPswdValid($('#password').val());
+        console.log(valid);
+    });
+
+    $('#passwordR').change(function() {
+        console.log('check ' + ($('#password').val() == $('#passwordR').val()));
+        if($('#password').val() == $('#passwordR').val()) {
+            toggleButton(false);
+        }else {
+            toggleButton(true);
+        }
+    });
+});
+
+function isPswdValid(paswd) {
+    var numbers = /[0-9]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var lowerCaseLetters = /[a-z]/g;
+    var specials = /[^a-zA-Z0-9]/g;
+    if (paswd != "") {
+        if (paswd.match(numbers) && paswd.match(upperCaseLetters) && paswd.match(lowerCaseLetters) && paswd.match(specials) && paswd.length >= 8) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function toggleButton(value) {
+    console.log('toggle ' + value);
+    $('[name="btConnecter"]').prop("disabled", value);
+}
+</script>
 {% endblock %}

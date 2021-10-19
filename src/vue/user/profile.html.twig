@@ -21,7 +21,7 @@
     </div>
     <div class="modal-footer">
         <a href="#" class="modal-close waves-effect waves-green btn-flat">Annuler</a>
-        <button type="submit" class="waves-effect btn" name="btnUpdatePswd">Appliquer</button>
+        <button type="submit" class="waves-effect btn" name="btnUpdatePswd" disabled>Appliquer</button>
     </div>
     </form>
 </div>
@@ -111,5 +111,43 @@ $(document).ready(function() {
         });
     });
 });
+</script>
+
+<script>
+
+$(document).ready(function() {
+    $('#passwordO').change(function() {
+        toggleButton();
+    });
+
+    $('#passwordN').change(function() {
+        toggleButton();
+    });
+
+    $('#passwordR').change(function() {
+        toggleButton();
+    });
+});
+
+function isPswdValid(paswd) {
+    var numbers = /[0-9]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var lowerCaseLetters = /[a-z]/g;
+    var specials = /[^a-zA-Z0-9]/g;
+    if (paswd != "") {
+        if (paswd.match(numbers) && paswd.match(upperCaseLetters) && paswd.match(lowerCaseLetters) && paswd.match(specials) && paswd.length >= 8) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function toggleButton() {
+    var valid = (isPswdValid($('#passwordN').val()) && $('#passwordN').val() == $('#passwordR').val() && $('#passwordO').val() != "")
+    $('[name="btnUpdatePswd"]').prop("disabled", !valid);
+}
 </script>
 {% endblock %}
