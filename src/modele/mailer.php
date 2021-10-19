@@ -24,7 +24,7 @@ class Mailer{
             // Create a message
             $body = $this->twig->render('emails/email2FA.html.twig', ['code' => $code]);
          
-            $message = (new Swift_Message('Connexion a simpleduc'))
+            $message = (new Swift_Message('Connexion à Simpl\'Educ'))
               ->setFrom(['no-reply@simpleduc.fr' => 'NO REPLY'])
               ->setTo([$target])
               ->setBody($body)
@@ -39,7 +39,7 @@ class Mailer{
         // Create a message
         $body = $this->twig->render('emails/emailNewAccount.html.twig', ['mdp' => $mdp]);
      
-        $message = (new Swift_Message('Connexion a simpleduc'))
+        $message = (new Swift_Message('Connexion à Simpl\'Educ'))
           ->setFrom(['no-reply@simpleduc.fr' => 'NO REPLY'])
           ->setTo([$target])
           ->setBody($body)

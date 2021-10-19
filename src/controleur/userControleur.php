@@ -39,7 +39,7 @@ function profileControleur($twig, $db) {
 			$error = 'Email invalide';
 		}
 		if (strlen($nom) == 0 || strlen($prenom) == 0) {
-			$error = 'Le nom et le prenom ne peuvent pas être vides';
+			$error = 'Les champs du nom et du prénom ne peuvent pas être vides !';
 		}
 
 		if ($error == null) {
@@ -61,7 +61,7 @@ function profileControleur($twig, $db) {
 		$user = $utilisateur->get($_SESSION['id']);
 
 		if(strlen($pswdOld) == 0 || strlen($pswdNew) == 0 || strlen($pswdRep) == 0) {
-			$error = 'Tous les champs doivent être renseignés';
+			$error = 'Tous les champs doivent être renseignés !';
 		}elseif(!password_verify($pswdOld, $user['password'])) {
 			$error = 'L\'ancien mot de passe ne correspond pas';
 		}elseif($pswdNew != $pswdRep){

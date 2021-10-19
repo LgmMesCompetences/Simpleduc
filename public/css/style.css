@@ -50,7 +50,7 @@ div.boiteConnexion {
 
 .title {
     display: block;
-    background-color: grey;
+    background-color: #bfd0d6;
     border-style:groove;
     border-radius: 15px;
     font-size: 13px;
@@ -67,11 +67,11 @@ div.boiteConnexion {
 }
 .corpsFDP {
     border-style:groove;
-    border-radius: 15px;
-    font-size: 10px;
-    width: 85%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
+    font-size: 12px;
+    border-collapse: collapse;
 }
 .responsive-img{
     border-radius: 15px;
@@ -80,6 +80,17 @@ div.boiteConnexion {
     margin-right: auto;
 }
 
+.headFDP{
+    background-color: #bfd0d6;
+}
 th, td{
     padding: 8px;
+}
+
+.sf-dump {
+    z-index: 998 !important;
+}
+
+.sous-titre {
+    font-size: 13px ;
 }

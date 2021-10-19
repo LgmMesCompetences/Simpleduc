@@ -9,7 +9,7 @@
 		{% if form.valide == true %}
         <div class="container">
 			<h3>Inscription réussie !</h3>
-			<h3>Un email vers <u>{{form.email}}</u>, a été communiqué ces identifiants au nouvel utilisateur !</h3>
+			<h3>Un email a été envoyé à <u>{{form.email}}</u> lui communiquant ses identifiants de connexion.</h3>
         </div>
         {% else %}
         <div class="container">
@@ -45,11 +45,11 @@
             <div class="input-field col s12">
                 <i class="material-icons prefix">work</i>     
                 <select name="fonction">
-                <option value="1">Développeur</option>
-                <option value="2">Responsable technique</option>
                 <option value="3">Comptable</option>
+                <option value="1">Développeur</option>
+                <option value="5">Direction</option>                
+                <option value="2">Responsable technique</option>
                 <option value="4">Resssources humaines</option>
-                <option value="5">Direction</option>
                 </select>
                 <label>Fonction dans l'entreprise</label>
             </div>

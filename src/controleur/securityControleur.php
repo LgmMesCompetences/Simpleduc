@@ -101,7 +101,7 @@ function dFAControleur($twig, $db) {
 			$form['valide'] = false;
 			$form['message'] = 'Merci de spécifier le code reçu par email';
 		}
-		elseif (strtoupper($code)!=$_SESSION['tempID']){
+		elseif (trim(strtoupper($code))!=$_SESSION['tempID']){
 			$form['valide'] = false;
 			$form['message'] = 'Code incorrect';
 		}
@@ -124,6 +124,7 @@ function updatemdpControleur($twig, $db) {
 
 function connexionControleur($twig, $db) {
 	$form = array();
+	$email = null;
 
 	if (isset($_POST['btConnecter'])){
 		$form['valide'] = true;
@@ -135,7 +136,7 @@ function connexionControleur($twig, $db) {
 		if ($unUtilisateur!=null){
 			if(!password_verify($password, $unUtilisateur['password'])){
 				$form['valide'] = false;
-				$form['message'] = 'Login ou mot de passe incorrect !';
+				$form['message'] = 'Mot de passe incorrect !';
 			}
 			else{
 				$_SESSION['id'] = $unUtilisateur['id'];
@@ -155,10 +156,10 @@ function connexionControleur($twig, $db) {
 		}
 		else{
 			$form['valide'] = false;
-			$form['message'] = 'Login ou mot de passe incorrect !';
+			$form['message'] = 'Email incorrect !';
 		}
 	}
-	echo $twig->render('security/connexion.html.twig', array('form'=>$form));
+	echo $twig->render('security/connexion.html.twig', array('form'=>$form, 'email'=>$email));
 }
 
 function deconnexionControleur($twig, $db){
