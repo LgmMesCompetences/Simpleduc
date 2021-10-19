@@ -60,6 +60,14 @@ function firstLoginControleur($twig, $db){
 			$form['valide'] = false;
 			$form['message'] = 'Merci de spécifier un mot de passe !';
 		}
+		elseif (strlen($password) < 8){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un mot de passe d\'au moins 8 caractères !';
+		}
+		elseif (!preg_match('/[a-z]+[A-Z]+[0-9]+[\W]+/', $password)){
+			$form['valide'] = false;
+			$form['message'] = 'Le mot de passe doit comporter au moins: 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial !';
+		}
 		elseif ($password!=$password2){
 			$form['valide'] = false;
 			$form['message'] = 'Les mots de passe sont différents !';

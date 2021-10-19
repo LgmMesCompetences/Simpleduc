@@ -67,6 +67,12 @@ function profileControleur($twig, $db) {
 		}elseif($pswdNew != $pswdRep){
 			$error = 'Les mots de passe ne correspondent pas';
 		}
+		elseif (strlen($pswdNew) < 8){
+			$error = 'Merci de spécifier un mot de passe d\'au moins 8 caractères !';
+		}
+		elseif (!preg_match('/[a-z]+[A-Z]+[0-9]+[\W]+/', $pswdNew)){
+			$error = 'Le mot de passe doit comporter au moins: 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial !';
+		}
 
 		if ($error == null) {
 			$utilisateur->updateMdp($_SESSION['id'], password_hash($pswdNew, PASSWORD_DEFAULT));

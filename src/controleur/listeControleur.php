@@ -25,7 +25,5 @@ function listeControleur($twig, $db){
 	$listeRH = $utilisateur->selectSpeFonction('4');
 	$listeDirect = $utilisateur->selectSpeFonction('5');
 
-	echo $twig->render('security/listeUser.html.twig', array('form'=>$form, 'liste'=>$liste, 'listeDev'=>$listeDev, 
-															 'listeRespTech'=>$listeRespTech, 'listeCompt'=>$listeCompt,
-															'listeRH'=>$listeRH, 'listeDirect'=>$listeDirect));
+	echo $twig->render('security/listeUser.html.twig', array('form'=>$form, 'liste'=>$liste, 'listeDev'=>$listeDev, 'listeRespTech'=>$listeRespTech, 'listeCompt'=>$listeCompt, 'listeRH'=>$listeRH, 'listeDirect'=>$listeDirect));
 }
