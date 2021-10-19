@@ -5,33 +5,160 @@
 
 {% block contenu %}
 
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4><b>Suppression de compte</b></h4>
-      <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Annuler</a>
-      <a id="btndel" href="" class="waves-effect red btn">Supprimer</a>
-    </div>
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4><b>Suppression de compte</b></h4>
+    <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Annuler</a>
+    <a id="btndel" href="" class="waves-effect red btn">Supprimer</a>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#liste1">Développeurs</a></li>
+      <li class="tab col s3"><a href="#liste2">Responsables technique</a></li>
+      <li class="tab col s3"><a href="#liste3">Comptables</a></li>
+      <li class="tab col s3"><a href="#liste4">RH</a></li>
+      <li class="tab col s3"><a href="#liste5">Direction</a></li>
+    </ul>
+  </div>
+      
+  <div id="liste1" class="col s12">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>E-mail</th>
+          <th>Date d'embauche</th>
+          <th>Fonction</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for u in listeDev %}
+        <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
+          <td>{{ u.nom | upper }}</td>
+          <td>{{ u.prenom | capitalize }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
+          <td>{{ u.libellefonction }}</td>
+          <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+        </tr>
+      {% endfor %}  
+      </tbody>
+    </table>
   </div>
 
-<div class="container">
 
-      <table class="responsive-table">
+  <div id="liste2" class="col s12">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>E-mail</th>
+          <th>Date d'embauche</th>
+          <th>Fonction</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for u in listeRespTech %}
+        <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
+          <td>{{ u.nom | upper }}</td>
+          <td>{{ u.prenom | capitalize }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
+          <td>{{ u.libellefonction }}</td>
+          <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+        </tr>
+      {% endfor %}  
+      </tbody>
+    </table>
+  </div>
+    
+
+  <div id="liste3" class="col s12">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>E-mail</th>
+          <th>Date d'embauche</th>
+          <th>Fonction</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for u in listeCompt %}
+        <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
+          <td>{{ u.nom | upper }}</td>
+          <td>{{ u.prenom | capitalize }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
+          <td>{{ u.libellefonction }}</td>
+          <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+        </tr>
+      {% endfor %}  
+      </tbody>
+    </table>
+  </div>
+
+
+  <div id="liste4" class="col s12">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>E-mail</th>
+          <th>Date d'embauche</th>
+          <th>Fonction</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for u in listeRH %}
+        <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
+          <td>{{ u.nom | upper }}</td>
+          <td>{{ u.prenom | capitalize }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
+          <td>{{ u.libellefonction }}</td>
+          <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+        </tr>
+        {% endfor %}  
+      </tbody>
+    </table>
+  </div>
+
+
+  <div id="liste5" class="col s12">
+    <table class="responsive-table">
         <thead>
           <tr>
-              <th>Nom</th>
-              <th>Prénom</th>
-              <th>E-mail</th>
-              <th>Date d'embauche</th>
-              <th>Fonction</th>
-              <th></th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>E-mail</th>
+            <th>Date d'embauche</th>
+            <th>Fonction</th>
+            <th></th>
           </tr>
         </thead>
 
         <tbody>
-        {% for u in liste %}
+        {% for u in listeDirect %}
           <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
             <td>{{ u.nom | upper }}</td>
             <td>{{ u.prenom | capitalize }}</td>
@@ -40,24 +167,29 @@
             <td>{{ u.libellefonction }}</td>
             <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
           </tr>
-        {% endfor %}  
+          {% endfor %}  
         </tbody>
-      </table>
-
+    </table>
+  </div>
 </div>
 
 {% endblock %}
 {% block javascript %}
 <script>
+
 var instance;
   $(document).ready(function(){
     instance = M.Modal.init($('#modal1'));
+    $('.tabs').tabs();
+
   });
+
 
   function del(id) {
     $('#btndel').attr("href","listeUser?id="+id);
     instance[0].open();
   }
+
 </script>
 
 {% endblock %}

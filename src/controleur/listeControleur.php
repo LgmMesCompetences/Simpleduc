@@ -19,5 +19,13 @@ function listeControleur($twig, $db){
 	}
 
 	$liste = $utilisateur->select();
-    echo $twig->render('security/listeUser.html.twig', array('form'=>$form, 'liste'=>$liste));
+	$listeDev = $utilisateur->selectSpeFonction('1');
+	$listeRespTech = $utilisateur->selectSpeFonction('2');
+	$listeCompt = $utilisateur->selectSpeFonction('3');
+	$listeRH = $utilisateur->selectSpeFonction('4');
+	$listeDirect = $utilisateur->selectSpeFonction('5');
+
+	echo $twig->render('security/listeUser.html.twig', array('form'=>$form, 'liste'=>$liste, 'listeDev'=>$listeDev, 
+															 'listeRespTech'=>$listeRespTech, 'listeCompt'=>$listeCompt,
+															'listeRH'=>$listeRH, 'listeDirect'=>$listeDirect));
 }

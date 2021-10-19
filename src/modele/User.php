@@ -10,6 +10,7 @@ class User{
     private $updateLastLogin;
     private $select;
     private $delete;
+    private $selectSpeFonction;
 
 
     public function __construct($db) {
@@ -19,6 +20,7 @@ class User{
         $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction)");
         $this->updateByUser = $this->db->prepare("UPDATE User set nom=:nom, prenom=:prenom, email=:email where id=:id;");
         $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
+        $this->selectSpeFonction = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from  User u JOIN Fonction f ON  u.fonction = f.id where u.fonction=:foncId order by nom");
         $this->delete = $db->prepare("delete from User where id=:id");
         $this->updateMdp = $this->db->prepare("update User set password=:password where id=:id");
         $this->updateLastLogin = $this->db->prepare("update User set lastLogin=:lastLogin where id=:id");
@@ -87,6 +89,14 @@ class User{
             print_r($this->select->errocInfo());
         }
         return $this->select->fetchAll();
+    }
+
+    public function selectSpeFonction($foncId){
+        $this->selectSpeFonction->execute(array(':foncId'=>$foncId));
+        if ($this->selectSpeFonction->errorCode()!=0){
+            print_r($this->selectSpeFonction->errocInfo());
+        }
+        return $this->selectSpeFonction->fetchAll();
     }
 
     public function delete($id){
