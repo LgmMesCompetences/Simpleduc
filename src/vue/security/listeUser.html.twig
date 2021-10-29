@@ -184,8 +184,8 @@
           <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
           {% elseif session.role == 4 or session.role == 5 %}
           <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-          {% endif %}          </tr>
-          {% endfor %}  
+          {% endif %}</tr>
+          {% endfor %}
         </tbody>
     </table>
   </div>
