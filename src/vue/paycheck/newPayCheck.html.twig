@@ -10,37 +10,81 @@
     <div class="row">
         <form class="col s12">
             <div class="row">
-                <div class="col s12">
-                    <label>Choisir le nom de l'employé</label>
-                    <select>
-                        <option value="" disabled selected>Nom de l'employé</option>
-                        {% for u in user %}
-                        <option value={{ u.id }}>{{ u.nom }} {{ u.prenom }}, {{ u.libellefonction }}</option>
-                        {% endfor %}
-                    </select>
+                <h5 class="center-align">Renseignements de l'employé</h5>
+
+                <div class="input-field col s6">
+                    <input disabled value="{{ u.nom | upper }}" id="nom" type="text" class="validate">
+                    <label for="nom">Nom</label>
                 </div>
                 <div class="input-field col s6">
-                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                    <label for="disabled">Disabled</label>
+                    <input disabled value="{{ u.prenom | capitalize }}" id="prenom" type="text" class="validate">
+                    <label for="prenom">Prénom</label>
+                </div>
+                <div class="input-field col s12">
+                    <input disabled value="{{ u.libellefonction }}" id="libellefonction" type="text" class="validate">
+                    <label for="libellefonction">Fonction</label>
                 </div>
                 <div class="input-field col s6">
-                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                    <label for="disabled">Disabled</label>
-                </div>
-                                     
-                <div class="input-field col s6">
-                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-                    <label for="first_name">First Name</label>
+                    <input disabled value="{{ u.numSecu }}" id="numSecu" type="text" class="validate">
+                    <label for="numSecu">Numéro de Sécurité Sociale</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate">
-                    <label for="last_name">Last Name</label>
+                    <input disabled value="{{ u.dateEmbauche }}" id="dateEmbauche" type="text" class="validate">
+                    <label for="dateEmbauche">Date d'embauche</label>
                 </div>
-           
+
+
+                <h5 class="center-align">Partie élaboration de la fiche de paie</h5>
+                <h6 class="center-align">Cotisations salariales</h6>
+                   
                 <div class="input-field col s6">
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
+                    <input id="heuresPayees" type="text" class="validate">
+                    <label for="heuresPayees">Heures payées</label>
                 </div>
+                <div class="input-field col s6">
+                    <input id="dateDebutPaie" type="text" class="validate">
+                    <label for="dateDebutPaie">Date début de paie</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tauxHoraire" type="text" class="validate">
+                    <label for="tauxHoraire">Taux horaire</label>
+                </div>                          
+                <div class="input-field col s6">
+                    <input id="dateFinPaie" type="text" class="validate">
+                    <label for="dateFinPaie">Date fin de paie</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tauxCompIncap" type="text" class="validate">
+                    <label for="tauxCompIncap">Taux Complémentaire Incapacité</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tauxCompSante" type="text" class="validate">
+                    <label for="tauxCompSante">Taux Complémentaire Santé</label>
+                </div>                
+                <div class="input-field col s6">
+                    <input id="tauxSecuPla" type="text" class="validate">
+                    <label for="tauxSecuPla">Taux Sécurité Sociale Plafonnée</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tauxSecuDepla" type="text" class="validate">
+                    <label for="tauxSecuDepla">Taux Sécurité Sociale Déplafonnée</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="tauxCompTrancheFirst" type="text" class="validate">
+                    <label for="tauxCompTrancheFirst">Taux Complémentaire 1ère Tranche</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tauxCSGDeducIR" type="text" class="validate">
+                    <label for="tauxCSGDeducIR">Taux CSG Déductible de l'IR</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tauxCSGnonDeducIR" type="text" class="validate">
+                    <label for="tauxCSGnonDeducIR">Taux CSG non Déductible de l'IR</label>
+                </div>
+
+
+                <h6 class="center-align">Cotisations patronales</h6>
+
                 <div class="input-field col s6">
                     <input id="email" type="email" class="validate">
                     <label for="email">Email</label>

@@ -22,10 +22,10 @@
             <p class="info-salarie">
             Matricule: var.user.id<br>
             Numéro SS: var.user.numSecu<br>
-            Emploi: Emploi<br>
-            Qualif: Qualif<br>
+            Emploi: {{ user.libellefonction }}<br>
+            Qualif: {{ user.libellefonction }}<br>
             Indice: Indice<br>
-            Date début ancienneté: var.user.dateEmbauche<br>
+            Date début ancienneté: {{ user.dateEmbauche | date('d/m/Y') }}<br>
             Heures payées: var.heuresPayees<br>
             Entrée: var.user.dateEmbauche<br>
             Sortie: <br>
@@ -42,8 +42,8 @@
             APE: <br>
             </p>
             <br>
-            <p class="center-align">Nom de l'employé: var.user.nom</p>
-            <p class="center-align">Prénom de l'employé: var.user.prenom</p><br>
+            <p class="center-align">Nom de l'employé: {{ user.nom }}</p>
+            <p class="center-align">Prénom de l'employé: {{ user.prenom }}</p><br>
         </div>
     </div>
 
