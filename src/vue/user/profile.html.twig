@@ -25,6 +25,20 @@
     </div>
     </form>
 </div>
+{% if otpUri != null %}
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <h4>Configuration A2F par OTP</h4>
+        <p>
+            Clef: {{ session.user.otpKey }}
+        </p>
+        <img src=" https://api.qrserver.com/v1/create-qr-code/?data={{ otpUri }}">
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+    </div>
+</div>
+{% endif %}
 <div class="container z-depth-3 white">
     <div class="row mt-5">
         <div class="col s12">
@@ -47,6 +61,13 @@
                 Email:
                 <div class="input-field inline">
                     <input id="email" name="email" type="email" class="modifiable" disabled value="{{ user.email }}">
+                </div>
+                <div class="input-field inline">
+                    <select id="2fa" name="2fa" class="modifiable" disabled>
+                        <option {% if session.user.dfaType == 'email' %}selected{% endif %} value="email">Email</option>
+                        <option {% if session.user.dfaType == 'otp' %}selected{% endif %} value="otp">OTP</option>
+                    </select>
+                    <label>Type de double authentification</label>
                 </div>
                 <br>
                 Fonction:
@@ -99,16 +120,37 @@ $(document).ready(function() {
 
     var elems = document.querySelectorAll('.collapsible');
     var colapsibles = M.Collapsible.init(elems);
+
+    var selectEl = document.getElementById('2fa');
+    var select = M.FormSelect.init(selectEl, {
+        dropdownOptions: {
+            coverTrigger: false,
+        },
+    });
+
     var modal = M.Modal.init($('#modal1'));
     var yes = true;
+
+    {% if otpUri != null %}
+        var modal2 = M.Modal.init($('#modal2'));
+        modal2[0].open();
+    {% endif %}
 
     $('#modif').click(() => {
         $(".modifiable").each(function( index ) {
             $( this ).prop("disabled",  !$( this ).prop("disabled"));
-            $('#modif').text(yes ? "annuler" : "modifier");
-            $('#save').toggleClass("hide");
-            yes = !yes;
         });
+
+        select.destroy();
+        select = M.FormSelect.init(selectEl, {
+            dropdownOptions: {
+                coverTrigger: false,
+            },
+        });
+
+        $('#modif').text(yes ? "annuler" : "modifier");
+        $('#save').toggleClass("hide");
+        yes = !yes;
     });
 });
 </script>

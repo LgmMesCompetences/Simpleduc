@@ -1,5 +1,7 @@
 <?php
 
+use OTPHP\TOTP;
+
 function inscrireControleur($twig, $db){
 
 	$form = array();
@@ -97,8 +99,12 @@ function firstLoginControleur($twig, $db){
 }
 
 function dFAControleur($twig, $db) {
+	if(!isset($_SESSION['2FA_try'])) $_SESSION['2FA_try'] = 0;
 	if(!isset($_SESSION['lock2FA'])) header('Location:profile');
+
 	if(!isset($_SESSION['tempID'])) $_SESSION['tempID'] = strtoupper(substr(uniqid(), 7));
+	$otp = TOTP::create($_SESSION['user']['otpKey']);
+
 
 	include '../config/parametres.php';
 
@@ -106,7 +112,7 @@ function dFAControleur($twig, $db) {
 		echo $_SESSION['tempID'];
 	}
 
-	if (!isset($_POST['btConnecter'])) {
+	if (!isset($_POST['btConnecter']) && $_SESSION['user']['dfaType'] == 'email') {
 		$mailer = new Mailer($twig);
 		$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
 	}
@@ -114,24 +120,54 @@ function dFAControleur($twig, $db) {
 	$form = array();
 	if (isset($_POST['btConnecter'])){
 		$code = $_POST['code'];
+		$done = false;
 
-		if (strlen($code) == 0){
-			$form['valide'] = false;
-			$form['message'] = 'Merci de spécifier le code reçu par email';
+		if($_SESSION['user']['dfaType'] == 'email')
+		{
+			if (strlen($code) == 0){
+				$form['valide'] = false;
+				$form['message'] = 'Merci de spécifier le code reçu par email';
+			}
+			elseif (trim(strtoupper($code))!=$_SESSION['tempID']){
+				$form['valide'] = false;
+				$form['message'] = 'Code incorrect';
+			}else {
+				$done = true;
+			}
 		}
-		elseif (trim(strtoupper($code))!=$_SESSION['tempID']){
-			$form['valide'] = false;
-			$form['message'] = 'Code incorrect';
+		
+		if($_SESSION['user']['dfaType'] == 'otp')
+		{
+			if (strlen($code) == 0){
+				$form['valide'] = false;
+				$form['message'] = 'Merci de spécifier le code de votre application d\'OTP';
+			}
+			elseif (!$otp->verify(trim($code), null, 1) && !(trim(strtoupper($code)) == $_SESSION['tempID'] && $_SESSION['2FA_try']>=2)){
+				$_SESSION['2FA_try']++;
+				$form['valide'] = false;
+				$form['message'] = 'Code incorrect';
+			}else {
+				$done = true;
+			}
 		}
-		else{
+
+		if($done) {
 			unset($_SESSION['lock2FA']);
 			unset($_SESSION['tempID']);
+			unset($_SESSION['2FA_try']);
 
 			header('Location:profile');
 		}
 	}
 
-	echo $twig->render('security/2FA.html.twig', array('form'=>$form));
+	if (isset($_POST['btSendMail'])) {
+		if ($_SESSION['user']['dfaType'] == 'otp') {
+			$mailer = new Mailer($twig);
+			$mailer->send2FA($_SESSION['login'], $_SESSION['tempID']);
+		}
+	}
+
+	echo $twig->render('security/2FA.html.twig', array('form'=>$form, 'sendMail' => ($_SESSION['2FA_try']>=2)));
 }
 
 function updatemdpControleur($twig, $db) {
@@ -160,6 +196,7 @@ function connexionControleur($twig, $db) {
 				$_SESSION['id'] = $unUtilisateur['id'];
 				$_SESSION['login'] = $unUtilisateur['email'];
 				$_SESSION['role'] = $unUtilisateur['fonction'];
+				$_SESSION['user'] = $utilisateur->get($unUtilisateur['id']);
 
 				if($unUtilisateur['lastLogin'] == null) {
 					$_SESSION['lockFirst'] = true;

@@ -1,5 +1,7 @@
 <?php
 
+use OTPHP\TOTP;
+
 function profileControleur($twig, $db) {
 	include '../config/parametres.php';
 	$utilisateur = new User($db);
@@ -34,6 +36,12 @@ function profileControleur($twig, $db) {
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
 		$email = $_POST['email'];
+		$dfa = $_POST['2fa'];
+		if ($dfa == 'email') {
+			$otpKey = null;
+		}else {
+			$otpKey = TOTP::create()->getSecret();
+		}
 
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$error = 'Email invalide';
@@ -41,14 +49,24 @@ function profileControleur($twig, $db) {
 		if (strlen($nom) == 0 || strlen($prenom) == 0) {
 			$error = 'Les champs du nom et du prénom ne peuvent pas être vides !';
 		}
+		if (!in_array($dfa, ['email', 'otp'])) {
+			$error = 'Les seuls A2F possible sont email et otp.';
+		}
 
 		if ($error == null) {
-			$exec = $utilisateur->updateByUser($id, $nom, $prenom, $email);
+			$exec = $utilisateur->updateByUser($id, $nom, $prenom, $email, $dfa, $otpKey);
 			if (!$exec) {
 				$error = 'erreur';
 			}else {
-				header('Location:profile');
 				$_SESSION['login'] = $email;
+				$_SESSION['user']['nom'] = $nom;
+				$_SESSION['user']['prenom'] = $prenom;
+				$_SESSION['user']['dfaType'] = $dfa;
+				$_SESSION['user']['otpKey'] = $otpKey;
+				$_SESSION['showOtp'] = $dfa == 'otp';
+
+				header('Location:profile');
+				return;
 			}
 		}
 	}
@@ -80,10 +98,23 @@ function profileControleur($twig, $db) {
 		}
 	}
 
+	if (isset($_SESSION['showOtp']) && $_SESSION['showOtp']) {
+		$otp = TOTP::create($_SESSION['user']['otpKey']);
+		$otp->setLabel($_SESSION['login']);
+        $otp->setIssuer('Simpl\'Educ');
+
+		$otpUri = $otp->getProvisioningUri();
+
+		unset($_SESSION['showOtp']);
+	}else {
+		$otpUri = null;
+	}
+
 	echo $twig->render('user/profile.html.twig', [
 		'user' => $user,
 		'error' => $error,
 		'good' => $good,
-		'years' => $years
+		'years' => $years,
+		'otpUri' => urlencode($otpUri)
 	]);
 }

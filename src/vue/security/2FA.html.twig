@@ -9,18 +9,27 @@
     <form action="" method="post" enctype="application/x-www-form-urlencoded">
         <div class="input-field">
             <label for="code">Code A2F</label>
-            <input type="text" id="code" name="code"required autofocus>
+            <input type="text" id="code" name="code" autocomplete="one-time-code" required autofocus>
         </div>
         <div class="center-align">
             <button class="waves-effect waves-light btn" type="submit" name="btConnecter">Se connecter</button>
         </div>
         <br>	 
     </form>
+    {% if session.user.dfaType == 'email' %}
     <form method="post">
         <div class="center-align">
             <button class="waves-effect waves-light btn" type="submit" name="btResend">Renvoyer l'email</button>
         </div>
     </form>
+    {% endif %}
+    {% if sendMail %}
+        <form method="post">
+            <div class="center-align">
+                <button class="waves-effect waves-light btn" type="submit" name="btSendMail">Envoyer un code par email</button>
+            </div>
+        </form>
+    {% endif %}
 
     {% if form.valide == false %}
     <br>

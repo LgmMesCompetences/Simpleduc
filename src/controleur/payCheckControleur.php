@@ -11,6 +11,9 @@ function newPayCheckControleur($twig, $db) {
 	//dd($user['dateEmbauche']);
 
 
+	//https://validator.w3.org/nu/#textarea to validate the html template
+
+
 	$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
 	$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user]));
 	$mpdf->Output();

@@ -15,15 +15,15 @@ class User{
 
     public function __construct($db) {
         $this->db = $db;
-        $this->connect = $this->db->prepare("select id, email, fonction, password, lastLogin from User where email=:email");
-        $this->get = $this->db->prepare("select U.*, F.libelle from User U join Fonction F on U.fonction = F.id where U.id=:id");
-        $this->insert = $this->db->prepare("insert into User (nom, prenom, email, password, dateEmbauche, fonction, numSecu) values (:nom, :prenom, :email, :password, :dateEmbauche, :fonction, :numSecu)");
-        $this->updateByUser = $this->db->prepare("UPDATE User set nom=:nom, prenom=:prenom, email=:email where id=:id;");
-        $this->select = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, numSecu, f.libelle as libellefonction from User u, Fonction f where u.fonction = f.id order by nom");
-        $this->selectSpeFonction = $db->prepare("select u.id, nom, prenom, email, dateEmbauche, f.libelle as libellefonction from  User u JOIN Fonction f ON  u.fonction = f.id where u.fonction=:foncId order by nom");
-        $this->delete = $db->prepare("delete from User where id=:id");
-        $this->updateMdp = $this->db->prepare("update User set password=:password where id=:id");
-        $this->updateLastLogin = $this->db->prepare("update User set lastLogin=:lastLogin where id=:id");
+        $this->connect = $this->db->prepare("SELECT id, email, fonction, password, lastLogin FROM User WHERE email=:email");
+        $this->get = $this->db->prepare("SELECT U.*, F.libelle FROM User U JOIN Fonction F ON U.fonction = F.id WHERE U.id=:id");
+        $this->insert = $this->db->prepare("INSERT INTO User (nom, prenom, email, password, dateEmbauche, fonction, numSecu) VALUES (:nom, :prenom, :email, :password, :dateEmbauche, :fonction, :numSecu)");
+        $this->updateByUser = $this->db->prepare("UPDATE User SET nom=:nom, prenom=:prenom, email=:email, dfaType=:dfaType, otpKey=:otpKey WHERE id=:id;");
+        $this->select = $db->prepare("SELECT u.id, nom, prenom, email, dateEmbauche, numSecu, f.libelle AS libellefonction FROM User u, Fonction f WHERE u.fonction = f.id ORDER BY nom");
+        $this->selectSpeFonction = $db->prepare("SELECT u.id, nom, prenom, email, dateEmbauche, f.libelle AS libellefonction FROM  User u JOIN Fonction f ON  u.fonction = f.id WHERE u.fonction=:foncId ORDER BY nom");
+        $this->delete = $db->prepare("DELETE FROM User WHERE id=:id");
+        $this->updateMdp = $this->db->prepare("UPDATE User SET password=:password WHERE id=:id");
+        $this->updateLastLogin = $this->db->prepare("UPDATE User SET lastLogin=:lastLogin WHERE id=:id");
 
     }
 
@@ -41,6 +41,19 @@ class User{
             print_r($this->get->errorInfo());
         }
         return $this->get->fetch();
+    }
+
+    public function getWithObject($id){
+        $unUtilisateur = $this->get->execute(array(':id'=>$id));
+        if ($this->get->errorCode()!=0){
+            print_r($this->get->errorInfo());
+        }
+
+        $usr = $this->get->fetch();
+
+        $usr['dateEmbauche'] = \DateTimeImmutable::createFromFormat('Y-m-d', $usr['dateEmbauche']);
+
+        return $usr;
     }
 
     public function updateMdp($id, $password){
@@ -73,9 +86,9 @@ class User{
         return $r;
     }
 
-    public function updateByUser($id, $nom, $prenom, $email) {
+    public function updateByUser($id, $nom, $prenom, $email, $dfaType, $otpKey = null) {
         $r = true;
-        $this->updateByUser->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':id'=>$id));
+        $this->updateByUser->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':dfaType'=>$dfaType, ':otpKey'=>$otpKey,':id'=>$id));
         if ($this->updateByUser->errorCode()!=0){
             print_r($this->updateByUser->errorInfo());
             $r=false;

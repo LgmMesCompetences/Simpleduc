@@ -29,7 +29,7 @@
                     <label for="numSecu">Numéro de Sécurité Sociale</label>
                 </div>
                 <div class="input-field col s6">
-                    <input disabled value="{{ u.dateEmbauche }}" id="dateEmbauche" type="text" class="validate">
+                    <input disabled value="{{ u.dateEmbauche|date('d/m/Y') }}" id="dateEmbauche" type="text" class="validate">
                     <label for="dateEmbauche">Date d'embauche</label>
                 </div>
 
