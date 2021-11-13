@@ -1,6 +1,5 @@
 <?php
-	//lien de bareme IS en fonction des salaires
-	//https://www.service-public.fr/particuliers/vosdroits/F1419
+	//https://validator.w3.org/nu/#textarea to validate the html template
 
 function newPayCheckControleur($twig, $db) {
 	$form = array();
@@ -25,25 +24,31 @@ function newPayCheckControleur($twig, $db) {
 		$tauxCompTrancheFirst = $_POST['tauxCompTrancheFirst'];
 		$tauxCSGDeducIR = $_POST['tauxCSGDeducIR'];
 		$tauxCSGnonDeducIR = $_POST['tauxCSGnonDeducIR'];
+
+		$secuMaladie = $_POST['secuMaladie'];
+		$accidentTra = $_POST['accidentTra'];
+		$famille = $_POST['famille'];
+		$chomage = $_POST['chomage'];
+		$autresContrib = $_POST['autresContrib'];
+		$prevoyance = $_POST['prevoyance'];
+		$cotisStat = $_POST['cotisStat'];
+		$exoEmp = $_POST['exoEmp'];
+		$exoRegul = $_POST['exoRegul'];
 	
 		$form['valide'] = true;
 		$fiche = new Fiche ($db);
-		$exec = $fiche->insert($proprietaire, $dateEmission, $cheminFichier, $heuresPayees, $dateDebutPaie, $dateFinPaie, $tauxHoraire, $tauxCompIncap, $tauxCompSante, $tauxSecuPla, $tauxSecuDepla, $tauxCompTrancheFirst, $tauxCSGDeducIR, $tauxCSGnonDeducIR);
+		$exec = $fiche->insert($proprietaire, $dateEmission->format("Y-m-d"), $cheminFichier, $heuresPayees, $dateDebutPaie, $dateFinPaie, $tauxHoraire, $tauxCompIncap, $tauxCompSante, $tauxSecuPla, $tauxSecuDepla, $tauxCompTrancheFirst, $tauxCSGDeducIR, $tauxCSGnonDeducIR, $secuMaladie, $accidentTra, $famille, $chomage, $autresContrib, $prevoyance, $cotisStat, $exoEmp, $exoRegul);
 
 		if (!$exec){
 			$form['valide'] = false;
 			$form['message'] = 'L\'insertion du fichier a échoué !';
+		}else{
+			$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
+			$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user]));
+			//$mpdf->Output();
+			$mpdf->Output('../storage/'.$nomFichier, 'F');
 		}
 	}
-
-	//https://validator.w3.org/nu/#textarea to validate the html template
-
-
-	//$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
-	//$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user]));
-	//$mpdf->Output();
-	//$mpdf->Output('../storage/'.$nomFichier, 'F');
-
 	echo $twig->render('paycheck/newPayCheck.html.twig', array('form'=>$form, 'u'=>$user));
 }
 
