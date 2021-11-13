@@ -3,12 +3,29 @@
 
 {% block contenu %}
 
+<style>
+fieldset{
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+}
+</style>
 
 <div class="container">
-<h3 class="center-align">Formulaire de création de fiche de paie</h3>
+<h3 class="center-align"><u>Formulaire de création de fiche de paie</u></h3>
+<p>Vous vous apprêtez à créer une fiche de paie pour l'employé que vous avez choisi.<br>
+Vous devez rentrer les différentes informations utiles à la création de celle-ci.<br><br>
+ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y a la plupart du temps des champs de taux mais aussi des champs de dates (les dates de début et de fin de paie) et des champs de valeurs (les heures payées et le taux horaire).<br><br>
+</p>
 
+<ul class="collection with-header">
+    <li class="collection-header"><p>Voici quelques liens utiles à la conception d'une fiche de paie:</p></li>
+    <li class="collection-item"><div>Comprendre son bulletin de paie<a href="https://www.gereso.com/actualites/2021/04/15/comprendre-bulletin-paie-differentes-rubriques-taux-assiettes-montants/" class="secondary-content"><i class="material-icons">assignment</i></a></div></li>
+    <li class="collection-item"><div>Bulletin de salaire simplifié : Description détaillée<a href="https://www.compta-online.com/bulletin-de-salaire-simplifie-description-detaillee-ao1701" class="secondary-content"><i class="material-icons">insert_comment</i></a></div></li>
+    <li class="collection-item"><div>Exemples de fiche de paie : Article<a href="https://www.ruedelapaye.com/e-mag/exemple-fiche-de-paie/" class="secondary-content"><i class="material-icons">description</i></a></div></li>
+</ul>
     <div class="row">
-        <form class="col s12">
+        <form class="col s12" method="post">
             <div class="row">
                 <h5 class="center-align">Renseignements de l'employé</h5>
 
@@ -21,7 +38,7 @@
                     <label for="prenom">Prénom</label>
                 </div>
                 <div class="input-field col s12">
-                    <input disabled value="{{ u.libellefonction }}" id="libellefonction" type="text" class="validate">
+                    <input disabled value="{{ u.libelle }}" id="libellefonction" type="text" class="validate">
                     <label for="libellefonction">Fonction</label>
                 </div>
                 <div class="input-field col s6">
@@ -34,80 +51,161 @@
                 </div>
 
 
-                <h5 class="center-align">Partie élaboration de la fiche de paie</h5>
-                <h6 class="center-align">Cotisations salariales</h6>
-                   
-                <div class="input-field col s6">
-                    <input id="heuresPayees" type="text" class="validate">
-                    <label for="heuresPayees">Heures payées</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="dateDebutPaie" type="text" class="validate">
-                    <label for="dateDebutPaie">Date début de paie</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tauxHoraire" type="text" class="validate">
-                    <label for="tauxHoraire">Taux horaire</label>
-                </div>                          
-                <div class="input-field col s6">
-                    <input id="dateFinPaie" type="text" class="validate">
-                    <label for="dateFinPaie">Date fin de paie</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tauxCompIncap" type="text" class="validate">
-                    <label for="tauxCompIncap">Taux Complémentaire Incapacité</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tauxCompSante" type="text" class="validate">
-                    <label for="tauxCompSante">Taux Complémentaire Santé</label>
-                </div>                
-                <div class="input-field col s6">
-                    <input id="tauxSecuPla" type="text" class="validate">
-                    <label for="tauxSecuPla">Taux Sécurité Sociale Plafonnée</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tauxSecuDepla" type="text" class="validate">
-                    <label for="tauxSecuDepla">Taux Sécurité Sociale Déplafonnée</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="tauxCompTrancheFirst" type="text" class="validate">
-                    <label for="tauxCompTrancheFirst">Taux Complémentaire 1ère Tranche</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tauxCSGDeducIR" type="text" class="validate">
-                    <label for="tauxCSGDeducIR">Taux CSG Déductible de l'IR</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tauxCSGnonDeducIR" type="text" class="validate">
-                    <label for="tauxCSGnonDeducIR">Taux CSG non Déductible de l'IR</label>
-                </div>
+                <h4 class="center-align">Partie d'élaboration de la fiche de paie</h4>
+                <h5 class="center-align">Cotisations salariales</h5>
+                
+                <fieldset>
+                    <legend>Général</legend>
+                    <div class="input-field col s6">
+                        <input name="heuresPayees" id="heuresPayees" type="text" class="validate">
+                        <label for="heuresPayees">Heures payées</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="tauxHoraire" id="tauxHoraire" type="text" class="validate">
+                        <label for="tauxHoraire">Taux horaire</label>
+                    </div>                 
+                    <div class="input-field col s6">
+                        <input name="dateDebutPaie" id="dateDebutPaie" type="date" class="validate">
+                        <label for="dateDebutPaie">Date début de paie</label>
+                    </div>                  
+                    <div class="input-field col s6">
+                        <input name="dateFinPaie" id="dateFinPaie" type="date" class="validate">
+                        <label for="dateFinPaie">Date fin de paie</label>
+                    </div>
+                </fieldset>
 
+                <fieldset>
+                    <legend>Santé</legend>
+                    <div class="input-field col s6">
+                        <input name="tauxCompIncap" id="tauxCompIncap" type="text" class="validate">
+                        <label for="tauxCompIncap">Taux Complémentaire Incapacité</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="tauxCompSante" id="tauxCompSante" type="text" class="validate">
+                        <label for="tauxCompSante">Taux Complémentaire Santé</label>
+                    </div> 
+                </fieldset>
 
-                <h6 class="center-align">Cotisations patronales</h6>
+                <fieldset>
+                    <legend>Retraite</legend>
+                    <div class="input-field col s6">
+                        <input name="tauxSecuPla" id="tauxSecuPla" type="text" class="validate">
+                        <label for="tauxSecuPla">Taux Sécurité Sociale Plafonnée</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="tauxSecuDepla" id="tauxSecuDepla" type="text" class="validate">
+                        <label for="tauxSecuDepla">Taux Sécurité Sociale Déplafonnée</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="tauxCompTrancheFirst" id="tauxCompTrancheFirst" type="text" class="validate">
+                        <label for="tauxCompTrancheFirst">Taux Complémentaire 1ère Tranche</label>
+                    </div>
+                </fieldset>
 
-                <div class="input-field col s6">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
+                <fieldset>
+                    <legend>CSG/CRDS</legend>
+                    <div class="input-field col s12">
+                        <input name="tauxCSGDeducIR" id="tauxCSGDeducIR" type="text" class="validate">
+                        <label for="tauxCSGDeducIR">Taux CSG Déductible de l'IR</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input name="tauxCSGnonDeducIR" id="tauxCSGnonDeducIR" type="text" class="validate">
+                        <label for="tauxCSGnonDeducIR">Taux CSG/CRDS non Déductible de l'IR</label>
+                    </div>
+                </fieldset>
+
+                <h5 class="center-align">Cotisations patronales</h5>
+
+                <fieldset>
+                    <legend>Santé</legend>
+                    <div class="input-field col s12">
+                        <input id="secuMaladie" type="text" class="validate">
+                        <label for="secuMaladie">Sécurité Sociale - Maladie Mater Inval Décès</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Accidents du travail/Maladies professionnelles</legend>
+                    <div class="input-field col s12">
+                        <input id="accidentsTra" type="text" class="validate">
+                        <label for="accidentTra">Accidents du travail/Maladie professionnelles</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Famille - Sécurité Sociale</legend>
+                    <div class="input-field col s12">
+                        <input id="famille" type="text" class="validate">
+                        <label for="famille">Famille</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Assurance Chômage</legend>
+                    <div class="input-field col s12">
+                        <input id="chomage" type="text" class="validate">
+                        <label for="chomage">Chômage</label>
+                    </div>
+                
+                </fieldset>
+
+                <fieldset>
+                    <legend>Autres contributions dues par l'employeur</legend>
+                    <div class="input-field col s6">
+                        <input id="autreContrib" type="text" class="validate">
+                        <label for="autreContrib">Autres contributions</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="forfaitSoc" type="text" class="validate">
+                        <label for="forfaitSoc">Forfait Social prévoyance</label>
+                    </div>                
+                </fieldset>
+
+                <fieldset>
+                    <legend>Cotisations statutaires ou prévues par la convention</legend>
+                    <div class="input-field col s12">
+                        <input id="cotisStat" type="text" class="validate">
+                        <label for="cotisStat">Cotisations statutaires ou prévues par la convention</label>
+                    </div>                
+                </fieldset>
+
+                <fieldset>
+                    <legend>Allègement de Cotisations</legend>
+                    <div class="input-field col s6">
+                        <input id="exoCot" type="text" class="validate">
+                        <label for="exoCot">Exonération de cotisations employeur</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="exoCotRegul" type="text" class="validate">
+                        <label for="exoCotRegul">Exonération de cotisations employeur - Régularisation</label>
+                    </div>                
+                </fieldset>
+                
+                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Créer la fiche de paie</a>
+
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Confirmation de création de fiche de paie</h4>
+                        <p>Êtes-vous sûr de vouloir créer la fiche de paie ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Annuler la création</a>
+                        <button class="btn waves-effect waves-light" type="submit" name="btCreer">Oui, créer la fiche de paie
+                            <i class="material-icons right">send</i>
+                        </button> 
+                    </div>
                 </div>
             </div>    
         </form>
     </div>
 </div>
-
-
- 
-
 {% endblock %}
 
 {% block javascript %}
-     <script>
-   $(document).ready(function(){
-    $('select').formSelect();
+<script>
+  $(document).ready(function(){
+    $('.modal').modal();
   });
- 
- </script>
+</script>
+
 {% endblock %}
