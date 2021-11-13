@@ -16,16 +16,16 @@
             <div class="title">
                 <h4>FICHE DE PAIE</h4>
             </div>
-            <p class="center-align">Paie de var.debutPaieMoinsUn au var.finPaieMoinsUn</p><br>
+            <p class="center-align">Paie du {{ dateD | date('d/m/Y')}} au {{ dateF | date('d/m/Y')}}</p><br>
             <p class="info-salarie">
-            Matricule: var.user.id<br>
-            Numéro SS: var.user.numSecu<br>
+            Matricule: {{ user.id }}<br>
+            Numéro SS: {{ user.numSecu }}<br>
             Emploi: {{ user.libelle }}<br>
             Qualif: {{ user.libelle }}<br>
-            Indice: Indice<br>
+            Indice: 1<br>
             Date début ancienneté: {{ user.dateEmbauche | date('d/m/Y') }}<br>
-            Heures payées: var.heuresPayees<br>
-            Entrée: var.user.dateEmbauche<br>
+            Heures payées: {{ heuresP }}<br>
+            Entrée: {{ user.dateEmbauche | date('d/m/Y') }}<br>
             Sortie: <br>
             </p>
         </div>
@@ -44,8 +44,54 @@
             <p class="center-align">Prénom de l'employé: {{ user.prenom }}</p><br>
         </div>
     </div>
-
     <!--corps de la FDP-->
+
+<!--CALCULS-->
+    {% set salaireBrut = heuresP * tauxH %}
+    {% set baseCSG = salaireBrut * 0.9825 + 12.34 + 13.81 %}
+    {% set baseSante = 3428.00 %}
+    {% set basePrev = 26.15 %}
+
+<!--CALCULS SALARIAUX-->
+
+    {% set aDedIncap = (salaireBrut * tauxInc) / 100 %}<!--x0.5920-->
+    {% set aDedSante = (baseSante * tauxS) / 100 %}<!--x0.0036-->
+    {% set aDedPla = (salaireBrut * tauxSecuP) / 100 %}<!--x6.9000-->
+    {% set aDedDepla = (salaireBrut * tauxSecuD) / 100 %}<!--x0.4000-->
+    {% set aDedTranche = (salaireBrut * tauxFirst) / 100 %}<!--x4.0100-->
+    {% set aDedCSGd = (salaireBrut * CSGd) / 100 %} <!--x6.8-->
+    {% set aDedCSGnD = (salaireBrut * CSGnD) / 100 %}<!--x2.9-->
+
+
+<!--CALCULS PATRONAUX-->
+    {% set aDedPatSecu = salaireBrut * secu %} <!--x0.0703-->
+    {% set aDedPatIncap = 13.81 %}
+    {% set aDedPatSante = baseSante * tauxS / 100 %}
+
+    {% set aDedPatAcc = salaireBrut * accident %} <!--x0.0375-->
+
+    {% set aDedPatPla = salaireBrut * 0.0855 %}
+    {% set aDedPatDepla = salaireBrut * 0.0190 %}
+    {% set aDedPatTranche = 93.43 %}
+
+    {% set aDedPatFam = salaireBrut * fam %}<!--x0.0345-->
+
+    {% set aDedPatChom = salaireBrut * chom %} <!--x0.0405-->
+
+    {% set aDedPatAutre = salaireBrut * autres %}<!--x0.0279-->
+    {% set aDedPatPrev  = basePrev * prev %}<!--x0.0799-->
+
+    {% set aDedPatStat = salaireBrut * stat %}<!--x0.00149-->
+
+    {% set aDedPatEmp = salaireBrut * exoE %}<!--x0.3205-->
+    {% set aDedPatReg = salaireBrut * exoReg %}<!--x0.00003-->
+
+    {% set totalSal = aDedIncap + aDedSante + aDedPla + aDedDepla + aDedTranche + aDedCSGd + aDedCSGnD %}
+    {% set salaireNet = salaireBrut - totalSal %}
+    {% set netImposable = salaireNet + aDedCSGnD + aDedPatSante %}
+    {% set totalPat = aDedPatSecu + aDedPatIncap + aDedPatSante + aDedPatAcc + aDedPatPla + aDedPatDepla + aDedPatTranche + aDedPatFam + aDedPatChom + aDedPatAutre + aDedPatPrev + aDedPatStat + aDedPatReg - aDedPatEmp %}
+    {% set totalVerse = salaireBrut + totalPat %}
+
     <div class="row">
         <div class="col s12">
             <table class="corpsFDP">
@@ -62,10 +108,10 @@
                 <tbody>
                     <tr>
                         <td class="left-align sous-titre">Salaire</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxH</td>
+                        <td class="right-align">{{ heuresP }}</td>
+                        <td class="right-align">{{ tauxH }}</td>
                         <td class="right-align"></td>
-                        <td class="right-align">var.Qtebase + tauxH</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                     </tr>
                     <tr>
@@ -73,7 +119,7 @@
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align"><b>var.totalBrut</b></td>
+                        <td class="right-align"><b>{{ (salaireBrut) | number_format(2, ',', '.') }}</b></td>
                         <td class="right-align"></td>
                     </tr>
                     <tr>
@@ -86,27 +132,27 @@
                     </tr>
                     <tr>
                         <td class="left-align">Sécurité sociale - Maladie Maternité Invalidité Décès</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatSecu) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align">Complémentaire Incap. Inva. Décès</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxIncap</td>
-                        <td class="right-align">à deduire</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
+                        <td class="right-align">{{ tauxCompIncap }}</td>
+                        <td class="right-align">{{ aDedIncap | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatIncap) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align">Complémentaire Santé</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxSante</td>
-                        <td class="right-align">a deduire</td>
+                        <td class="right-align">{{ baseSante }}</td>
+                        <td class="right-align">{{ tauxS }}</td>
+                        <td class="right-align">{{ aDedSante | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatSante) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>ACCIDENTS DU TRAVAIL - MALADIES PRO</u></td>
@@ -118,11 +164,11 @@
                     </tr>
                     <tr>
                         <td class="left-align">Accidents du Travail - Maladies Pro</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatAcc) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>RETRAITE</u></td>
@@ -134,27 +180,27 @@
                     </tr>                                        
                     <tr>
                         <td class="left-align">Sécurité Sociale plafonnée</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxSecuPla</td>
-                        <td class="right-align">a déduire</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
+                        <td class="right-align">{{ tauxSecuP }}</td>
+                        <td class="right-align">{{ aDedPla | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatPla) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align">Sécurité Sociale déplafonnée</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxSecuDepla</td>
-                        <td class="right-align">a déduire</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
+                        <td class="right-align">{{ tauxSecuD }}</td>
+                        <td class="right-align">{{ aDedDepla | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatDepla) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align">Complémentaire Tranche 1</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxCompTrancheFirst</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
+                        <td class="right-align">{{ tauxFirst }}</td>
+                        <td class="right-align">{{ aDedTranche | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
-                        <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatTranche) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>FAMILLE - SECURITE SOCIALE</u></td>
@@ -166,11 +212,11 @@
                     </tr>
                     <tr>
                         <td class="left-align">Famille</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">var.tauxFamille</td>
+                        <td class="right-align">{{ (aDedPatFam) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>ASSURANCE CHÔMAGE</u></td>
@@ -182,11 +228,11 @@
                     </tr>
                     <tr>
                         <td class="left-align">Chômage</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a déduire patronales</td>
+                        <td class="right-align">{{ (aDedPatChom) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>AUTRES CONTRIBUTIONS DUES PAR L'EMPLOYEUR</u></td>
@@ -198,19 +244,19 @@
                     </tr>
                     <tr>
                         <td class="left-align">Autres contributions dues par l'employeur</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a déduire patronales</td>
+                        <td class="right-align">{{ (aDedPatAutre) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align">Forfait social prévoyance</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ basePrev }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatPrev) | number_format(2, ',', '.') }}</td>
                     </tr>
                    <tr>
                         <td class="left-align sous-titre"><u>COTISATIONS STATUTAIRES PREVUES PAR LA CONVENTION</u></td>
@@ -222,11 +268,11 @@
                     </tr>                    
                     <tr>
                         <td class="left-align">Cotisation statutaires prévues par la convention</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatStat) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>CSG NON IMPOSABLE A L'IMPÔT SUR LE REVENU</u></td>
@@ -238,9 +284,9 @@
                     </tr>
                     <tr>
                         <td class="left-align">CSG déductible de l'impôt sur le revenu</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxCSGDeducIR</td>
-                        <td class="right-align">a deduire</td>
+                        <td class="right-align">{{ baseCSG | number_format(2, ',', '.') }}</td>
+                        <td class="right-align">{{ CSGd }}</td>
+                        <td class="right-align">{{ aDedCSGd | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                     </tr>
@@ -254,11 +300,11 @@
                     </tr>
                     <tr>
                         <td class="left-align">Exonérations de cotisations employeur</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">{{ (salaireBrut) | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">-{{ (aDedPatEmp) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align">Exonérations de cotisations employeur - Régularisation</td>
@@ -266,7 +312,7 @@
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">a deduire patronales</td>
+                        <td class="right-align">{{ (aDedPatReg) | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align sous-titre"><u>CSG/CRDS IMPOSABLES A L'IMPÔT SUR LE REVENU</u></td>
@@ -278,9 +324,9 @@
                     </tr>
                     <tr>
                         <td class="left-align">CSG/CRDS non déductible de l'impôt sur le revenu</td>
-                        <td class="right-align">base</td>
-                        <td class="right-align">var.tauxCSGnonDeduc</td>
-                        <td class="right-align">a deduire</td>
+                        <td class="right-align">{{ baseCSG | number_format(2, ',', '.') }}</td>
+                        <td class="right-align">{{ CSGnD }}</td>
+                        <td class="right-align">{{ aDedCSGnD | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                     </tr>
@@ -288,16 +334,16 @@
                         <td class="left-align"><b>TOTAL DES COTISATIONS ET CONTRIBUTIONS</b></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">toutes cotis salarie</td>
+                        <td class="right-align">{{ totalSal | number_format(2, ',', '.') }}</td>
                         <td class="right-align"></td>
-                        <td class="right-align">toutes cotis emp</td>
+                        <td class="right-align">{{ totalPat | number_format(2, ',', '.') }}</td>
                     </tr>
                     <tr>
                         <td class="left-align"><b>NET IMPOSABLE</b></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">total brut - cotis salarie</td>
+                        <td class="right-align">{{ netImposable | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
                     </tr>
                     <tr>
@@ -305,12 +351,12 @@
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">total brut - cotis salarie</td>
+                        <td class="right-align">{{ salaireNet | number_format(2, ',', '.')}}</td>
                         <td class="right-align"></td>
                     </tr>
                     <tr>
                         <td class="left-align">Dont évolution de la rémunération liée à la suppression des cotisations salariales chômage et maladie</td>
-                        <td class="right-align">base</td>
+                        <td class="right-align">22.56</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -336,10 +382,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="center-align">Salaire</td>
-                        <td class="center-align">base</td>
-                        <td class="center-align">var.tauxH</td>
-                        <td class="center-align">montant</td>
+                        <td class="center-align">Impôt sur le revenu prélevé à la source</td>
+                        <td class="center-align">{{ netImposable | number_format(2, ',', '.') }}</td>
+                        <td class="center-align">0.00</td>
+                        <td class="center-align">0.00</td>
                     </tr>
                 </tbody>
             </table>    
@@ -350,8 +396,8 @@
     <div class="row">
         <div class="col s12">
             <p>Pour plus d'informations sur le bulletin clarifié: <a href="https://www.service-public.fr/">https://service-public.fr</a> || Mode de paiement: Virement</p>
-            <p></p>
-            <p><b>NET A PAYER: var</b></p>
+            <p>Total versé par l'employeur: {{ totalVerse | number_format(2, ',', '.')}}</p>
+            <p><b>NET A PAYER: {{ salaireNet | number_format(2, ',', '.')}}</b></p>
         </div>
     </div>
 </div>

@@ -23,7 +23,16 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
     <li class="collection-item"><div>Comprendre son bulletin de paie<a href="https://www.gereso.com/actualites/2021/04/15/comprendre-bulletin-paie-differentes-rubriques-taux-assiettes-montants/" class="secondary-content"><i class="material-icons">assignment</i></a></div></li>
     <li class="collection-item"><div>Bulletin de salaire simplifié : Description détaillée<a href="https://www.compta-online.com/bulletin-de-salaire-simplifie-description-detaillee-ao1701" class="secondary-content"><i class="material-icons">insert_comment</i></a></div></li>
     <li class="collection-item"><div>Exemples de fiche de paie : Article<a href="https://www.ruedelapaye.com/e-mag/exemple-fiche-de-paie/" class="secondary-content"><i class="material-icons">description</i></a></div></li>
+    <li class="collection-item"><div>Les différents taux<a href="https://www.journaldunet.fr/management/guide-du-management/1110948-charges-sociales-en-2021-taux-assiettes-et-cotisations/" class="secondary-content"><i class="material-icons">control_point</i></a></div></li>
 </ul>
+
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">account_circle</i>Taux pour un employé touchant le SMIC à 35h/ semaine</div>
+      <div class="collapsible-body"><span>Horaires travaillées: 151.67<br>Taux horaire: 10.2500<br><br><b>COTISATIONS SALARIALES:</b><br>Taux Incapacité: 0.5920<br>Taux Santé: 0.3600<br>Taux Sécu Plafonnée: 6.9000<br>Taux Sécu Déplafonnée: 0.4000<br>Taux 1ere tranche: 4.0100<br>Taux CSG déductible: 6.8000<br>Taux CSG non Déductible: 2.9000<br><br><b>COTISATIONS PATRONALES:</b><br>Maladie Maternité: 0.0703<br>Accidents: 0.0375<br>Famille: 0.0345<br>Chômage: 0.0405<br>Autres contributions: 0.0279<br>Forfait Social: 0.0799<br>Cotisations statutaires: 0.00149<br>Exonération: 0.3205<br>Exonération - Régularisation: 0.00003</span></div>
+    </li>
+  </ul>
+
     <div class="row">
         <form class="col s12" method="post">
             <div class="row">
@@ -59,11 +68,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Général</legend>
                     <div class="input-field col s6">
-                        <input name="heuresPayees" id="heuresPayees" type="text" class="validate">
+                        <input name="heuresPayees" id="heuresPayees" type="number" min="0" step="0.0001" class="validate">
                         <label for="heuresPayees">Heures payées</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="tauxHoraire" id="tauxHoraire" type="text" class="validate">
+                        <input name="tauxHoraire" id="tauxHoraire" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxHoraire">Taux horaire</label>
                     </div>                 
                     <div class="input-field col s6">
@@ -79,11 +88,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Santé</legend>
                     <div class="input-field col s6">
-                        <input name="tauxCompIncap" id="tauxCompIncap" type="text" class="validate">
+                        <input name="tauxCompIncap" id="tauxCompIncap" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxCompIncap">Taux Complémentaire Incapacité</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="tauxCompSante" id="tauxCompSante" type="text" class="validate">
+                        <input name="tauxCompSante" id="tauxCompSante" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxCompSante">Taux Complémentaire Santé</label>
                     </div> 
                 </fieldset>
@@ -91,15 +100,15 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Retraite</legend>
                     <div class="input-field col s6">
-                        <input name="tauxSecuPla" id="tauxSecuPla" type="text" class="validate">
+                        <input name="tauxSecuPla" id="tauxSecuPla" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxSecuPla">Taux Sécurité Sociale Plafonnée</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="tauxSecuDepla" id="tauxSecuDepla" type="text" class="validate">
+                        <input name="tauxSecuDepla" id="tauxSecuDepla" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxSecuDepla">Taux Sécurité Sociale Déplafonnée</label>
                     </div>
                     <div class="input-field col s12">
-                        <input name="tauxCompTrancheFirst" id="tauxCompTrancheFirst" type="text" class="validate">
+                        <input name="tauxCompTrancheFirst" id="tauxCompTrancheFirst" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxCompTrancheFirst">Taux Complémentaire 1ère Tranche</label>
                     </div>
                 </fieldset>
@@ -107,11 +116,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>CSG/CRDS</legend>
                     <div class="input-field col s12">
-                        <input name="tauxCSGDeducIR" id="tauxCSGDeducIR" type="text" class="validate">
+                        <input name="tauxCSGDeducIR" id="tauxCSGDeducIR" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxCSGDeducIR">Taux CSG Déductible de l'IR</label>
                     </div>
                     <div class="input-field col s12">
-                        <input name="tauxCSGnonDeducIR" id="tauxCSGnonDeducIR" type="text" class="validate">
+                        <input name="tauxCSGnonDeducIR" id="tauxCSGnonDeducIR" type="number" min="0" step="0.0001" class="validate">
                         <label for="tauxCSGnonDeducIR">Taux CSG/CRDS non Déductible de l'IR</label>
                     </div>
                 </fieldset>
@@ -123,7 +132,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Santé</legend>
                     <div class="input-field col s12">
-                        <input name="secuMaladie" id="secuMaladie" type="text" class="validate">
+                        <input name="secuMaladie" id="secuMaladie" type="number" min="0" step="0.0001" class="validate">
                         <label for="secuMaladie">Sécurité Sociale - Maladie Mater Inval Décès</label>
                     </div>
                 </fieldset>
@@ -131,7 +140,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Accidents du travail/Maladies professionnelles</legend>
                     <div class="input-field col s12">
-                        <input name="accidentTra" id="accidentTra" type="text" class="validate">
+                        <input name="accidentTra" id="accidentTra" type="number" min="0" step="0.0001" class="validate">
                         <label for="accidentTra">Accidents du travail/Maladie professionnelles</label>
                     </div>
                 </fieldset>
@@ -139,7 +148,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Famille - Sécurité Sociale</legend>
                     <div class="input-field col s12">
-                        <input name="famille" id="famille" type="text" class="validate">
+                        <input name="famille" id="famille" type="number" min="0" step="0.0001" class="validate">
                         <label for="famille">Famille</label>
                     </div>
                 </fieldset>
@@ -147,7 +156,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Assurance Chômage</legend>
                     <div class="input-field col s12">
-                        <input name="chomage" id="chomage" type="text" class="validate">
+                        <input name="chomage" id="chomage" type="number" min="0" step="0.0001" class="validate">
                         <label for="chomage">Chômage</label>
                     </div>
                 
@@ -156,11 +165,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Autres contributions dues par l'employeur</legend>
                     <div class="input-field col s6">
-                        <input name="autresContrib" id="autresContrib" type="text" class="validate">
+                        <input name="autresContrib" id="autresContrib" type="number" min="0" step="0.0001" class="validate">
                         <label for="autresContrib">Autres contributions</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="prevoyance" id="prevoyance" type="text" class="validate">
+                        <input name="prevoyance" id="prevoyance" type="number" min="0" step="0.0001" class="validate">
                         <label for="prevoyance">Forfait Social prévoyance</label>
                     </div>                
                 </fieldset>
@@ -168,7 +177,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Cotisations statutaires ou prévues par la convention</legend>
                     <div class="input-field col s12">
-                        <input name="cotisStat" id="cotisStat" type="text" class="validate">
+                        <input name="cotisStat" id="cotisStat" type="number" min="0" step="0.00001" class="validate">
                         <label for="cotisStat">Cotisations statutaires ou prévues par la convention</label>
                     </div>                
                 </fieldset>
@@ -176,11 +185,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Allègement de Cotisations</legend>
                     <div class="input-field col s6">
-                        <input name="exoEmp" id="exoEmp" type="text" class="validate">
+                        <input name="exoEmp" id="exoEmp" type="number" min="0" step="0.0001" class="validate">
                         <label for="exoEmp">Exonération de cotisations employeur</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="exoRegul" id="exoRegul" type="text" class="validate">
+                        <input name="exoRegul" id="exoRegul" type="number" min="0" step="0.00001" class="validate">
                         <label for="exoRegul">Exonération de cotisations employeur - Régularisation</label>
                     </div>                
                 </fieldset>
@@ -209,6 +218,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
 <script>
   $(document).ready(function(){
     $('.modal').modal();
+    $('.collapsible').collapsible();
   });
 </script>
 

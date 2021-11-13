@@ -44,9 +44,9 @@ function newPayCheckControleur($twig, $db) {
 			$form['message'] = 'L\'insertion du fichier a échoué !';
 		}else{
 			$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
-			$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user]));
-			//$mpdf->Output();
-			$mpdf->Output('../storage/'.$nomFichier, 'F');
+			$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user, 'heuresP'=>$heuresPayees, 'dateD'=>$dateDebutPaie, 'dateF'=>$dateFinPaie, 'tauxH'=>$tauxHoraire, 'tauxInc'=>$tauxCompIncap, 'tauxS'=>$tauxCompSante, 'tauxSecuP'=>$tauxSecuPla, 'tauxSecuD'=>$tauxSecuDepla, 'tauxFirst'=>$tauxCompTrancheFirst, 'CSGd'=>$tauxCSGDeducIR, 'CSGnD'=>$tauxCSGnonDeducIR, 'secu'=>$secuMaladie, 'accident'=>$accidentTra, 'fam'=>$famille, 'chom'=>$chomage, 'autres'=>$autresContrib, 'prev'=>$prevoyance, 'stat'=>$cotisStat, 'exoE'=>$exoEmp, 'exoReg'=>$exoRegul]));
+			$mpdf->Output();
+			//$mpdf->Output('../storage/'.$nomFichier, 'F');
 		}
 	}
 	echo $twig->render('paycheck/newPayCheck.html.twig', array('form'=>$form, 'u'=>$user));
@@ -54,7 +54,7 @@ function newPayCheckControleur($twig, $db) {
 
 
 function listePayCheckControleur($twig) {
-	echo $twig->render('paycheck/payCheckTemplate.html.twig', array());
+	echo $twig->render('paycheck/listePayCheck.html.twig', array());
 }
 
 
