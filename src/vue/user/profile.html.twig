@@ -39,11 +39,45 @@
     </div>
 </div>
 {% endif %}
+
+<div id="modal3" class="modal">
+    <div class="modal-content">
+        {% if form.valide is defined %}
+		{% if form.valide == true %}
+        <div class="container">
+			<h3>Ajout réussie !</h3>
+        </div>
+        {% else %}
+        <div class="container">
+			<h3>Échec de l'ajout !</h3>
+			<h3>{{form.message}}</u></h3>
+        </div>            
+		{% endif %}
+	{% endif %}
+        <h4>Ajouter une qualification</h4>
+        <p>
+        <form method="post">
+            <div class="input-field col s6">
+                <input id="newQualif" type="text" name="newQualif">              
+                <label for="newQualif">Nouvelle qualification:</label>               
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="btAjoutQualif">Ajouter</button>
+
+        </form>
+            
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+    </div>
+</div>
+
 <div class="container z-depth-3 white">
     <div class="row mt-5">
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s3"><a class="active" href="#mySpace">Mon Espace</a></li>
+                <li class="tab col s3"><a href="#mesQualif">Mes Qualifications</a></li>
                 <li class="tab col s3"><a href="#fichePaie">Mes fiches de paie</a></li>
             </ul>
         </div>
@@ -84,6 +118,23 @@
                 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Changer de mot de passe</a>
             </form>
         </div>
+
+        <div id="mesQualif" class="col s12 mt-5">
+            <div class="row">
+                <form action="" method="post">
+                    {% for u in qualification %}
+                        <div class="input-field inline col s3 m4">
+                            <input name="qualification[]" class="modifiablequalif" type="text" disabled value="{{ u.contenu | capitalize }}">
+                        </div>
+                    {% endfor %}
+                    </br>
+            </div>
+                    <button id="modifqualif" class="waves-effect waves-light btn" type="button">Modifier mes qualifications</a>
+                    <button id="savequalif" class="waves-effect waves-light btn hide" type="submit" name="btnUpdateQualif">Sauvegarder</button>
+                    <a class="waves-effect waves-light btn modal-trigger" href="#modal3">Ajouter une qualification</a>
+                </form>
+        </div>
+
         <div id="fichePaie" class="col s12 mt-5">
             <ul class="collapsible">
             {% for year, months in years|reverse(true) %}
@@ -135,6 +186,9 @@ $(document).ready(function() {
         var modal2 = M.Modal.init($('#modal2'));
         modal2[0].open();
     {% endif %}
+    
+    var modal3 = M.Modal.init($('#modal3'));
+
 
     $('#modif').click(() => {
         $(".modifiable").each(function( index ) {
@@ -152,6 +206,24 @@ $(document).ready(function() {
         $('#save').toggleClass("hide");
         yes = !yes;
     });
+
+    $('#modifqualif').click(() => {
+        $(".modifiablequalif").each(function( index ) {
+            $( this ).prop("disabled",  !$( this ).prop("disabled"));
+        });
+
+        select.destroy();
+        select = M.FormSelect.init(selectEl, {
+            dropdownOptions: {
+                coverTrigger: false,
+            },
+        });
+
+        $('#modifqualif').text(yes ? "annuler" : "modifier");
+        $('#savequalif').toggleClass("hide");
+        yes = !yes;
+    });
+    
 });
 </script>
 

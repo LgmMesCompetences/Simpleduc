@@ -94,3 +94,10 @@ th, td{
 .sous-titre {
     font-size: 13px ;
 }
+
+
+img.default-profile{
+    clip-path:ellipse(50% 50%);
+    width:"100"; 
+    height:"100"
+}

@@ -5,7 +5,10 @@
 
 {% block contenu %}
 
-	{% if form.valide is defined %}
+
+
+        <div class="boiteConnexion z-depth-3 white">
+        {% if form.valide is defined %}
 		{% if form.valide == true %}
         <div class="container">
 			<h3>Inscription réussie !</h3>
@@ -18,8 +21,6 @@
         </div>            
 		{% endif %}
 	{% endif %}
-
-        <div class="boiteConnexion z-depth-3 white">
 		<div class="row">
         <form action="ajout" method="post">
             <div class="input-field col s6">

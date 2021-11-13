@@ -5,10 +5,11 @@ use OTPHP\TOTP;
 function profileControleur($twig, $db) {
 	include '../config/parametres.php';
 	$utilisateur = new User($db);
+	$qualificationObjet = new Qualification($db);
 	$fiche = new Fiche($db);
 	$id = $_SESSION['id'];
 	$user = $utilisateur->get($id);
-
+	$qualification = $qualificationObjet->get($id);
 	$fiches = $fiche->get($id);
 	if($config['debug']) dump($fiches);
 	$years=null;
@@ -71,6 +72,32 @@ function profileControleur($twig, $db) {
 		}
 	}
 
+	if (isset($_POST['btAjoutQualif'])) {
+		$newQualif = $_POST['newQualif'];
+		if (strlen($newQualif) == 0) {
+			$error = 'Le champ ne doit pas être vide !';
+		}
+		if ($error == null) {
+			$exec = $qualificationObjet->add($newQualif,$user['id']);
+		}
+		header('Location:profile');
+
+	}
+
+
+
+	if (isset($_POST['btnUpdateQualif'])) {
+		$contenu = $_POST['qualification'];
+		$qualification = $qualificationObjet->clear($user['id']);
+		foreach ($contenu as $qualif) {
+			if (strlen($qualif) != 0) {
+				$qualificationObjet->add($qualif,$user['id']);
+			}
+		}
+		header('Location:profile');
+
+	}
+
 	if (isset($_POST['btnUpdatePswd'])){
 		$pswdOld = $_POST['passwordO'];
 		$pswdNew = $_POST['passwordN'];
@@ -110,11 +137,14 @@ function profileControleur($twig, $db) {
 		$otpUri = null;
 	}
 
+
+
 	echo $twig->render('user/profile.html.twig', [
 		'user' => $user,
 		'error' => $error,
 		'good' => $good,
 		'years' => $years,
-		'otpUri' => urlencode($otpUri)
+		'otpUri' => urlencode($otpUri),
+		'qualification' => $qualification
 	]);
 }
