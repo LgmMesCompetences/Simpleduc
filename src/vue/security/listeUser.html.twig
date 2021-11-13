@@ -173,18 +173,19 @@
         </thead>
 
         <tbody>
-        {% for u in listeDirect %}
-          <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
-            <td>{{ u.nom | upper }}</td>
-            <td>{{ u.prenom | capitalize }}</td>
-            <td>{{ u.email }}</td>
-            <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
-            <td>{{ u.libellefonction }}</td>
-          {% if session.role == 3 %}
-          <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
-          {% elseif session.role == 4 or session.role == 5 %}
-          <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
-          {% endif %}</tr>
+          {% for u in listeDirect %}
+            <tr class="{{ cycle(['light-blue lighten-5', ' light-blue lighten-4'], loop.index0) }}">
+              <td>{{ u.nom | upper }}</td>
+              <td>{{ u.prenom | capitalize }}</td>
+              <td>{{ u.email }}</td>
+              <td>{{ u.dateEmbauche | date('d/m/Y') }}</td>
+              <td>{{ u.libellefonction }}</td>
+              {% if session.role == 3 %}
+                <td><a class="cursorPointer" href="index.php?page=newPayCheck&id={{ u.id }}">Créer sa fiche de paie</a></td>
+              {% elseif session.role == 4 or session.role == 5 %}
+                <td><a class="cursorPointer" onClick="del({{ u.id }})">Supprimer</a></td>
+              {% endif %}
+            </tr>
           {% endfor %}
         </tbody>
     </table>
@@ -201,13 +202,9 @@ var instance;
     $('.tabs').tabs();
 
   });
-
-
   function del(id) {
     $('#btndel').attr("href","listeUser?id="+id);
     instance[0].open();
   }
-
 </script>
-
 {% endblock %}
