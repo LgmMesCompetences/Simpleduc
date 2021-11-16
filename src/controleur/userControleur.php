@@ -28,7 +28,6 @@ function profileControleur($twig, $db) {
 
 			$years[$year][$month] = $fiche;
 		}
-		if($config['debug']) dump($years);
 	}
 
 	$error = null;
