@@ -49,4 +49,19 @@ class Mailer{
         // Send the message
         if($this->send) $this->mailer->send($message);
     }
+
+    public function sendNewPassword($target, $token){
+      // Create a message
+      $body = $this->twig->render('emails/emailNewPassword.html.twig', ['token' => $token]);
+   
+      $message = (new Swift_Message('Nouveau Mot de passe pour Simpl\'Educ'))
+        ->setFrom(['no-reply@simpleduc.fr' => 'NO REPLY'])
+        ->setTo([$target])
+        ->setBody($body)
+        ->setContentType('text/html')
+      ;
+   
+      // Send the message
+      if($this->send) $this->mailer->send($message);
+  }
 }

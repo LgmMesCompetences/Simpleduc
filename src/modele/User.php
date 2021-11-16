@@ -11,6 +11,9 @@ class User{
     private $select;
     private $delete;
     private $selectSpeFonction;
+    private $selectByEmail;
+    private $setToken;
+    private $getToken;
 
 
     public function __construct($db) {
@@ -21,9 +24,12 @@ class User{
         $this->updateByUser = $this->db->prepare("UPDATE User SET nom=:nom, prenom=:prenom, email=:email, dfaType=:dfaType, otpKey=:otpKey WHERE id=:id;");
         $this->select = $db->prepare("SELECT u.id, nom, prenom, email, dateEmbauche, numSecu, f.libelle AS libellefonction FROM User u, Fonction f WHERE u.fonction = f.id ORDER BY nom");
         $this->selectSpeFonction = $db->prepare("SELECT u.id, nom, prenom, email, dateEmbauche, f.libelle AS libellefonction FROM  User u JOIN Fonction f ON  u.fonction = f.id WHERE u.fonction=:foncId ORDER BY nom");
+        $this->selectByEmail = $db->prepare("SELECT id FROM User WHERE email=:email");
         $this->delete = $db->prepare("DELETE FROM User WHERE id=:id");
         $this->updateMdp = $this->db->prepare("UPDATE User SET password=:password WHERE id=:id");
         $this->updateLastLogin = $this->db->prepare("UPDATE User SET lastLogin=:lastLogin WHERE id=:id");
+        $this->setToken = $this->db->prepare("UPDATE User SET token=:token WHERE id=:id");
+        $this->getToken = $this->db->prepare("SELECT id FROM User WHERE token=:token");
 
     }
 
@@ -76,6 +82,24 @@ class User{
         return $r;
     }
 
+    public function setToken($id, $token){
+        $r = true;
+        $this->setToken->execute(array(':id'=>$id, ':token'=>$token));
+        if ($this->setToken->errorCode()!=0){
+            print_r($this->setToken->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }
+
+    public function getByToken($token){
+        $this->getToken->execute(array(':token'=>$token));
+        if ($this->getToken->errorCode()!=0){
+            print_r($this->getToken->errorInfo());
+        }
+        return $this->getToken->fetch();
+    }
+
     public function insert($nom, $prenom, $email, $password, $dateEmbauche, $fonction, $numSecu){
         $r = true;
         $this->insert->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':email'=>$email, ':password'=>$password, ':dateEmbauche'=>$dateEmbauche, ':fonction'=>$fonction, ':numSecu'=>$numSecu));
@@ -110,6 +134,14 @@ class User{
             print_r($this->selectSpeFonction->errorInfo());
         }
         return $this->selectSpeFonction->fetchAll();
+    }
+
+    public function selectByEmail($email){
+        $this->selectByEmail->execute(array(':email'=>$email));
+        if ($this->selectByEmail->errorCode()!=0){
+            print_r($this->selectByEmail->errorInfo());
+        }
+        return $this->selectByEmail->fetch();
     }
 
     public function delete($id){

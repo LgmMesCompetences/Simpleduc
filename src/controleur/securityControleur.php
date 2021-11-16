@@ -170,10 +170,77 @@ function dFAControleur($twig, $db) {
 	echo $twig->render('security/2FA.html.twig', array('form'=>$form, 'sendMail' => ($_SESSION['2FA_try']>=2)));
 }
 
-function updatemdpControleur($twig, $db) {
+function mdpOublieControleur($twig, $db) {
+	
+	$form = array();
+	
+	if (isset($_POST['btEnvoyer'])){
+		$email = $_POST['email'];
+		$utilisateur = new User($db);
+		$unUtilisateur = $utilisateur->selectByEmail($email);
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$form['valide'] = false;
+			$form['message'] = 'L\'email est invalide !';
+		}
+		if ($unUtilisateur!=null) {
+			$token = md5(uniqid());
+			$utilisateur->setToken($unUtilisateur['id'],$token);
+			
+			$mailer = new Mailer($twig);
+			$mailer->sendNewPassword($email, $token);
+			$form['message'] = 'Un email a été envoyé !';
+
+		}
+
+	}
 
 	
-	echo $twig->render('security/mdpoublie.html.twig', array());
+	echo $twig->render('security/mdpoublie.html.twig', array('form'=>$form));
+}
+
+function newPasswordControleur($twig, $db){
+	$token = $_GET['token'];
+
+	$utilisateur = new User($db);
+	$unUtilisateur = $utilisateur->getByToken($token);
+
+	if ($unUtilisateur == null) {
+		header('Location: connexion');
+	}
+
+	$form = array();
+
+	if(isset($_POST['btChanger'])){
+		$password = $_POST['password'];
+		$password2 = $_POST['password2'];
+		$form['valide'] = true;
+
+		if (strlen($password) == 0){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un mot de passe !';
+		}
+		elseif (strlen($password) < 8){
+			$form['valide'] = false;
+			$form['message'] = 'Merci de spécifier un mot de passe d\'au moins 8 caractères !';
+		}
+		elseif (!testPswd($password)){
+			$form['valide'] = false;
+			$form['message'] = 'Le mot de passe doit comporter au moins: 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial !';
+		}
+		elseif ($password!=$password2){
+			$form['valide'] = false;
+			$form['message'] = 'Les mots de passe sont différents !';
+		}
+		else{
+			$utilisateur->updateMdp($unUtilisateur['id'], password_hash($password, PASSWORD_DEFAULT));
+			$utilisateur->setToken($unUtilisateur['id'], null);
+
+			header('Location: connexion');
+		}
+
+	}
+	echo $twig->render('security/newPassword.html.twig', array('form'=>$form));
+
 }
 
 function connexionControleur($twig, $db) {
@@ -220,6 +287,7 @@ function connexionControleur($twig, $db) {
 	}
 	echo $twig->render('security/connexion.html.twig', array('form'=>$form, 'email'=>$email));
 }
+
 
 function deconnexionControleur($twig, $db){
 	session_unset();

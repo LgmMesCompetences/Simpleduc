@@ -6,7 +6,8 @@ function getPage($db){
     $lesPages['maintenance'] = "maintenanceControleur;0";
     $lesPages['connexion'] = "connexionControleur;0";
     $lesPages['firstLogin'] = "firstLoginControleur;1,2,3,4,5";
-    $lesPages['mdpoublie'] = "updatemdpControleur;0";
+    $lesPages['mdpoublie'] = "mdpOublieControleur;0";
+    $lesPages['newPassword'] = "newPasswordControleur;0";
     $lesPages['deconnexion'] = "deconnexionControleur;0";
     $lesPages['profile'] = "profileControleur;1,2,3,4,5";
     $lesPages['ajout'] = "inscrireControleur;0,4,5";
