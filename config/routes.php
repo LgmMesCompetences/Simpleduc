@@ -14,6 +14,8 @@ function getPage($db){
     $lesPages['2FA'] = "dFAControleur;1,2,3,4,5";
     $lesPages['newPayCheck'] = "newPayCheckControleur;3";
     $lesPages['listePayCheck'] = "listePayCheckControleur;3";
+    $lesPages['fiche'] = "ficheDlControleur;1,2,3,4,5";
+    $lesPages['dlDonnees'] = "dlDonneesControleur;1,2,3,4,5";
 
 if($db!=null) {
     if(isset($_GET['page'])) {

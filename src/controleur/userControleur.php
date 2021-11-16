@@ -11,28 +11,29 @@ function profileControleur($twig, $db) {
 	$user = $utilisateur->get($id);
 	$qualification = $qualificationObjet->get($id);
 	$fiches = $fiche->get($id);
+
 	if($config['debug']) dump($fiches);
+
 	$years=null;
 
 	if(count($fiches)!=0){
+		$english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+		$french_months = array('Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre');
 
-	
+		foreach ($fiches as $fiche) {
+			$date = new DateTime($fiche['dateEmission']);
+			$date->setTimezone(new DateTimeZone('Europe/Paris'));
+			$year = $date->format('Y');
+			$month = str_replace($english_months, $french_months, $date->format('F'));
 
-	$english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-    $french_months = array('Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre');
-
-	foreach ($fiches as $fiche) {
-		$date = new DateTime($fiche['dateEmission']);
-		$date->setTimezone(new DateTimeZone('Europe/Paris'));
-		$year = $date->format('Y');
-		$month = str_replace($english_months, $french_months, $date->format('F'));
-
-		$years[$year][$month] = $fiche;
+			$years[$year][$month] = $fiche;
+		}
+		if($config['debug']) dump($years);
 	}
-	if($config['debug']) dump($years);
-	}
+
 	$error = null;
 	$good = null;
+
 	if (isset($_POST['btnUpdate'])){
 		$nom = $_POST['nom'];
 		$prenom = $_POST['prenom'];
@@ -41,7 +42,11 @@ function profileControleur($twig, $db) {
 		if ($dfa == 'email') {
 			$otpKey = null;
 		}else {
-			$otpKey = TOTP::create()->getSecret();
+			if($_SESSION['user']['dfaType'] != 'otp') {
+				$otpKey = TOTP::create()->getSecret();
+			}else {
+				$otpKey = $_SESSION['user']['otpKey'];
+			}
 		}
 
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -59,12 +64,13 @@ function profileControleur($twig, $db) {
 			if (!$exec) {
 				$error = 'erreur';
 			}else {
+				$_SESSION['showOtp'] = ($dfa == 'otp' && $_SESSION['user']['dfaType'] != 'otp');
+
 				$_SESSION['login'] = $email;
 				$_SESSION['user']['nom'] = $nom;
 				$_SESSION['user']['prenom'] = $prenom;
 				$_SESSION['user']['dfaType'] = $dfa;
 				$_SESSION['user']['otpKey'] = $otpKey;
-				$_SESSION['showOtp'] = $dfa == 'otp';
 
 				header('Location:profile');
 				return;
@@ -80,11 +86,9 @@ function profileControleur($twig, $db) {
 		if ($error == null) {
 			$exec = $qualificationObjet->add($newQualif,$user['id']);
 		}
-		header('Location:profile');
+		header('Location:profile#mesQualif');
 
 	}
-
-
 
 	if (isset($_POST['btnUpdateQualif'])) {
 		$contenu = $_POST['qualification'];
@@ -137,8 +141,6 @@ function profileControleur($twig, $db) {
 		$otpUri = null;
 	}
 
-
-
 	echo $twig->render('user/profile.html.twig', [
 		'user' => $user,
 		'error' => $error,
@@ -147,4 +149,96 @@ function profileControleur($twig, $db) {
 		'otpUri' => urlencode($otpUri),
 		'qualification' => $qualification
 	]);
+}
+
+function ficheDlControleur($twig, $db) {
+	$id = $_GET['id'];
+	if($id != null) {
+		$ficheP = new Fiche($db);
+
+		$fiche = $ficheP->getById($id);
+
+		if ($fiche != null) {
+			if ($fiche['proprietaire'] == $_SESSION['id']) {
+				$file = '../storage/'.$fiche['cheminFichier'];
+				$dateEmission = DateTimeImmutable::createFromFormat('Y-m-d', $fiche['dateEmission']);
+
+				if (file_exists($file)) {
+					header('Content-Description: File Transfer');
+					header('Content-Type: application/pdf');
+					header('Content-Disposition: attachment; filename=fiche-paie-'.$dateEmission->format('d-m-Y').'.pdf');
+					header('Content-Transfer-Encoding: binary');
+					header('Expires: 0');
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Pragma: public');
+					header('Content-Length: ' . filesize($file));
+					ob_clean();
+					flush();
+					readfile($file);
+					exit;
+				}else {
+					header('Location: profile#fichePaie?error=dontexist');
+				}
+			}else {
+				header('Location: profile#fichePaie?error=unavailable');
+			}
+		}else {
+			header('Location: profile#fichePaie?error=unexisting');
+		}
+	}else {
+		header('Location: profile#fichePaie?error=noId');
+	}
+
+	header('Location: profile#fichePaie');
+}
+
+function dlDonneesControleur($twig, $db) {
+	$userM = new User($db);
+	$user = $userM->get($_SESSION['id']);
+
+	$zip = new ZipArchive();
+	$filename = '../storage/temp/'.md5($user['id']).'.zip';
+
+	if (file_exists($filename)) {
+		unlink($filename);
+	}
+
+	if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+		exit("Impossible d'ouvrir le fichier <$filename>\n");
+		header('Location: profile');
+	}else {
+		$ficheM = new Fiche($db);		
+		$fiches = $ficheM->get($_SESSION['id']);
+
+		foreach ($fiches as $fiche) {
+			$dateEmission = DateTimeImmutable::createFromFormat('Y-m-d', $fiche['dateEmission']);
+			$zip->addFile('../storage/'.$fiche['cheminFichier'], 'fiche-paie/fiche-paie-'.$dateEmission->format('d-m-Y').'.pdf');
+		}
+
+		$date = DateTimeImmutable::createFromFormat('Y-m-d', $user['dateEmbauche']);
+
+		$userData='Nom: '.$user['nom']."\n";
+		$userData='Prenom: '.$user['prenom']."\n";
+		$userData.='Email: '.$user['email']."\n";
+		$userData.='Numero de Securite Social: '.$user['numSecu']."\n\n";
+		$userData.='Date d\'embauche: '.$date->format('d/m/Y')."\n";
+		$userData.='Fonction: '.$user['libelle']."\n";
+
+		$zip->addFromString("utilisateur.txt", $userData);
+
+		$zip->close();
+
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/zip');
+		header('Content-Disposition: attachment; filename=donnees-personnel-'.strtolower($user['nom']).'-'.strtolower($user['prenom']).'.zip');
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($filename));
+		ob_clean();
+		flush();
+		readfile($filename);
+		exit;
+	}
 }

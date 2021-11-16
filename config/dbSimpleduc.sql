@@ -32,7 +32,7 @@ CREATE TABLE `FichePaie` (
   `proprietaire` int(11) NOT NULL,
   `dateEmission` date NOT NULL,
   `cheminFichier` varchar(255) NOT NULL,
-  `heuresPayees` int(11) NOT NULL,
+  `heuresPayees` double NOT NULL,
   `dateDebutPaie` date NOT NULL,
   `dateFinPaie` date NOT NULL,
   `tauxHoraire` double NOT NULL,

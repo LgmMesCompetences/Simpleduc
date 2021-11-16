@@ -177,6 +177,10 @@ function updatemdpControleur($twig, $db) {
 }
 
 function connexionControleur($twig, $db) {
+	if ($_SESSION['id'] != null) {
+		header('Location: profile');
+	}
+
 	$form = array();
 	$email = null;
 

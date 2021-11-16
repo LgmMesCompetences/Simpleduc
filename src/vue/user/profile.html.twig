@@ -116,6 +116,7 @@
                 <button id="modif" class="waves-effect waves-light btn" type="button">Modifier</button>
                 <button id="save" class="waves-effect waves-light btn hide" type="submit" name="btnUpdate">Sauvegarder</button>
                 <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Changer de mot de passe</a>
+                <a class="waves-effect waves-light btn" href="dlDonnees" target="_blank">Télécharger mes données</a>
             </form>
         </div>
 
@@ -146,7 +147,7 @@
                                     <li>
                                         <div class="collapsible-header">{{ month | capitalize }}</div>
                                         <div class="collapsible-body">
-                                            {{ fiche.dateEmission }}
+                                            <a href="fiche?id={{fiche.id}}">Fiche du {{ fiche.dateEmission | date('d/m/Y') }}</a>
                                         </div>
                                     </li>
                             {% endfor %}
