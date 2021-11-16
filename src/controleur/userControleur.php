@@ -56,7 +56,7 @@ function profileControleur($twig, $db) {
 			$error = 'Les champs du nom et du prénom ne peuvent pas être vides !';
 		}
 		if (!in_array($dfa, ['email', 'otp'])) {
-			$error = 'Les seuls A2F possible sont email et otp.';
+			$error = 'Seul l\'email et l\'OTP sont acceptés pour la double authentification';
 		}
 
 		if ($error == null) {

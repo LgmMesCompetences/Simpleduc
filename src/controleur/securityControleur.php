@@ -20,7 +20,7 @@ function inscrireControleur($twig, $db){
 		}
 		elseif (strlen($prenom) == 0){
 			$form['valide'] = false;
-			$form['message'] = 'Merci de spécifier un prenom !';
+			$form['message'] = 'Merci de spécifier un prénom !';
 		}
 		elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$form['valide'] = false;

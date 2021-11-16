@@ -15,14 +15,13 @@ fieldset{
 <h3 class="center-align"><u>Formulaire de création de fiche de paie</u></h3>
 <p>Vous vous apprêtez à créer une fiche de paie pour l'employé que vous avez choisi.<br>
 Vous devez rentrer les différentes informations utiles à la création de celle-ci.<br><br>
-ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y a la plupart du temps des champs de taux mais aussi des champs de dates (les dates de début et de fin de paie) et des champs de valeurs (les heures payées et le taux horaire).<br><br>
 </p>
 
 <ul class="collection with-header">
     <li class="collection-header"><p>Voici quelques liens utiles à la conception d'une fiche de paie:</p></li>
     <li class="collection-item"><div>Comprendre son bulletin de paie<a href="https://www.gereso.com/actualites/2021/04/15/comprendre-bulletin-paie-differentes-rubriques-taux-assiettes-montants/" class="secondary-content"><i class="material-icons">assignment</i></a></div></li>
     <li class="collection-item"><div>Bulletin de salaire simplifié : Description détaillée<a href="https://www.compta-online.com/bulletin-de-salaire-simplifie-description-detaillee-ao1701" class="secondary-content"><i class="material-icons">insert_comment</i></a></div></li>
-    <li class="collection-item"><div>Exemples de fiche de paie : Article<a href="https://www.ruedelapaye.com/e-mag/exemple-fiche-de-paie/" class="secondary-content"><i class="material-icons">description</i></a></div></li>
+    <li class="collection-item"><div>Exemple de fiche de paie : Article de presse<a href="https://www.ruedelapaye.com/e-mag/exemple-fiche-de-paie/" class="secondary-content"><i class="material-icons">description</i></a></div></li>
     <li class="collection-item"><div>Les différents taux<a href="https://www.journaldunet.fr/management/guide-du-management/1110948-charges-sociales-en-2021-taux-assiettes-et-cotisations/" class="secondary-content"><i class="material-icons">control_point</i></a></div></li>
 </ul>
 
@@ -141,7 +140,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                     <legend>Accidents du travail/Maladies professionnelles</legend>
                     <div class="input-field col s12">
                         <input name="accidentTra" id="accidentTra" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.accidentTra }}">
-                        <label for="accidentTra">Accidents du travail/Maladie professionnelles</label>
+                        <label for="accidentTra">Accidents du travail/Maladies professionnelles</label>
                     </div>
                 </fieldset>
 
@@ -183,7 +182,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 </fieldset>
 
                 <fieldset>
-                    <legend>Allègement de Cotisations</legend>
+                    <legend>Allègement de cotisations</legend>
                     <div class="input-field col s6">
                         <input name="exoEmp" id="exoEmp" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.exoEmp }}">
                         <label for="exoEmp">Exonération de cotisations employeur</label>
