@@ -6,6 +6,7 @@ class Fiche {
     private $getById;
     private $insert;
     private $getLast;
+    private $delete;
 
     public function __construct($db) {
         $this->db = $db;
@@ -13,6 +14,7 @@ class Fiche {
         $this->getById = $this->db->prepare("select * from FichePaie where id=:id");
         $this->insert = $this->db->prepare("insert into FichePaie(proprietaire, dateEmission, cheminFichier, heuresPayees, dateDebutPaie, dateFinPaie, tauxHoraire, tauxCompIncap, tauxCompSante, tauxSecuPla, tauxSecuDepla, tauxCompTrancheFirst, tauxCSGDeducIR, tauxCSGnonDeducIR, secuMaladie, accidentTra, famille, chomage, autresContrib, prevoyance, cotisStat, exoEmp, exoRegul) values (:proprietaire, :dateEmission, :nomFichier, :heuresPayees, :dateDebutPaie, :dateFinPaie, :tauxHoraire, :tauxCompIncap, :tauxCompSante, :tauxSecuPla, :tauxSecuDepla, :tauxCompTrancheFirst, :tauxCSGDeducIR, :tauxCSGnonDeducIR, :secuMaladie, :accidentTra, :famille, :chomage, :autresContrib, :prevoyance, :cotisStat, :exoEmp, :exoRegul)");
         $this->getLast = $this->db->prepare("SELECT * from FichePaie where proprietaire=:id and id = (SELECT MAX(id) from FichePaie where proprietaire=:id)");
+        $this->delete = $this->db->prepare("DELETE from FichePaie where id=:id");
     }
 
     public function get(int $id){
@@ -49,4 +51,15 @@ class Fiche {
         }
         return $this->getLast->fetch();
     }
+
+    public function delete($id){
+        $r = true;
+
+        $this->delete->execute(array(':id'=>$id));
+        if ($this->delete->errorCode()!=0){
+            print_r($this->delete->errorInfo());
+            $r=false;
+        }
+        return $r;
+    }    
 }

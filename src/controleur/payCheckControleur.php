@@ -16,6 +16,7 @@ function newPayCheckControleur($twig, $db) {
 		$proprietaire = $_GET['id'];
 		$dateEmission = new \DateTime();
 		$cheminFichier = $nomFichier;
+
 		$heuresPayees = $_POST['heuresPayees'];
 		$dateDebutPaie = $_POST['dateDebutPaie'];
 		$dateFinPaie = $_POST['dateFinPaie'];
@@ -38,17 +39,51 @@ function newPayCheckControleur($twig, $db) {
 		$exoEmp = $_POST['exoEmp'];
 		$exoRegul = $_POST['exoRegul'];
 	
-		$form['valide'] = true;
-		$exec = $fiche->insert($proprietaire, $dateEmission->format("Y-m-d"), $cheminFichier, $heuresPayees, $dateDebutPaie, $dateFinPaie, $tauxHoraire, $tauxCompIncap, $tauxCompSante, $tauxSecuPla, $tauxSecuDepla, $tauxCompTrancheFirst, $tauxCSGDeducIR, $tauxCSGnonDeducIR, $secuMaladie, $accidentTra, $famille, $chomage, $autresContrib, $prevoyance, $cotisStat, $exoEmp, $exoRegul);
+		if (!is_numeric($heuresPayees) || 
+			!is_numeric($tauxHoraire) ||
+			!is_numeric($tauxCompIncap) ||
+			!is_numeric($tauxCompSante) ||
+			!is_numeric($tauxSecuPla) ||
+			!is_numeric($tauxSecuDepla) ||
+			!is_numeric($tauxCompTrancheFirst) ||
+			!is_numeric($tauxCSGDeducIR) ||
+			!is_numeric($tauxCSGnonDeducIR) ||
+			!is_numeric($secuMaladie) ||
+			!is_numeric($accidentTra) ||
+			!is_numeric($famille) ||
+			!is_numeric($chomage) ||
+			!is_numeric($autresContrib) ||
+			!is_numeric($prevoyance) ||
+			!is_numeric($cotisStat) ||
+			!is_numeric($exoEmp) ||
+			!is_numeric($exoRegul)
+			) {
+				$form['valide'] = false;
+				$form['message'] = 'Valeur(s) incorrecte(s) saisie(s) !';
+			}
+		else{
+			if ($form['last'] != null) {
+				$lastDate = DateTimeImmutable::createFromFormat('Y-m-d', $form['last']['dateEmission']);
+				$now = new DateTimeImmutable();
 
-		if (!$exec){
-			$form['valide'] = false;
-			$form['message'] = 'L\'insertion du fichier a échoué !';
-		}else{
-			$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
-			$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user, 'heuresP'=>$heuresPayees, 'dateD'=>$dateDebutPaie, 'dateF'=>$dateFinPaie, 'tauxH'=>$tauxHoraire, 'tauxInc'=>$tauxCompIncap, 'tauxS'=>$tauxCompSante, 'tauxSecuP'=>$tauxSecuPla, 'tauxSecuD'=>$tauxSecuDepla, 'tauxFirst'=>$tauxCompTrancheFirst, 'CSGd'=>$tauxCSGDeducIR, 'CSGnD'=>$tauxCSGnonDeducIR, 'secu'=>$secuMaladie, 'accident'=>$accidentTra, 'fam'=>$famille, 'chom'=>$chomage, 'autres'=>$autresContrib, 'prev'=>$prevoyance, 'stat'=>$cotisStat, 'exoE'=>$exoEmp, 'exoReg'=>$exoRegul]));
-			//$mpdf->Output();
-			$mpdf->Output('../storage/'.$nomFichier, 'F');
+				if($now->diff($lastDate)->days == 0){
+					unlink('../storage/'.$form['last']['cheminFichier']);
+					$fiche->delete($form['last']['id']);
+				}
+			}
+
+			$form['valide'] = true;
+			$exec = $fiche->insert($proprietaire, $dateEmission->format("Y-m-d"), $cheminFichier, $heuresPayees, $dateDebutPaie, $dateFinPaie, $tauxHoraire, $tauxCompIncap, $tauxCompSante, $tauxSecuPla, $tauxSecuDepla, $tauxCompTrancheFirst, $tauxCSGDeducIR, $tauxCSGnonDeducIR, $secuMaladie, $accidentTra, $famille, $chomage, $autresContrib, $prevoyance, $cotisStat, $exoEmp, $exoRegul);
+	
+			if (!$exec){
+				$form['valide'] = false;
+				$form['message'] = 'L\'insertion du fichier a échoué !';
+			}else{
+				$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
+				$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user, 'heuresP'=>$heuresPayees, 'dateD'=>$dateDebutPaie, 'dateF'=>$dateFinPaie, 'tauxH'=>$tauxHoraire, 'tauxInc'=>$tauxCompIncap, 'tauxS'=>$tauxCompSante, 'tauxSecuP'=>$tauxSecuPla, 'tauxSecuD'=>$tauxSecuDepla, 'tauxFirst'=>$tauxCompTrancheFirst, 'CSGd'=>$tauxCSGDeducIR, 'CSGnD'=>$tauxCSGnonDeducIR, 'secu'=>$secuMaladie, 'accident'=>$accidentTra, 'fam'=>$famille, 'chom'=>$chomage, 'autres'=>$autresContrib, 'prev'=>$prevoyance, 'stat'=>$cotisStat, 'exoE'=>$exoEmp, 'exoReg'=>$exoRegul]));
+				//$mpdf->Output();
+				$mpdf->Output('../storage/'.$nomFichier, 'F');
+			}
 		}
 	}
 	echo $twig->render('paycheck/newPayCheck.html.twig', array('form'=>$form, 'u'=>$user));
