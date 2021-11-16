@@ -4,46 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/fichePaie.css" />
+    <title>Paie {{ dateD | date('d/m/Y')}} au {{ dateF | date('d/m/Y')}} de {{ user.nom }} {{ user.prenom }}</title>
 </head>
 <body>
-<div class="container">
-    <!--header-->
-    <div class="row">
-        <div class="col s6">
-            <div class="title">
-                <h4>FICHE DE PAIE</h4>
-            </div>
-            <p class="center-align">Paie du {{ dateD | date('d/m/Y')}} au {{ dateF | date('d/m/Y')}}</p><br>
-            <p class="info-salarie">
-            Matricule: {{ user.id }}<br>
-            Numéro SS: {{ user.numSecu }}<br>
-            Emploi: {{ user.libelle }}<br>
-            Qualif: {{ user.libelle }}<br>
-            Indice: 1<br>
-            Date début ancienneté: {{ user.dateEmbauche | date('d/m/Y') }}<br>
-            Heures payées: {{ heuresP }}<br>
-            Entrée: {{ user.dateEmbauche | date('d/m/Y') }}<br>
-            Sortie: <br>
-            </p>
-        </div>
+<h2 class="textTitle">FICHE DE PAIE</h2>
+    <table>
+        <thead>
+            <tr>
+                <th width="33%"></th>
+                <th width="33%"></th>
+                <th width="33%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><p>Paie du {{ dateD | date('d/m/Y')}} au {{ dateF | date('d/m/Y')}}</p></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><p>
+                    Matricule: {{ user.id }}<br>
+                    Numéro SS: {{ user.numSecu }}<br>
+                    Emploi: {{ user.libelle }}<br>
+                    Qualif: {{ user.libelle }}<br>
+                    Indice: 1<br>
+                    Date début ancienneté: {{ user.dateEmbauche | date('d/m/Y') }}<br>
+                    Heures payées: {{ heuresP }}<br>
+                    Entrée: {{ user.dateEmbauche | date('d/m/Y') }}<br>
+                    Sortie:
+                </p></td>
+                <td></td>
 
-        <div class="col s6">           
-            <p class="info-entreprise">
-                <img class="responsive-img" src="images/logo.jpeg"><br>
-            Nom de l'entreprise: <b>SIMPLEDUC SAS</b><br>
-            SIRET: <br>
-            URSAFF: <br>
-            ORG. SS: <br>
-            APE: <br>
-            </p>
-            <br>
-            <p class="center-align">Nom de l'employé: {{ user.nom }}</p>
-            <p class="center-align">Prénom de l'employé: {{ user.prenom }}</p><br>
-        </div>
-    </div>
+                <td><p>
+                    Nom de l'entreprise: <b>SIMPLEDUC SAS</b><br>
+                    SIRET: 123456<br>
+                    URSAFF: 123456<br>
+                    ORG. SS: 123456<br>
+                    APE: 123456<br>
+                    Nom de l'employé: {{ user.nom }}<br>
+                    Prénom de l'employé: {{ user.prenom }}
+                </p></td>
+            </tr>                                           
+        </tbody>
+    </table>
+<br>
     <!--corps de la FDP-->
 
 <!--CALCULS-->
@@ -97,12 +103,12 @@
             <table class="corpsFDP">
                 <thead>
                     <tr class="headFDP">
-                        <th scope="col">Rubrique</th>
-                        <th class="right-align" scope="col">Quantité<br>Ou base</th>
-                        <th class="right-align" scope="col">Taux</th>
-                        <th class="right-align" scope="col">A déduire</th>
-                        <th class="right-align" scope="col">A payer</th>
-                        <th class="right-align" scope="col">Charges patronales<br>Montant</th>
+                        <th scope="col" width="50%">Rubrique</th>
+                        <th class="right-align" scope="col" width="10%">Quantité<br>Ou base</th>
+                        <th class="right-align" scope="col" width="10%">Taux</th>
+                        <th class="right-align" scope="col" width="10%">A déduire</th>
+                        <th class="right-align" scope="col" width="10%">A payer</th>
+                        <th class="right-align" scope="col" width="10%">Charges patronales<br>Montant</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -334,7 +340,7 @@
                         <td class="left-align"><b>TOTAL DES COTISATIONS ET CONTRIBUTIONS</b></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">{{ totalSal | number_format(2, ',', '.') }}</td>
+                        <td class="right-align"><b>{{ totalSal | number_format(2, ',', '.') }}</b></td>
                         <td class="right-align"></td>
                         <td class="right-align">{{ totalPat | number_format(2, ',', '.') }}</td>
                     </tr>
@@ -343,7 +349,7 @@
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">{{ netImposable | number_format(2, ',', '.')}}</td>
+                        <td class="right-align"><b>{{ netImposable | number_format(2, ',', '.')}}</b></td>
                         <td class="right-align"></td>
                     </tr>
                     <tr>
@@ -351,7 +357,7 @@
                         <td class="right-align"></td>
                         <td class="right-align"></td>
                         <td class="right-align"></td>
-                        <td class="right-align">{{ salaireNet | number_format(2, ',', '.')}}</td>
+                        <td class="right-align"><b>{{ salaireNet | number_format(2, ',', '.')}}</b></td>
                         <td class="right-align"></td>
                     </tr>
                     <tr>
@@ -367,6 +373,7 @@
         </div>
     </div>
 
+<br>
 
     <!--ligne IS-->
     <div class="row">

@@ -1,0 +1,41 @@
+.title {
+    display: block;
+    background-color: #bfd0d6;
+    border-style:groove;
+    border-radius: 25% 10%;
+    font-size: 13px;
+    margin-right: 500px;
+    border-style: solid;
+}
+
+.textTitle{
+    margin-left: 35px;
+    margin-top: 2px;
+}
+
+.corpsFDP {
+    border-style:groove;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+    border-collapse: collapse;
+}
+.responsive-img{
+    border-radius: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.headFDP{
+    background-color: #bfd0d6;
+}
+
+body{
+    font-family: "Gill Sans", sans-serif;
+    font-size: 12px;
+}
+td{
+    margin-bottom: 3px;
+}
