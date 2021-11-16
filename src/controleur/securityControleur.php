@@ -288,7 +288,6 @@ function connexionControleur($twig, $db) {
 	echo $twig->render('security/connexion.html.twig', array('form'=>$form, 'email'=>$email));
 }
 
-
 function deconnexionControleur($twig, $db){
 	session_unset();
 	session_destroy();
