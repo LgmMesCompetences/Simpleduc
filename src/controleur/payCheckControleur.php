@@ -3,8 +3,11 @@
 
 function newPayCheckControleur($twig, $db) {
 	$form = array();
+	$fiche = new Fiche ($db);
 	$utilisateur = new User($db);
 	$user = $utilisateur->get($_GET['id']);
+
+	$form['last'] = $fiche->getLast($_GET['id']);
 
 	$user['dateEmbauche'] = DateTimeImmutable::createFromFormat('Y-m-d', $user['dateEmbauche']);
 	$nomFichier = md5(uniqid()).'.pdf';
@@ -36,7 +39,6 @@ function newPayCheckControleur($twig, $db) {
 		$exoRegul = $_POST['exoRegul'];
 	
 		$form['valide'] = true;
-		$fiche = new Fiche ($db);
 		$exec = $fiche->insert($proprietaire, $dateEmission->format("Y-m-d"), $cheminFichier, $heuresPayees, $dateDebutPaie, $dateFinPaie, $tauxHoraire, $tauxCompIncap, $tauxCompSante, $tauxSecuPla, $tauxSecuDepla, $tauxCompTrancheFirst, $tauxCSGDeducIR, $tauxCSGnonDeducIR, $secuMaladie, $accidentTra, $famille, $chomage, $autresContrib, $prevoyance, $cotisStat, $exoEmp, $exoRegul);
 
 		if (!$exec){
@@ -45,8 +47,8 @@ function newPayCheckControleur($twig, $db) {
 		}else{
 			$mpdf = new \Mpdf\Mpdf(['tempDir' => '../mpdf']);
 			$mpdf->WriteHTML($twig->render('paycheck/payCheckTemplate.html.twig', ['user'=>$user, 'heuresP'=>$heuresPayees, 'dateD'=>$dateDebutPaie, 'dateF'=>$dateFinPaie, 'tauxH'=>$tauxHoraire, 'tauxInc'=>$tauxCompIncap, 'tauxS'=>$tauxCompSante, 'tauxSecuP'=>$tauxSecuPla, 'tauxSecuD'=>$tauxSecuDepla, 'tauxFirst'=>$tauxCompTrancheFirst, 'CSGd'=>$tauxCSGDeducIR, 'CSGnD'=>$tauxCSGnonDeducIR, 'secu'=>$secuMaladie, 'accident'=>$accidentTra, 'fam'=>$famille, 'chom'=>$chomage, 'autres'=>$autresContrib, 'prev'=>$prevoyance, 'stat'=>$cotisStat, 'exoE'=>$exoEmp, 'exoReg'=>$exoRegul]));
-			$mpdf->Output();
-			//$mpdf->Output('../storage/'.$nomFichier, 'F');
+			//$mpdf->Output();
+			$mpdf->Output('../storage/'.$nomFichier, 'F');
 		}
 	}
 	echo $twig->render('paycheck/newPayCheck.html.twig', array('form'=>$form, 'u'=>$user));

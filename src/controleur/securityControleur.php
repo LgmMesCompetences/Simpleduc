@@ -244,7 +244,7 @@ function newPasswordControleur($twig, $db){
 }
 
 function connexionControleur($twig, $db) {
-	if ($_SESSION['id'] != null) {
+	if (isset($_SESSION['id']) && $_SESSION['id'] != null) {
 		header('Location: profile');
 	}
 

@@ -68,19 +68,19 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Général</legend>
                     <div class="input-field col s6">
-                        <input name="heuresPayees" id="heuresPayees" type="number" min="0" step="0.0001" class="validate">
+                        <input name="heuresPayees" id="heuresPayees" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.heuresPayees }}">
                         <label for="heuresPayees">Heures payées</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="tauxHoraire" id="tauxHoraire" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxHoraire" id="tauxHoraire" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxHoraire }}">
                         <label for="tauxHoraire">Taux horaire</label>
                     </div>                 
                     <div class="input-field col s6">
-                        <input name="dateDebutPaie" id="dateDebutPaie" type="date" class="validate">
+                        <input name="dateDebutPaie" id="dateDebutPaie" type="date" class="validate" value="{{ form.last.dateDebutPaie }}">
                         <label for="dateDebutPaie">Date début de paie</label>
                     </div>                  
                     <div class="input-field col s6">
-                        <input name="dateFinPaie" id="dateFinPaie" type="date" class="validate">
+                        <input name="dateFinPaie" id="dateFinPaie" type="date" class="validate" value="{{ form.last.dateFinPaie }}">
                         <label for="dateFinPaie">Date fin de paie</label>
                     </div>
                 </fieldset>
@@ -88,11 +88,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Santé</legend>
                     <div class="input-field col s6">
-                        <input name="tauxCompIncap" id="tauxCompIncap" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxCompIncap" id="tauxCompIncap" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxCompIncap }}">
                         <label for="tauxCompIncap">Taux Complémentaire Incapacité</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="tauxCompSante" id="tauxCompSante" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxCompSante" id="tauxCompSante" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxCompSante }}">
                         <label for="tauxCompSante">Taux Complémentaire Santé</label>
                     </div> 
                 </fieldset>
@@ -100,15 +100,15 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Retraite</legend>
                     <div class="input-field col s6">
-                        <input name="tauxSecuPla" id="tauxSecuPla" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxSecuPla" id="tauxSecuPla" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxSecuPla }}">
                         <label for="tauxSecuPla">Taux Sécurité Sociale Plafonnée</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="tauxSecuDepla" id="tauxSecuDepla" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxSecuDepla" id="tauxSecuDepla" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxSecuDepla }}">
                         <label for="tauxSecuDepla">Taux Sécurité Sociale Déplafonnée</label>
                     </div>
                     <div class="input-field col s12">
-                        <input name="tauxCompTrancheFirst" id="tauxCompTrancheFirst" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxCompTrancheFirst" id="tauxCompTrancheFirst" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxCompTrancheFirst }}">
                         <label for="tauxCompTrancheFirst">Taux Complémentaire 1ère Tranche</label>
                     </div>
                 </fieldset>
@@ -116,11 +116,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>CSG/CRDS</legend>
                     <div class="input-field col s12">
-                        <input name="tauxCSGDeducIR" id="tauxCSGDeducIR" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxCSGDeducIR" id="tauxCSGDeducIR" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxCSGDeducIR }}">
                         <label for="tauxCSGDeducIR">Taux CSG Déductible de l'IR</label>
                     </div>
                     <div class="input-field col s12">
-                        <input name="tauxCSGnonDeducIR" id="tauxCSGnonDeducIR" type="number" min="0" step="0.0001" class="validate">
+                        <input name="tauxCSGnonDeducIR" id="tauxCSGnonDeducIR" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.tauxCSGnonDeducIR }}">
                         <label for="tauxCSGnonDeducIR">Taux CSG/CRDS non Déductible de l'IR</label>
                     </div>
                 </fieldset>
@@ -132,7 +132,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Santé</legend>
                     <div class="input-field col s12">
-                        <input name="secuMaladie" id="secuMaladie" type="number" min="0" step="0.0001" class="validate">
+                        <input name="secuMaladie" id="secuMaladie" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.secuMaladie }}">
                         <label for="secuMaladie">Sécurité Sociale - Maladie Mater Inval Décès</label>
                     </div>
                 </fieldset>
@@ -140,7 +140,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Accidents du travail/Maladies professionnelles</legend>
                     <div class="input-field col s12">
-                        <input name="accidentTra" id="accidentTra" type="number" min="0" step="0.0001" class="validate">
+                        <input name="accidentTra" id="accidentTra" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.accidentTra }}">
                         <label for="accidentTra">Accidents du travail/Maladie professionnelles</label>
                     </div>
                 </fieldset>
@@ -148,7 +148,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Famille - Sécurité Sociale</legend>
                     <div class="input-field col s12">
-                        <input name="famille" id="famille" type="number" min="0" step="0.0001" class="validate">
+                        <input name="famille" id="famille" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.famille }}">
                         <label for="famille">Famille</label>
                     </div>
                 </fieldset>
@@ -156,7 +156,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Assurance Chômage</legend>
                     <div class="input-field col s12">
-                        <input name="chomage" id="chomage" type="number" min="0" step="0.0001" class="validate">
+                        <input name="chomage" id="chomage" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.chomage }}">
                         <label for="chomage">Chômage</label>
                     </div>
                 
@@ -165,11 +165,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Autres contributions dues par l'employeur</legend>
                     <div class="input-field col s6">
-                        <input name="autresContrib" id="autresContrib" type="number" min="0" step="0.0001" class="validate">
+                        <input name="autresContrib" id="autresContrib" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.autresContrib }}">
                         <label for="autresContrib">Autres contributions</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="prevoyance" id="prevoyance" type="number" min="0" step="0.0001" class="validate">
+                        <input name="prevoyance" id="prevoyance" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.prevoyance }}">
                         <label for="prevoyance">Forfait Social prévoyance</label>
                     </div>                
                 </fieldset>
@@ -177,7 +177,7 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Cotisations statutaires ou prévues par la convention</legend>
                     <div class="input-field col s12">
-                        <input name="cotisStat" id="cotisStat" type="number" min="0" step="0.00001" class="validate">
+                        <input name="cotisStat" id="cotisStat" type="number" min="0" step="0.00001" class="validate" value="{{ form.last.cotisStat }}">
                         <label for="cotisStat">Cotisations statutaires ou prévues par la convention</label>
                     </div>                
                 </fieldset>
@@ -185,11 +185,11 @@ ATTENTION: les champs à saisir ne sont pas tous de mêmes types. En effet, il y
                 <fieldset>
                     <legend>Allègement de Cotisations</legend>
                     <div class="input-field col s6">
-                        <input name="exoEmp" id="exoEmp" type="number" min="0" step="0.0001" class="validate">
+                        <input name="exoEmp" id="exoEmp" type="number" min="0" step="0.0001" class="validate" value="{{ form.last.exoEmp }}">
                         <label for="exoEmp">Exonération de cotisations employeur</label>
                     </div>
                     <div class="input-field col s6">
-                        <input name="exoRegul" id="exoRegul" type="number" min="0" step="0.00001" class="validate">
+                        <input name="exoRegul" id="exoRegul" type="number" min="0" step="0.00001" class="validate" value="{{ form.last.exoRegul }}">
                         <label for="exoRegul">Exonération de cotisations employeur - Régularisation</label>
                     </div>                
                 </fieldset>
