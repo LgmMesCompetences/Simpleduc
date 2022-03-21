@@ -108,7 +108,7 @@ function dFAControleur($twig, $db) {
 
 	include '../config/parametres.php';
 
-	if($config['debug']) {
+	if($config['debug2FA']) {
 		echo $_SESSION['tempID'];
 	}
 

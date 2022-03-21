@@ -7,5 +7,6 @@
   $config['mailUsr'] = '';
   $config['mailPswd'] = '';
   $config['debug'] = false;
+  $config['debug2FA'] = false;
   $config['sendEmails'] = true;
   ?>
